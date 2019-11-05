@@ -52,12 +52,6 @@ const Login: React.FC = () => {
   }, [code, history, state, uuid]);
 
   return null;
-
-  // if (state !== uuid) {
-  //   return <Redirect to="/" />;
-  // }
-
-  // return <Redirect to="/accounts" />;
 };
 
 export default Login;
