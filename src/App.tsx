@@ -1,26 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
+import uuidv4 from 'uuid/v4';
+
 import './App.css';
 
 const App: React.FC = () => {
+  const {
+    REACT_APP_MONZO_AUTH_URL = '',
+    REACT_APP_CLIENT_ID = '',
+    REACT_APP_REDIRECT_PATH = '',
+    REACT_APP_SITE_URL = '',
+  } = process.env;
+
+  const handleLoginClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const uuid = uuidv4();
+
+    const query = new URLSearchParams({
+      client_id: REACT_APP_CLIENT_ID,
+      redirect_uri: REACT_APP_SITE_URL + REACT_APP_REDIRECT_PATH,
+      response_type: 'code',
+      state: uuid,
+    });
+
+    window.location.href = `${REACT_APP_MONZO_AUTH_URL}/?${query}`;
+
+    localStorage.setItem('state', uuid);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <button type="button" onClick={handleLoginClick}>
+      Login
+    </button>
   );
-}
+};
 
 export default App;
