@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import App from './App';
-import Accounts from './Accounts';
-import Login from './Login';
+import App from './components/app';
+import Accounts from './components/accounts';
+import Login from './components/login';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 

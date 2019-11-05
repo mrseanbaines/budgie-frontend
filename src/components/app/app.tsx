@@ -1,8 +1,6 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
 
-import './App.css';
-
 const App: React.FC = () => {
   const {
     REACT_APP_MONZO_AUTH_URL = '',
