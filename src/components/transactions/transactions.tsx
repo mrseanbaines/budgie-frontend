@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-interface Owner {
-  user_id: string;
-  preferred_name: string;
-}
-
-interface Account {
+interface Params {
   id: string;
-  type: 'uk_retail' | 'uk_retail_joint' | 'uk_prepaid';
-  owners: Owner[];
-  account_number: string;
 }
 
-const Accounts: React.FC<RouteComponentProps> = () => {
-  const [accounts, setAccounts] = useState<Account[]>([]);
+const Transactions: React.FC<RouteComponentProps<Params>> = ({ match }) => {
+  const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState<string | null>(null);
+  const { id } = match.params;
 
   useEffect(() => {
     const fetchAccounts = async () => {
@@ -23,7 +16,7 @@ const Accounts: React.FC<RouteComponentProps> = () => {
       const accessToken = sessionStorage.getItem('token');
 
       try {
-        const response = await fetch(`${REACT_APP_MONZO_BASE_URL}/accounts`, {
+        const response = await fetch(`${REACT_APP_MONZO_BASE_URL}/transactions?account_id=${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -36,14 +29,14 @@ const Accounts: React.FC<RouteComponentProps> = () => {
           return;
         }
 
-        setAccounts(json.accounts);
+        setTransactions(json.transactions);
       } catch (error) {
         throw new Error(error);
       }
     };
 
     fetchAccounts();
-  }, []);
+  }, [id]);
 
   if (error) {
     return <h1>{error}</h1>;
@@ -51,21 +44,23 @@ const Accounts: React.FC<RouteComponentProps> = () => {
 
   return (
     <>
-      <h1>Accounts</h1>
-
-      {accounts.map(({ type, owners, id }) => (
-        <a href={`/${id}/transactions`} key={id}>
-          <p>
-            <strong>{type}</strong>
-          </p>
-
-          {owners.map(({ preferred_name, user_id }) => (
-            <p key={user_id}>{preferred_name}</p>
-          ))}
-        </a>
+      <h1>Transactions</h1>
+      {transactions.map(({ amount, currency, description, category, created }) => (
+        <p>
+          <div>
+            <small>{created}</small>
+          </div>
+          <div>
+            {amount / 100} {currency}
+          </div>
+          <div>{description}</div>
+          <div>
+            <strong>{category}</strong>
+          </div>
+        </p>
       ))}
     </>
   );
 };
 
-export default Accounts;
+export default Transactions;
