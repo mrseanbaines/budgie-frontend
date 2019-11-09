@@ -11,6 +11,7 @@ interface Account {
   type: 'uk_retail' | 'uk_retail_joint' | 'uk_prepaid';
   owners: Owner[];
   account_number: string;
+  created: string;
 }
 
 const Accounts: React.FC<RouteComponentProps> = () => {

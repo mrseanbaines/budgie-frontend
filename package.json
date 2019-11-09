@@ -7,6 +7,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "date-fns": "^2.6.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
