@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 
 interface Owner {
   user_id: string;
@@ -55,7 +55,7 @@ const Accounts: React.FC<RouteComponentProps> = () => {
       <h1>Accounts</h1>
 
       {accounts.map(({ type, owners, id }) => (
-        <a href={`/${id}/transactions`} key={id}>
+        <Link to={`/accounts/${id}`} key={id}>
           <p>
             <strong>{type}</strong>
           </p>
@@ -63,7 +63,7 @@ const Accounts: React.FC<RouteComponentProps> = () => {
           {owners.map(({ preferred_name, user_id }) => (
             <p key={user_id}>{preferred_name}</p>
           ))}
-        </a>
+        </Link>
       ))}
     </>
   );

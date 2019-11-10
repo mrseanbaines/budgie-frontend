@@ -74,15 +74,11 @@ const MonthOverview: React.FC<Props> = ({ match }) => {
 
         const breakdown: [string, number][] = Object.entries(
           json.transactions
-            // .filter(({ amount }: Transaction) => amount < 0)
             .filter(({ include_in_spending }: Transaction) => include_in_spending)
-            // .filter(({ is_load }: Transaction) => !is_load)
             .reduce((all: All, { category, amount }: Transaction) => {
               if (category in all) {
-                // all[category] += (amount);
                 all[category] += amount;
               } else {
-                // all[category] = (amount);
                 all[category] = amount;
               }
 
@@ -93,10 +89,6 @@ const MonthOverview: React.FC<Props> = ({ match }) => {
         const total = json.transactions
           .filter(({ include_in_spending }: Transaction) => {
             if (!include_in_spending) {
-              // console.log({
-              //   include_in_spending,
-              //   ...rest,
-              // });
               return false;
             }
             return true;
@@ -133,9 +125,6 @@ const MonthOverview: React.FC<Props> = ({ match }) => {
   return (
     <>
       <h1>{format(new Date(date), 'LLLL')} Overview</h1>
-      <p>
-        <a href={`/${id}/transactions/${format(new Date(date), 'yyyy-MM')}`}>Transactions</a>
-      </p>
 
       {breakdown.map(([category, amount]) => (
         <p key={category}>
