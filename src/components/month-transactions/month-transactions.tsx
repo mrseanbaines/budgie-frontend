@@ -2,12 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { addMonths, format } from 'date-fns';
 
+import { formatCurrency } from 'utils';
+
 interface Params {
   id: string;
   date: string;
 }
 
 type Props = RouteComponentProps<Params>;
+
+interface Transaction {
+  created: string;
+}
+
+const sortDesc = ({ created: a }: Transaction, { created: b }: Transaction) => {
+  if (a < b) {
+    return 1;
+  }
+
+  if (a > b) {
+    return -1;
+  }
+
+  return 0;
+};
 
 const MonthTransactions: React.FC<Props> = ({ match }) => {
   const [transactions, setTransactions] = useState([]);
@@ -55,15 +73,16 @@ const MonthTransactions: React.FC<Props> = ({ match }) => {
   return (
     <>
       <h1>{format(new Date(date), 'LLLL')} Transactions</h1>
+      <p>
+        <a href={`/${id}/overview/${format(new Date(date), 'yyyy-MM')}`}>Overview</a>
+      </p>
 
-      {transactions.map(({ id, amount, currency, description, category, created }) => (
+      {[...transactions].sort(sortDesc).map(({ id, amount, description, category, created }) => (
         <div key={id}>
           <div>
             <small>{format(new Date(created), 'dd MMMM, yyyy')}</small>
           </div>
-          <div>
-            {amount / 100} {currency}
-          </div>
+          <div>{formatCurrency(amount)}</div>
           <div>{description}</div>
           <div>
             <strong>{category}</strong>
