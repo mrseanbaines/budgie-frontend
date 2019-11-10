@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { addMonths, format } from 'date-fns';
 
-import { formatCurrency } from 'utils';
+import { formatCurrency, sortDesc } from 'utils';
+import { Transaction } from 'types';
 
 interface Params {
   id: string;
@@ -10,32 +11,6 @@ interface Params {
 }
 
 type Props = RouteComponentProps<Params>;
-
-interface Transaction {
-  created: string;
-  id: string;
-  amount: number;
-  notes: string;
-  merchant: {
-    name: string;
-  };
-  counterparty: {
-    name: string;
-  };
-  category: string;
-}
-
-const sortDesc = ({ created: a }: Transaction, { created: b }: Transaction) => {
-  if (a < b) {
-    return 1;
-  }
-
-  if (a > b) {
-    return -1;
-  }
-
-  return 0;
-};
 
 const MonthTransactions: React.FC<Props> = ({ match }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -90,7 +65,7 @@ const MonthTransactions: React.FC<Props> = ({ match }) => {
             <small>{format(new Date(created), 'dd MMMM, yyyy')}</small>
           </div>
           <div>{formatCurrency(amount)}</div>
-          <div>{merchant ? merchant.name : counterparty.name}</div>
+          <div>{merchant && typeof merchant === 'object' ? merchant.name : counterparty.name}</div>
           {notes && <small>{notes}</small>}
           <div>
             <strong>{category}</strong>

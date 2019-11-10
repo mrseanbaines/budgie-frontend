@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { addMonths, format } from 'date-fns';
 
 import { formatCurrency } from 'utils';
+import { Transaction } from 'types';
 
 interface Params {
   id: string;
@@ -11,39 +12,19 @@ interface Params {
 
 type Props = RouteComponentProps<Params>;
 
-enum Categories {
-  General = 'general',
-  EatingOut = 'eating_out',
-  Expenses = 'expenses',
-  Transport = 'transport',
-  Bills = 'bills',
-  Entertainment = 'entertainment',
-  Shopping = 'shopping',
-  Holidays = 'holidays',
-  Groceries = 'groceries',
-
-  Cash = 'cash',
-
-  PersonalCare = 'personal_care',
-  Finances = 'finances',
-  Family = 'family',
-}
-
-interface Transaction {
-  category: Categories;
-  amount: number;
-  include_in_spending: boolean;
-  is_load: boolean;
-}
-
 interface All {
   [k: string]: number;
+}
+
+interface InOut {
+  in: number;
+  out: number;
 }
 
 const MonthOverview: React.FC<Props> = ({ match }) => {
   const [breakdown, setBreakdown] = useState<[string, number][]>([]);
   const [total, setTotal] = useState<number>(0);
-  const [inOut, setInOut] = useState<any>({ in: 0, out: 0 });
+  const [inOut, setInOut] = useState<InOut>({ in: 0, out: 0 });
   const [error, setError] = useState<string | null>(null);
   const { id, date } = match.params;
 

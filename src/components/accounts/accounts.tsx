@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 
-interface Owner {
-  user_id: string;
-  preferred_name: string;
-}
-
-interface Account {
-  id: string;
-  type: 'uk_retail' | 'uk_retail_joint' | 'uk_prepaid';
-  owners: Owner[];
-  account_number: string;
-  created: string;
-}
+import { Account } from 'types';
 
 const Accounts: React.FC<RouteComponentProps> = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);

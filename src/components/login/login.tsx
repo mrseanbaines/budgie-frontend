@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const useQuery = () => new URLSearchParams(useLocation().search);
+import { useQuery } from 'hooks';
 
 const Login: React.FC = () => {
   const uuid = localStorage.getItem('state');
