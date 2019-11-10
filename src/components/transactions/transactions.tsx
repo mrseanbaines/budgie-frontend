@@ -13,6 +13,16 @@ type Props = RouteComponentProps<Params>;
 
 interface Transaction {
   created: string;
+  id: string;
+  amount: number;
+  notes: string;
+  merchant: {
+    name: string;
+  };
+  counterparty: {
+    name: string;
+  };
+  category: string;
 }
 
 const sortDesc = ({ created: a }: Transaction, { created: b }: Transaction) => {
@@ -28,7 +38,7 @@ const sortDesc = ({ created: a }: Transaction, { created: b }: Transaction) => {
 };
 
 const MonthTransactions: React.FC<Props> = ({ match }) => {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [error, setError] = useState<string | null>(null);
   const { id, date } = match.params;
 
@@ -44,7 +54,7 @@ const MonthTransactions: React.FC<Props> = ({ match }) => {
       });
 
       try {
-        const response = await fetch(`${REACT_APP_MONZO_BASE_URL}/transactions?${query}`, {
+        const response = await fetch(`${REACT_APP_MONZO_BASE_URL}/transactions?expand[]=merchant&${query}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -74,13 +84,14 @@ const MonthTransactions: React.FC<Props> = ({ match }) => {
     <>
       <h1>{format(new Date(date), 'LLLL')} Transactions</h1>
 
-      {[...transactions].sort(sortDesc).map(({ id, amount, description, category, created }) => (
+      {[...transactions].sort(sortDesc).map(({ id, amount, notes, merchant, counterparty, category, created }) => (
         <div key={id}>
           <div>
             <small>{format(new Date(created), 'dd MMMM, yyyy')}</small>
           </div>
           <div>{formatCurrency(amount)}</div>
-          <div>{description}</div>
+          <div>{merchant ? merchant.name : counterparty.name}</div>
+          {notes && <small>{notes}</small>}
           <div>
             <strong>{category}</strong>
           </div>
