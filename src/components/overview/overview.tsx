@@ -133,24 +133,28 @@ const MonthOverview: React.FC<Props> = ({ match }) => {
         </p>
       ))}
 
-      <hr />
+      {breakdown.length > 0 && (
+        <>
+          <hr />
 
-      <p>
-        <strong>Total Spent: </strong>
-        {formatCurrency(total)}
-      </p>
+          <p>
+            <strong>Total Spent: </strong>
+            {formatCurrency(total)}
+          </p>
 
-      <hr />
+          <hr />
 
-      <p>
-        <strong>Total In: </strong>
-        {formatCurrency(inOut.in)}
-      </p>
+          <p>
+            <strong>Total In: </strong>
+            {formatCurrency(inOut.in)}
+          </p>
 
-      <p>
-        <strong>Total Out: </strong>
-        {formatCurrency(inOut.out)}
-      </p>
+          <p>
+            <strong>Total Out: </strong>
+            {formatCurrency(inOut.out)}
+          </p>
+        </>
+      )}
     </>
   );
 };
