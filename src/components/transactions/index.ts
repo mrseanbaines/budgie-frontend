@@ -1,1 +1,1 @@
-export { default } from './transactions';
+export { default } from './transactions'

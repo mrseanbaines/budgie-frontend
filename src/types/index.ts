@@ -1,6 +1,6 @@
 export interface Owner {
-  user_id: string;
-  preferred_name: string;
+  user_id: string
+  preferred_name: string
 }
 
 export enum AccountTypes {
@@ -10,11 +10,11 @@ export enum AccountTypes {
 }
 
 export interface Account {
-  id: string;
-  type: AccountTypes;
-  owners: Owner[];
-  account_number: string;
-  created: string;
+  id: string
+  type: AccountTypes
+  owners: Owner[]
+  account_number: string
+  created: string
 }
 
 export enum Categories {
@@ -34,21 +34,26 @@ export enum Categories {
 }
 
 export interface Merchant {
-  name: string;
+  name: string
 }
 
 export interface Counterparty {
-  name: string;
+  name: string
 }
 
 export interface Transaction {
-  created: string;
-  id: string;
-  amount: number;
-  notes: string;
-  merchant: string | Merchant;
-  counterparty: Counterparty;
-  category: Categories;
-  include_in_spending: boolean;
-  is_load: boolean;
+  created: string
+  id: string
+  amount: number
+  notes: string
+  merchant: string | Merchant
+  counterparty: Counterparty
+  category: Categories
+  include_in_spending: boolean
+  is_load: boolean
+}
+
+export interface Category {
+  id: string
+  name: string
 }

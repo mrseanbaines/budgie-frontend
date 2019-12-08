@@ -1,16 +1,16 @@
-import React from 'react';
-import { RouteComponentProps, Link } from 'react-router-dom';
-import { format } from 'date-fns';
+import React from 'react'
+import { RouteComponentProps, Link } from 'react-router-dom'
+import { format } from 'date-fns'
 
 interface Params {
-  id: string;
-  date: string;
+  id: string
+  date: string
 }
 
-type Props = RouteComponentProps<Params>;
+type Props = RouteComponentProps<Params>
 
 const Month: React.FC<Props> = ({ match }) => {
-  const { id, date } = match.params;
+  const { id, date } = match.params
 
   return (
     <>
@@ -19,7 +19,9 @@ const Month: React.FC<Props> = ({ match }) => {
       <nav>
         <ul>
           <li>
-            <Link to={`/accounts/${id}/${date}/transactions`}>Transactions</Link>
+            <Link to={`/accounts/${id}/${date}/transactions`}>
+              Transactions
+            </Link>
           </li>
           <li>
             <Link to={`/accounts/${id}/${date}/overview`}>Overview</Link>
@@ -27,7 +29,7 @@ const Month: React.FC<Props> = ({ match }) => {
         </ul>
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Month;
+export default Month

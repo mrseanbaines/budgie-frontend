@@ -1,17 +1,17 @@
-import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { format, subMonths } from 'date-fns';
+import React from 'react'
+import { RouteComponentProps } from 'react-router-dom'
+import { format, subMonths } from 'date-fns'
 
 interface Params {
-  id: string;
+  id: string
 }
 
 const Transactions: React.FC<RouteComponentProps<Params>> = ({ match }) => {
-  const { id } = match.params;
+  const { id } = match.params
 
   const months = Array(6)
     .fill(new Date())
-    .map((date, i) => subMonths(date, i));
+    .map((date, i) => subMonths(date, i))
 
   return (
     <>
@@ -21,13 +21,15 @@ const Transactions: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         <ul>
           {months.map(month => (
             <li key={month.toString()}>
-              <a href={`/accounts/${id}/${format(month, 'yyyy-MM')}`}>{format(month, 'LLLL')}</a>
+              <a href={`/accounts/${id}/${format(month, 'yyyy-MM')}`}>
+                {format(month, 'LLLL')}
+              </a>
             </li>
           ))}
         </ul>
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Transactions;
+export default Transactions
