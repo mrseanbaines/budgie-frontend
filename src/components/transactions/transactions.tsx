@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { format } from 'date-fns'
-import { useDispatch, useSelector } from 'react-redux'
 
-import { useCategories } from 'hooks'
+import { useCategories, useTransactions } from 'hooks'
 import { sortDesc } from 'utils'
-import { fetchTransactions } from 'store/transactions/actions'
-import { getTransactionItems } from 'store/transactions/selectors'
 import Transaction from 'components/transaction'
 
 interface Params {
@@ -18,14 +15,8 @@ type Props = RouteComponentProps<Params>
 
 const Transactions: React.FC<Props> = ({ match }) => {
   const { id, date } = match.params
-
-  const dispatch = useDispatch()
-  const transactions = useSelector(getTransactionItems)
+  const transactions = useTransactions(id, date)
   const categories = useCategories() || { items: [] }
-
-  useEffect(() => {
-    dispatch(fetchTransactions(id, date))
-  }, [dispatch, id, date])
 
   return (
     <>

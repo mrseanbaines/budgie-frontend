@@ -1,51 +1,18 @@
-import { useState, useEffect } from 'react'
-import ky from 'ky'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { Transaction } from 'types'
+import { fetchTransactions } from 'store/transactions/actions'
+import { getTransactionItems } from 'store/transactions/selectors'
 
-interface Transactions {
-  items: Transaction[]
-  total: number
-}
-
-interface Args {
-  query: string
-}
-
-const useTransactions = ({ query }: Args) => {
-  const [error, setError] = useState<any>(null)
-  const [transactions, setTransactions] = useState<Transactions | null>(null)
+const useTransactions = (accountId: string, fromDate: string) => {
+  const transactions = useSelector(getTransactionItems)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    try {
-      const accessToken = sessionStorage.getItem('token')
+    dispatch(fetchTransactions(accountId, fromDate))
+  }, [accountId, fromDate, dispatch])
 
-      const getTransactions = async () => {
-        const { REACT_APP_API_URL } = process.env
-
-        const response = await ky.get(`${REACT_APP_API_URL}/transactions?${query}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-
-        const json = await response.json()
-
-        if (response.status !== 200) {
-          setError(json.message)
-          return
-        }
-
-        setTransactions(json)
-      }
-
-      getTransactions()
-    } catch (error) {
-      throw new Error(error)
-    }
-  }, [query])
-
-  return [error, transactions]
+  return transactions
 }
 
 export default useTransactions
