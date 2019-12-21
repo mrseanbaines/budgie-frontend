@@ -6,7 +6,7 @@ interface Params {
   id: string
 }
 
-const Transactions: React.FC<RouteComponentProps<Params>> = ({ match }) => {
+const Account: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const { id } = match.params
 
   const months = Array(6)
@@ -30,4 +30,4 @@ const Transactions: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   )
 }
 
-export default Transactions
+export default Account
