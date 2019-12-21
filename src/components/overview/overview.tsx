@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { addMonths, format } from 'date-fns'
+import { format } from 'date-fns'
 
 import { formatCurrency } from 'utils'
-import { Transaction } from 'types'
+import { useCategories, useTransactions } from 'hooks'
 
 interface Params {
   id: string
@@ -12,134 +12,56 @@ interface Params {
 
 type Props = RouteComponentProps<Params>
 
-interface All {
-  [k: string]: number
+interface BreakdownItem {
+  name: string
+  amount: number
 }
 
-interface InOut {
-  in: number
-  out: number
-}
-
-const MonthOverview: React.FC<Props> = ({ match }) => {
-  const [breakdown, setBreakdown] = useState<[string, number][]>([])
-  const [total, setTotal] = useState<number>(0)
-  const [inOut, setInOut] = useState<InOut>({ in: 0, out: 0 })
-  const [error, setError] = useState<string | null>(null)
+const Overview: React.FC<Props> = ({ match }) => {
   const { id, date } = match.params
+  const [breakdown, setBreakdown] = useState<BreakdownItem[]>([])
+  const transactions = useTransactions(id, date)
+  const categories = useCategories() || { items: [] }
 
   useEffect(() => {
-    const fetchAccounts = async () => {
-      const { REACT_APP_MONZO_BASE_URL = '' } = process.env
-      const accessToken = sessionStorage.getItem('token')
-
-      const query = new URLSearchParams({
-        account_id: id,
-        since: new Date(date).toISOString(),
-        before: new Date(addMonths(new Date(date), 1)).toISOString(),
-      })
-
-      try {
-        const response = await fetch(`${REACT_APP_MONZO_BASE_URL}/transactions?${query}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-
-        const json = await response.json()
-
-        if (response.status !== 200) {
-          setError(json.message)
-          return
+    const transactionBreakdown = categories.items.map(({ id, name }) => {
+      const amount = transactions.reduce((total: number, transaction) => {
+        if (transaction.category === id) {
+          return total + transaction.amount
         }
 
-        const breakdown: [string, number][] = Object.entries(
-          json.transactions
-            .filter(({ include_in_spending }: Transaction) => include_in_spending)
-            .reduce((all: All, { category, amount }: Transaction) => {
-              if (category) {
-                if (category in all) {
-                  all[category] += amount
-                } else {
-                  all[category] = amount
-                }
-              }
+        return total
+      }, 0)
 
-              return all
-            }, {}),
-        )
+      return { name, amount }
+    })
 
-        const total = json.transactions
-          .filter(({ include_in_spending }: Transaction) => {
-            if (!include_in_spending) {
-              return false
-            }
-            return true
-          })
-          .reduce((sum: any, { amount }: Transaction) => sum + amount, 0)
-
-        const inOut = json.transactions.reduce(
-          (sum: any, { amount }: Transaction) => {
-            if (amount < 0) {
-              sum.out += amount
-            } else {
-              sum.in += amount
-            }
-            return sum
-          },
-          { in: 0, out: 0 },
-        )
-
-        setBreakdown(breakdown)
-        setTotal(total)
-        setInOut(inOut)
-      } catch (error) {
-        throw new Error(error)
-      }
-    }
-
-    fetchAccounts()
-  }, [id, date])
-
-  if (error) {
-    return <h1>{error}</h1>
-  }
+    setBreakdown(transactionBreakdown)
+  }, [categories.items, transactions])
 
   return (
     <>
       <h1>{format(new Date(date), 'LLLL')} Overview</h1>
 
-      {breakdown.map(([category, amount]) => (
-        <p key={category}>
-          <strong>{category} </strong>
-          {formatCurrency(amount)}
-        </p>
-      ))}
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Total</th>
+          </tr>
+        </thead>
 
-      {breakdown.length > 0 && (
-        <>
-          <hr />
-
-          <p>
-            <strong>Total Spent: </strong>
-            {formatCurrency(total)}
-          </p>
-
-          <hr />
-
-          <p>
-            <strong>Total In: </strong>
-            {formatCurrency(inOut.in)}
-          </p>
-
-          <p>
-            <strong>Total Out: </strong>
-            {formatCurrency(inOut.out)}
-          </p>
-        </>
-      )}
+        <tbody>
+          {breakdown.map(category => (
+            <tr key={category.name}>
+              <td>{category.name}</td>
+              <td>{formatCurrency(category.amount)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   )
 }
 
-export default MonthOverview
+export default Overview

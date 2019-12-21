@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import ky from 'ky'
+
 import { Category } from '../types'
 
 interface Categories {
@@ -8,7 +9,12 @@ interface Categories {
 }
 
 const useCategories = () => {
-  const [categories, setCategories] = useState<Categories | null>(null)
+  const initialState = {
+    items: [],
+    total: 0,
+  }
+
+  const [categories, setCategories] = useState<Categories>(initialState)
 
   useEffect(() => {
     const getCategories = async () => {
