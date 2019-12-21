@@ -4,39 +4,43 @@ import { useDispatch } from 'react-redux'
 
 import { updateTransaction } from 'store/transactions/actions'
 import { formatCurrency } from 'utils'
-import { useCategories } from 'hooks'
-import { Transaction as TransactionType } from 'types'
+import { Transaction as TransactionType, Category } from 'types'
 
-const Transaction: React.FC<TransactionType> = ({ id, amount, notes, merchant, counterparty, created, category }) => {
+interface Props {
+  transaction: TransactionType
+  categories: Category[]
+}
+
+const Transaction: React.FC<Props> = ({ transaction, categories }) => {
   const dispatch = useDispatch()
-  const categoryOptions: any = useCategories() || []
 
   const handleCategoryUpdate = async (e: React.ChangeEvent<HTMLSelectElement>, transactionId: string) => {
     dispatch(updateTransaction(transactionId, e.target.value || null))
   }
 
-  if (!categoryOptions || !categoryOptions.items) {
-    return null
-  }
-
   return (
     <div>
       <div>
-        <small>{format(new Date(created), 'dd MMMM, yyyy')}</small>
+        <small>{format(new Date(transaction.created), 'dd MMMM, yyyy')}</small>
       </div>
 
-      <div>{formatCurrency(amount)}</div>
+      <div>{formatCurrency(transaction.amount)}</div>
 
-      <div>{merchant && typeof merchant === 'object' ? merchant.name : counterparty.name}</div>
+      <div>{typeof transaction.merchant === 'object' ? transaction.merchant.name : transaction.counterparty.name}</div>
 
-      {notes && <small>{notes}</small>}
+      {transaction.notes && <small>{transaction.notes}</small>}
 
       <div>
-        <label htmlFor={id}>Category: </label>
-        <select name='category' id={id} onChange={e => handleCategoryUpdate(e, id)} value={category || ''}>
+        <label htmlFor={transaction.id}>Category: </label>
+        <select
+          name='category'
+          id={transaction.id}
+          onChange={e => handleCategoryUpdate(e, transaction.id)}
+          value={transaction.category || ''}
+        >
           <option value=''>-</option>
 
-          {categoryOptions.items.map((categoryOption: any) => (
+          {categories.map((categoryOption: any) => (
             <option key={categoryOption.id} value={categoryOption.id}>
               {categoryOption.name}
             </option>

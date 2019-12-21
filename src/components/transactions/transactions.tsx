@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { useCategories } from 'hooks'
 import { sortDesc } from 'utils'
 import { fetchTransactions } from 'store/transactions/actions'
 import { getTransactionItems } from 'store/transactions/selectors'
@@ -20,14 +21,11 @@ const Transactions: React.FC<Props> = ({ match }) => {
 
   const dispatch = useDispatch()
   const transactions = useSelector(getTransactionItems)
+  const categories = useCategories() || { items: [] }
 
   useEffect(() => {
     dispatch(fetchTransactions(id, date))
   }, [dispatch, id, date])
-
-  if (!transactions) {
-    return null
-  }
 
   return (
     <>
@@ -35,7 +33,8 @@ const Transactions: React.FC<Props> = ({ match }) => {
 
       {transactions.sort(sortDesc).map(transaction => (
         <div key={transaction.id}>
-          <Transaction {...transaction} />
+          <Transaction transaction={transaction} categories={categories.items} />
+
           <br />
         </div>
       ))}

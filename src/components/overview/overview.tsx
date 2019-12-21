@@ -57,10 +57,12 @@ const MonthOverview: React.FC<Props> = ({ match }) => {
           json.transactions
             .filter(({ include_in_spending }: Transaction) => include_in_spending)
             .reduce((all: All, { category, amount }: Transaction) => {
-              if (category in all) {
-                all[category] += amount
-              } else {
-                all[category] = amount
+              if (category) {
+                if (category in all) {
+                  all[category] += amount
+                } else {
+                  all[category] = amount
+                }
               }
 
               return all

@@ -48,7 +48,7 @@ export interface Transaction {
   notes: string
   merchant: string | Merchant
   counterparty: Counterparty
-  category: Categories
+  category: Categories | null
   include_in_spending: boolean
   is_load: boolean
 }
