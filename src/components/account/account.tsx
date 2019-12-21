@@ -21,9 +21,7 @@ const Transactions: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         <ul>
           {months.map(month => (
             <li key={month.toString()}>
-              <a href={`/accounts/${id}/${format(month, 'yyyy-MM')}`}>
-                {format(month, 'LLLL')}
-              </a>
+              <a href={`/accounts/${id}/${format(month, 'yyyy-MM')}`}>{format(month, 'LLLL')}</a>
             </li>
           ))}
         </ul>

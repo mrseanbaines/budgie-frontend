@@ -14,9 +14,7 @@ const useCategories = () => {
     const getCategories = async () => {
       const { REACT_APP_API_URL } = process.env
 
-      const data = await ky
-        .get(`${REACT_APP_API_URL}/categories`)
-        .json<Categories>()
+      const data = await ky.get(`${REACT_APP_API_URL}/categories`).json<Categories>()
 
       setCategories(data)
     }

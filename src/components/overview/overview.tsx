@@ -40,14 +40,11 @@ const MonthOverview: React.FC<Props> = ({ match }) => {
       })
 
       try {
-        const response = await fetch(
-          `${REACT_APP_MONZO_BASE_URL}/transactions?${query}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
+        const response = await fetch(`${REACT_APP_MONZO_BASE_URL}/transactions?${query}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
           },
-        )
+        })
 
         const json = await response.json()
 
@@ -58,9 +55,7 @@ const MonthOverview: React.FC<Props> = ({ match }) => {
 
         const breakdown: [string, number][] = Object.entries(
           json.transactions
-            .filter(
-              ({ include_in_spending }: Transaction) => include_in_spending,
-            )
+            .filter(({ include_in_spending }: Transaction) => include_in_spending)
             .reduce((all: All, { category, amount }: Transaction) => {
               if (category in all) {
                 all[category] += amount

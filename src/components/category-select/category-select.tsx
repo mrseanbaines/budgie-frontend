@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Category } from 'types'
 
 interface Props {
@@ -11,9 +11,7 @@ const CategorySelect: React.FC<Props> = ({ categories, transactionId }) => {
     [key: string]: string
   }
 
-  let transactionData: TransactionData = JSON.parse(
-    sessionStorage.getItem('transaction_data') || '{}',
-  )
+  let transactionData: TransactionData = JSON.parse(sessionStorage.getItem('transaction_data') || '{}')
 
   const handleCategoryUpdate = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { transaction } = e.target.dataset
@@ -28,22 +26,20 @@ const CategorySelect: React.FC<Props> = ({ categories, transactionId }) => {
       [transaction]: category,
     }
 
-    sessionStorage.setItem(
-      'transaction_data',
-      JSON.stringify(newTransactionData),
-    )
+    sessionStorage.setItem('transaction_data', JSON.stringify(newTransactionData))
   }
 
   return (
     <>
       <label htmlFor={transactionId}>Category: </label>
       <select
-        name="category"
+        name='category'
         id={transactionId}
         data-transaction={transactionId}
         onChange={handleCategoryUpdate}
         value={transactionData[transactionId]}
       >
+        <option>-</option>
         {categories.map(({ id, name }) => (
           <option key={id} value={id}>
             {name}

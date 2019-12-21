@@ -19,9 +19,7 @@ const Month: React.FC<Props> = ({ match }) => {
       <nav>
         <ul>
           <li>
-            <Link to={`/accounts/${id}/${date}/transactions`}>
-              Transactions
-            </Link>
+            <Link to={`/accounts/${id}/${date}/transactions`}>Transactions</Link>
           </li>
           <li>
             <Link to={`/accounts/${id}/${date}/overview`}>Overview</Link>

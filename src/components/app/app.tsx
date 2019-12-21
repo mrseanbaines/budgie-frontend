@@ -27,7 +27,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <button type="button" onClick={handleLoginClick}>
+    <button type='button' onClick={handleLoginClick}>
       Login
     </button>
   )
