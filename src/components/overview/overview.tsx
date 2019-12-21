@@ -24,7 +24,7 @@ const Overview: React.FC<Props> = ({ match }) => {
   const categories = useCategories() || { items: [] }
 
   useEffect(() => {
-    const transactionBreakdown = categories.items.map(({ id, name }) => {
+    const transactionBreakdown = categories.map(({ id, name }) => {
       const amount = transactions.reduce((total: number, transaction) => {
         if (transaction.category === id) {
           return total + transaction.amount
@@ -37,7 +37,7 @@ const Overview: React.FC<Props> = ({ match }) => {
     })
 
     setBreakdown(transactionBreakdown)
-  }, [categories.items, transactions])
+  }, [categories, transactions])
 
   return (
     <>

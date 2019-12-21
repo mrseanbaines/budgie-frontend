@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import ky from 'ky'
 import { addMonths } from 'date-fns'
 
-import { Transaction } from 'types'
+import { Transaction } from './types'
 
 import {
   FETCH_REQUEST,
@@ -35,7 +35,7 @@ export const updateRequest = () => ({
   type: UPDATE_REQUEST,
 })
 
-export const updateSuccess = (payload: SuccessPayload) => ({
+export const updateSuccess = (payload: Transaction) => ({
   type: UPDATE_SUCCESS,
   payload,
 })

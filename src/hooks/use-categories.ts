@@ -1,32 +1,16 @@
-import { useState, useEffect } from 'react'
-import ky from 'ky'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { Category } from '../types'
-
-interface Categories {
-  items: Category[]
-  total: number
-}
+import { fetchCategories } from 'store/categories/actions'
+import { getCategoryItems } from 'store/categories/selectors'
 
 const useCategories = () => {
-  const initialState = {
-    items: [],
-    total: 0,
-  }
-
-  const [categories, setCategories] = useState<Categories>(initialState)
+  const categories = useSelector(getCategoryItems)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const getCategories = async () => {
-      const { REACT_APP_API_URL } = process.env
-
-      const data = await ky.get(`${REACT_APP_API_URL}/categories`).json<Categories>()
-
-      setCategories(data)
-    }
-
-    getCategories()
-  }, [])
+    dispatch(fetchCategories())
+  }, [dispatch])
 
   return categories
 }

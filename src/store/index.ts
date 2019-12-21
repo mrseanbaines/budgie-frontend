@@ -4,9 +4,11 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createLogger } from 'redux-logger'
 import rootReducer from './reducers'
 import { State as TransactionsState } from './transactions/reducers'
+import { State as CategoriesState } from './categories/reducers'
 
 export interface State {
   transactions: TransactionsState
+  categories: CategoriesState
 }
 
 export type StateWithTransactions = Pick<State, 'transactions'>

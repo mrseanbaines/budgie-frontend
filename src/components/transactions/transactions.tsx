@@ -24,7 +24,7 @@ const Transactions: React.FC<Props> = ({ match }) => {
 
       {transactions.sort(sortDesc).map(transaction => (
         <div key={transaction.id}>
-          <Transaction transaction={transaction} categories={categories.items} />
+          <Transaction transaction={transaction} categories={categories} />
 
           <br />
         </div>
