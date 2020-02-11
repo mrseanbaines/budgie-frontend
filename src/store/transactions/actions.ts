@@ -44,12 +44,10 @@ export const updateFailure = () => ({
   type: UPDATE_FAILURE,
 })
 
-export const fetchTransactions = (accountId: string, fromDate: string) => async (dispatch: Dispatch) => {
+export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch) => {
   const query = new URLSearchParams({
-    account_id: accountId,
     since: new Date(fromDate).toISOString(),
     before: new Date(addMonths(new Date(fromDate), 1)).toISOString(),
-    'expand[]': 'merchant',
   })
 
   try {

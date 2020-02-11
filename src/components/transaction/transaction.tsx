@@ -26,7 +26,11 @@ const Transaction: React.FC<Props> = ({ transaction, categories }) => {
 
       <div>{formatCurrency(transaction.amount)}</div>
 
-      <div>{typeof transaction.merchant === 'object' ? transaction.merchant.name : transaction.counterparty.name}</div>
+      <div>
+        {transaction.merchant && typeof transaction.merchant === 'object'
+          ? transaction.merchant.name
+          : transaction.counterparty.name}
+      </div>
 
       {transaction.notes && <small>{transaction.notes}</small>}
 
@@ -40,9 +44,9 @@ const Transaction: React.FC<Props> = ({ transaction, categories }) => {
         >
           <option value=''>-</option>
 
-          {categories.map((categoryOption: any) => (
-            <option key={categoryOption.id} value={categoryOption.id}>
-              {categoryOption.name}
+          {categories.map((category: any) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
             </option>
           ))}
         </select>

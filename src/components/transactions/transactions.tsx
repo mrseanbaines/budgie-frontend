@@ -14,8 +14,8 @@ interface Params {
 type Props = RouteComponentProps<Params>
 
 const Transactions: React.FC<Props> = ({ match }) => {
-  const { id, date } = match.params
-  const transactions = useTransactions(id, date)
+  const { date } = match.params
+  const transactions = useTransactions(date)
   const categories = useCategories() || { items: [] }
 
   return (

@@ -18,9 +18,9 @@ interface BreakdownItem {
 }
 
 const Overview: React.FC<Props> = ({ match }) => {
-  const { id, date } = match.params
+  const { date } = match.params
   const [breakdown, setBreakdown] = useState<BreakdownItem[]>([])
-  const transactions = useTransactions(id, date)
+  const transactions = useTransactions(date)
   const categories = useCategories() || { items: [] }
 
   useEffect(() => {
