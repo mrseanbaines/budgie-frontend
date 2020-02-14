@@ -15,16 +15,31 @@ type Props = RouteComponentProps<Params>
 interface BreakdownItem {
   name: string
   amount: number
+  id: string
 }
+
+interface CategoryItemProps {
+  name: string
+  amount: number
+}
+
+const CategoryItem: React.FC<CategoryItemProps> = ({ name, amount }) => (
+  <tr>
+    <td>{name}</td>
+    <td>{formatCurrency(amount)}</td>
+  </tr>
+)
 
 const Overview: React.FC<Props> = ({ match }) => {
   const { date } = match.params
   const [breakdown, setBreakdown] = useState<BreakdownItem[]>([])
+  const [uncategorised, setUncategorised] = useState<number>(0)
+  const [total, setTotal] = useState<number>(0)
   const transactions = useTransactions(date)
   const categories = useCategories() || { items: [] }
 
   useEffect(() => {
-    const transactionBreakdown = categories.map(({ id, name }) => {
+    const categoryTotals = categories.map(({ id, name }) => {
       const amount = transactions.reduce((total: number, transaction) => {
         if (transaction.category === id) {
           return total + transaction.amount
@@ -33,10 +48,22 @@ const Overview: React.FC<Props> = ({ match }) => {
         return total
       }, 0)
 
-      return { name, amount }
+      return { name, amount, id }
     })
 
-    setBreakdown(transactionBreakdown)
+    const uncategorisedTotal = transactions.reduce((total: number, transaction) => {
+      if (!transaction.category) {
+        return total + transaction.amount
+      }
+
+      return total
+    }, 0)
+
+    const totalAmount = categoryTotals.reduce((sum, item) => sum + item.amount, 0) + uncategorisedTotal
+
+    setBreakdown(categoryTotals)
+    setUncategorised(uncategorisedTotal)
+    setTotal(totalAmount)
   }, [categories, transactions])
 
   return (
@@ -53,11 +80,11 @@ const Overview: React.FC<Props> = ({ match }) => {
 
         <tbody>
           {breakdown.map(category => (
-            <tr key={category.name}>
-              <td>{category.name}</td>
-              <td>{formatCurrency(category.amount)}</td>
-            </tr>
+            <CategoryItem key={category.id} name={category.name} amount={category.amount} />
           ))}
+
+          <CategoryItem name='Uncategorised' amount={uncategorised} />
+          <CategoryItem name='Total' amount={total} />
         </tbody>
       </table>
     </>
