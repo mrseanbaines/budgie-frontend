@@ -2,7 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import 'antd/dist/antd.css'
 
+import * as serviceWorker from 'serviceWorker'
 import Transactions from 'components/transactions'
 import Overview from 'components/overview'
 import Month from 'components/month'
@@ -10,8 +12,6 @@ import Account from 'components/account'
 import Accounts from 'components/accounts'
 import Login from 'components/login'
 import App from 'components/app'
-import * as serviceWorker from 'serviceWorker'
-import 'index.css'
 import store from 'store'
 
 const Index = () => (

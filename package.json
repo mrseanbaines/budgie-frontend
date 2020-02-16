@@ -9,6 +9,7 @@
     "format:fix": "prettier --write '**/*.{js,ts,tsx,yml,yaml,json,md}'"
   },
   "dependencies": {
+    "antd": "^3.26.9",
     "date-fns": "^2.6.0",
     "ky": "^0.16.1",
     "react": "^16.11.0",

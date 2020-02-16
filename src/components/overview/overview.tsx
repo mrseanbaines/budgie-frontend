@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { format } from 'date-fns'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { formatCurrency } from 'utils'
-import { useCategories, useTransactions } from 'hooks'
+import { fetchTransactions } from 'store/transactions/actions'
+import { fetchCategories } from 'store/categories/actions'
+import { getTransactionItems } from 'store/transactions/selectors'
+import { getCategoryItems } from 'store/categories/selectors'
 
 interface Params {
   id: string
@@ -35,8 +39,14 @@ const Overview: React.FC<Props> = ({ match }) => {
   const [breakdown, setBreakdown] = useState<BreakdownItem[]>([])
   const [uncategorised, setUncategorised] = useState<number>(0)
   const [total, setTotal] = useState<number>(0)
-  const transactions = useTransactions(date)
-  const categories = useCategories() || { items: [] }
+  const dispatch = useDispatch()
+  const transactions = useSelector(getTransactionItems)
+  const categories = useSelector(getCategoryItems)
+
+  useEffect(() => {
+    dispatch(fetchTransactions(date))
+    dispatch(fetchCategories())
+  }, [dispatch, date])
 
   useEffect(() => {
     const categoryTotals = categories.map(({ id, name }) => {

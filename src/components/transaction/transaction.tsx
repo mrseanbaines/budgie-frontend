@@ -1,57 +1,33 @@
 import React from 'react'
 import { format } from 'date-fns'
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { List } from 'antd'
 
-import { updateTransaction } from 'store/transactions/actions'
 import { formatCurrency } from 'utils'
-import { Transaction as TransactionType, Category } from 'types'
+import { Transaction as TransactionType } from 'store/transactions/types'
+import { getCategoryItems } from 'store/categories/selectors'
+
+import Category from '../category'
 
 interface Props {
   transaction: TransactionType
-  categories: Category[]
 }
 
-const Transaction: React.FC<Props> = ({ transaction, categories }) => {
-  const dispatch = useDispatch()
-
-  const handleCategoryUpdate = async (e: React.ChangeEvent<HTMLSelectElement>, transactionId: string) => {
-    dispatch(updateTransaction(transactionId, e.target.value || null))
-  }
+const Transaction: React.FC<Props> = ({ transaction }) => {
+  const categories = useSelector(getCategoryItems)
+  const category = categories.find(c => c.id === transaction.category)
+  const merchant = typeof transaction.merchant === 'object' ? transaction.merchant.name : transaction.counterparty.name
 
   return (
-    <div>
-      <div>
-        <small>{format(new Date(transaction.created), 'dd MMMM, yyyy')}</small>
-      </div>
+    <List.Item>
+      <List.Item.Meta title={merchant} description={category && <Category category={category} />} />
 
-      <div>{formatCurrency(transaction.amount)}</div>
-
-      <div>
-        {transaction.merchant && typeof transaction.merchant === 'object'
-          ? transaction.merchant.name
-          : transaction.counterparty.name}
-      </div>
-
-      {transaction.notes && <small>{transaction.notes}</small>}
-
-      <div>
-        <label htmlFor={transaction.id}>Category: </label>
-        <select
-          name='category'
-          id={transaction.id}
-          onChange={e => handleCategoryUpdate(e, transaction.id)}
-          value={transaction.category || ''}
-        >
-          <option value=''>-</option>
-
-          {categories.map((category: any) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
+      <List.Item.Meta
+        title={formatCurrency(transaction.amount)}
+        description={format(new Date(transaction.created), 'dd MMM')}
+        style={{ flex: 'initial', textAlign: 'right' }}
+      />
+    </List.Item>
   )
 }
 
