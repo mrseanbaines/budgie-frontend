@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { format } from 'date-fns'
-import { List, Row, Col, Typography } from 'antd'
+import { List, Row, Col } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { fetchTransactions } from 'store/transactions/actions'
 import { fetchCategories } from 'store/categories/actions'
 import { getTransactionItems } from 'store/transactions/selectors'
 import Transaction from 'components/transaction'
-
-const { Title } = Typography
+import Layout from 'components/layout'
 
 interface Params {
-  id: string
   date: string
 }
 
@@ -29,17 +26,17 @@ const Transactions: React.FC<Props> = ({ match }) => {
   }, [dispatch, date])
 
   return (
-    <Row type='flex' justify='center'>
-      <Col span={10}>
-        <Title>{format(new Date(date), 'LLLL')} Transactions</Title>
-
-        <List
-          size='small'
-          dataSource={transactions}
-          renderItem={transaction => <Transaction transaction={transaction} />}
-        />
-      </Col>
-    </Row>
+    <Layout date={date}>
+      <Row type='flex' justify='center'>
+        <Col span={10}>
+          <List
+            size='small'
+            dataSource={transactions}
+            renderItem={transaction => <Transaction transaction={transaction} />}
+          />
+        </Col>
+      </Row>
+    </Layout>
   )
 }
 
