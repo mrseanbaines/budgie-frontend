@@ -1,16 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Layout as AntLayout, Menu, Typography } from 'antd'
+import { Link, useHistory } from 'react-router-dom'
+import { Layout as AntLayout, Menu, PageHeader, Icon } from 'antd'
 import { format, subMonths } from 'date-fns'
 
 const { Header, Sider, Content } = AntLayout
-const { Title } = Typography
 
 interface Props {
   date: string
+  backTo: string
 }
 
-const Layout: React.FC<Props> = ({ children, date }) => {
+const Layout: React.FC<Props> = ({ children, date, backTo }) => {
+  const history = useHistory()
+
   const months = Array(12)
     .fill(new Date())
     .map((date, i) => subMonths(date, i))
@@ -18,8 +20,6 @@ const Layout: React.FC<Props> = ({ children, date }) => {
   const groupedMonths = Object.entries(
     months.reduce((all: { [key: string]: Date[] }, month) => {
       const year = format(month, 'yyyy')
-
-      console.log(year)
 
       if (all[year]) {
         all[year].push(month)
@@ -34,10 +34,15 @@ const Layout: React.FC<Props> = ({ children, date }) => {
   return (
     <AntLayout>
       <Header style={{ background: '#fff' }}>
-        <Title>{format(new Date(date), 'MMMM yyyy')}</Title>
+        <PageHeader
+          backIcon={<Icon type='bar-chart' />}
+          onBack={() => history.push(`/${date}/${backTo}`)}
+          title={format(new Date(date), 'MMMM yyyy')}
+        />
       </Header>
+
       <AntLayout>
-        <Sider style={{ background: '#fff' }}>
+        <Sider width={300} theme='light'>
           <Menu selectedKeys={[date]}>
             {groupedMonths.map(([year, group]) => {
               return (
@@ -54,6 +59,7 @@ const Layout: React.FC<Props> = ({ children, date }) => {
             })}
           </Menu>
         </Sider>
+
         <Content style={{ minHeight: '100%' }}>{children}</Content>
       </AntLayout>
     </AntLayout>

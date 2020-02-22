@@ -26,7 +26,7 @@ const Transactions: React.FC<Props> = ({ match }) => {
   }, [dispatch, date])
 
   return (
-    <Layout date={date}>
+    <Layout date={date} backTo='overview'>
       <Row type='flex' justify='center'>
         <Col span={10}>
           <List
