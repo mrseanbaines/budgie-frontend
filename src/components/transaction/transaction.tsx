@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { format } from 'date-fns'
 import { useSelector } from 'react-redux'
-import { List, Popconfirm, Icon, notification, Tag, Dropdown, Menu, Badge } from 'antd'
+import { List, Popconfirm, Icon, notification, Tag, Dropdown, Menu, Badge, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
 
 import { formatCurrency } from 'utils'
@@ -95,8 +95,10 @@ const Transaction: React.FC<Props> = ({ transaction }) => {
                   <>
                     <div style={{ marginRight: 8 }}>
                       <Dropdown overlay={categoryList} trigger={['click']}>
-                        <TextButton title='Edit Category'>
-                          <Icon type='edit' />
+                        <TextButton>
+                          <Tooltip title='Edit Category'>
+                            <Icon type='edit' />
+                          </Tooltip>
                         </TextButton>
                       </Dropdown>
                     </div>
@@ -108,7 +110,9 @@ const Transaction: React.FC<Props> = ({ transaction }) => {
                       okText='Yes'
                       cancelText='Cancel'
                     >
-                      <Icon type='delete' style={{ color: 'lightcoral' }} title='Remove Category' />
+                      <Tooltip title='Remove Category'>
+                        <Icon type='delete' style={{ color: 'lightcoral' }} />
+                      </Tooltip>
                     </Popconfirm>
                   </>
                 )}
@@ -117,7 +121,7 @@ const Transaction: React.FC<Props> = ({ transaction }) => {
               <>
                 {mouseOver && (
                   <Dropdown overlay={categoryList} trigger={['click']}>
-                    <Tag color='grey' style={{ cursor: 'pointer' }} title='Set Category'>
+                    <Tag color='grey' style={{ cursor: 'pointer' }}>
                       <Icon type='plus' /> Set Category
                     </Tag>
                   </Dropdown>

@@ -8,9 +8,10 @@ const { Header, Sider, Content } = AntLayout
 interface Props {
   date: string
   backTo: string
+  currentPage: string
 }
 
-const Layout: React.FC<Props> = ({ children, date, backTo }) => {
+const Layout: React.FC<Props> = ({ children, date, backTo, currentPage }) => {
   const history = useHistory()
 
   const months = Array(12)
@@ -35,8 +36,8 @@ const Layout: React.FC<Props> = ({ children, date, backTo }) => {
     <AntLayout>
       <Header style={{ background: '#fff' }}>
         <PageHeader
-          backIcon={<Icon type='bar-chart' />}
-          onBack={() => history.push(`/${date}/${backTo}`)}
+          backIcon={<Icon type='arrow-left' />}
+          onBack={() => history.push(backTo)}
           title={format(new Date(date), 'MMMM yyyy')}
         />
       </Header>
@@ -50,7 +51,7 @@ const Layout: React.FC<Props> = ({ children, date, backTo }) => {
                   {group.map(month => {
                     return (
                       <Menu.Item key={format(month, 'yyyy-MM')}>
-                        <Link to={`/${format(month, 'yyyy-MM')}/transactions`}>{format(month, 'LLLL')}</Link>
+                        <Link to={`/${format(month, 'yyyy-MM')}/${currentPage}`}>{format(month, 'LLLL')}</Link>
                       </Menu.Item>
                     )
                   })}
