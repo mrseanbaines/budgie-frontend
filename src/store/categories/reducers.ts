@@ -16,12 +16,18 @@ const initialState: State = {
   total: 0,
 }
 
+type ResponseCategory = Omit<Category, 'id'> & { _id: string }
+
 const reducer: Reducer = (state: State = initialState, action) => {
   switch (action.type) {
     case FETCH_SUCCESS: {
       return {
         ...state,
-        items: action.payload.items,
+        items: action.payload.items.map((item: ResponseCategory) => ({
+          id: item._id,
+          name: item.name,
+          color: item.color,
+        })),
         total: action.payload.total,
       }
     }

@@ -26,7 +26,7 @@ const Transaction: React.FC<Props> = ({ transaction }) => {
   const [mouseOver, setMouseOver] = useState(false)
   const categories = useSelector(getCategoryItems)
   const currentCategory = categories.find(c => c.id === transaction.category)
-  const merchant = typeof transaction.merchant === 'object' ? transaction.merchant.name : transaction.counterparty.name
+  const merchant = !!transaction.merchant ? transaction.merchant.name : transaction.counterparty.name
   const dispatch = useDispatch()
 
   const handleDelete = async () => {

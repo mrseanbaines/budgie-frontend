@@ -13,12 +13,17 @@ const initialState: State = {
   total: 0,
 }
 
+type ResponseTransaction = Omit<Transaction, 'id'> & { _id: string }
+
 const reducer: Reducer = (state: State = initialState, action) => {
   switch (action.type) {
     case FETCH_SUCCESS: {
       return {
         ...state,
-        items: action.payload.items,
+        items: action.payload.items.map((item: ResponseTransaction) => ({
+          ...item,
+          id: item._id,
+        })),
         total: action.payload.total,
       }
     }
@@ -27,8 +32,11 @@ const reducer: Reducer = (state: State = initialState, action) => {
       return {
         ...state,
         items: state.items.map(item => {
-          if (item.id === action.payload.id) {
-            return action.payload
+          if (item.id === action.payload._id) {
+            return {
+              ...action.payload,
+              id: action.payload._id,
+            }
           }
 
           return item

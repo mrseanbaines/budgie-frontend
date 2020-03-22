@@ -11,7 +11,7 @@ export interface Transaction {
   id: string
   amount: number
   notes: string
-  merchant: string | Merchant
+  merchant: Merchant | null
   counterparty: Counterparty
   category: string | null
   include_in_spending: boolean
