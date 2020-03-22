@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { Layout as AntLayout, List, Row, Col, Input } from 'antd'
+import { Layout as AntLayout, List, Row, Col, Input, Button, Badge } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { fetchTransactions } from 'store/transactions/actions'
 import { fetchCategories } from 'store/categories/actions'
+import { getCategoryItems } from 'store/categories/selectors'
 import { getTransactionItems } from 'store/transactions/selectors'
 import { Transaction as TransactionType } from 'store/transactions/types'
 import Transaction from 'components/transaction'
@@ -24,6 +25,8 @@ const Transactions: React.FC<Props> = ({ match }) => {
   const transactions = useSelector(getTransactionItems)
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
+  const categories = useSelector(getCategoryItems)
 
   useEffect(() => {
     dispatch(fetchTransactions(date))
@@ -39,6 +42,10 @@ const Transactions: React.FC<Props> = ({ match }) => {
     )
   }
 
+  const categoryFilter = (transaction: TransactionType) => {
+    return selectedCategoryId ? transaction.category === selectedCategoryId : true
+  }
+
   return (
     <Layout date={date} backTo={`/${date}/overview`} currentPage='transactions'>
       <AntLayout>
@@ -48,6 +55,18 @@ const Transactions: React.FC<Props> = ({ match }) => {
             placeholder='Search for a merchant'
             onChange={({ target: { value } }) => setSearchQuery(value)}
           />
+
+          {categories.map(c => (
+            <Button
+              type={selectedCategoryId === c.id ? undefined : 'link'}
+              key={c.id}
+              block
+              onClick={() => setSelectedCategoryId(c.id === selectedCategoryId ? null : c.id)}
+              style={{ textAlign: 'left', marginTop: '0.5rem' }}
+            >
+              <Badge color={c.color} text={c.name} />
+            </Button>
+          ))}
         </Sider>
 
         <Content style={{ minHeight: '100%' }}>
@@ -55,7 +74,7 @@ const Transactions: React.FC<Props> = ({ match }) => {
             <Col span={10}>
               <List
                 size='small'
-                dataSource={transactions.filter(searchFilter)}
+                dataSource={transactions.filter(searchFilter).filter(categoryFilter)}
                 renderItem={transaction => <Transaction transaction={transaction} />}
               />
             </Col>
