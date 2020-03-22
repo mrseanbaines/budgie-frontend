@@ -34,7 +34,12 @@ const Transactions: React.FC<Props> = ({ match }) => {
   }, [dispatch, date])
 
   const searchFilter = (transaction: TransactionType) => {
-    return !!transaction.merchant && transaction.merchant.name.toLowerCase().includes(searchQuery.toLowerCase())
+    return (
+      (!!transaction.merchant && transaction.merchant.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (!!transaction.counterparty.name &&
+        transaction.counterparty.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (!transaction.merchant && !searchQuery)
+    )
   }
 
   const categoryFilter = (transaction: TransactionType) => {

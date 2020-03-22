@@ -3,7 +3,7 @@ export interface Merchant {
 }
 
 export interface Counterparty {
-  name: string
+  name?: string
 }
 
 export interface Transaction {
