@@ -39,24 +39,28 @@ const Overview: React.FC<Props> = ({ match }) => {
 
   useEffect(() => {
     const categoryTotals = categories.map(category => {
-      const amount = transactions.reduce((total: number, transaction) => {
-        if (transaction.category === category.id) {
+      const amount = transactions
+        .filter(t => t.include_in_spending)
+        .reduce((total: number, transaction) => {
+          if (transaction.category === category.id) {
+            return total + transaction.amount
+          }
+
+          return total
+        }, 0)
+
+      return { ...category, amount }
+    })
+
+    const uncategorisedTotal = transactions
+      .filter(t => t.include_in_spending)
+      .reduce((total: number, transaction) => {
+        if (!transaction.category) {
           return total + transaction.amount
         }
 
         return total
       }, 0)
-
-      return { ...category, amount }
-    })
-
-    const uncategorisedTotal = transactions.reduce((total: number, transaction) => {
-      if (!transaction.category) {
-        return total + transaction.amount
-      }
-
-      return total
-    }, 0)
 
     const totalAmountCategorised = categoryTotals.reduce((sum, item) => sum + item.amount, 0)
 

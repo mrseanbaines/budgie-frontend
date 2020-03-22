@@ -74,7 +74,10 @@ const Transactions: React.FC<Props> = ({ match }) => {
             <Col span={10}>
               <List
                 size='small'
-                dataSource={transactions.filter(searchFilter).filter(categoryFilter)}
+                dataSource={transactions
+                  .filter(t => t.include_in_spending)
+                  .filter(searchFilter)
+                  .filter(categoryFilter)}
                 renderItem={transaction => <Transaction transaction={transaction} />}
               />
             </Col>
