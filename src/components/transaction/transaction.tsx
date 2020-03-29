@@ -25,7 +25,7 @@ const TextButton: React.FC<JSX.IntrinsicElements['button']> = ({ children, ...pr
 const Transaction: React.FC<Props> = ({ transaction }) => {
   const [mouseOver, setMouseOver] = useState(false)
   const categories = useSelector(getCategoryItems)
-  const currentCategory = categories.find(c => c.id === transaction.category)
+  const currentCategory = categories.find((c) => c.id === transaction.category)
   const merchant = !!transaction.merchant ? transaction.merchant.name : transaction.counterparty.name
   const dispatch = useDispatch()
 
@@ -49,7 +49,7 @@ const Transaction: React.FC<Props> = ({ transaction }) => {
 
   const categoryList = (
     <Menu>
-      {categories.map(c => (
+      {categories.map((c) => (
         <Menu.Item key={c.id}>
           <TextButton onClick={() => handleSetCategory(c.id)}>
             <Badge color={c.color} text={c.name} />

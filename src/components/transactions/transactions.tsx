@@ -56,7 +56,7 @@ const Transactions: React.FC<Props> = ({ match }) => {
             onChange={({ target: { value } }) => setSearchQuery(value)}
           />
 
-          {categories.map(c => (
+          {categories.map((c) => (
             <Button
               type={selectedCategoryId === c.id ? undefined : 'link'}
               key={c.id}
@@ -75,10 +75,10 @@ const Transactions: React.FC<Props> = ({ match }) => {
               <List
                 size='small'
                 dataSource={transactions
-                  .filter(t => t.include_in_spending)
+                  .filter((t) => t.include_in_spending)
                   .filter(searchFilter)
                   .filter(categoryFilter)}
-                renderItem={transaction => <Transaction transaction={transaction} />}
+                renderItem={(transaction) => <Transaction transaction={transaction} />}
               />
             </Col>
           </Row>

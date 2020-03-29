@@ -38,7 +38,7 @@ const Overview: React.FC<Props> = ({ match }) => {
   }, [dispatch, date])
 
   useEffect(() => {
-    const categoryTotals = categories.map(category => {
+    const categoryTotals = categories.map((category) => {
       const amount = transactions
         // .filter(t => t.include_in_spending)
         .reduce((total: number, transaction) => {
@@ -79,7 +79,7 @@ const Overview: React.FC<Props> = ({ match }) => {
           <List
             size='small'
             dataSource={breakdown}
-            renderItem={category => (
+            renderItem={(category) => (
               <List.Item style={{ alignItems: 'flex-start' }}>
                 <List.Item.Meta title={<Badge color={category.color} text={category.name} />} />
                 <List.Item.Meta

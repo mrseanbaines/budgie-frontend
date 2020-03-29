@@ -5,8 +5,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --check '**/*.{js,ts,tsx,yml,yaml,json,md}'",
-    "format:fix": "prettier --write '**/*.{js,ts,tsx,yml,yaml,json,md}'"
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "dependencies": {
     "antd": "^3.26.9",
@@ -29,7 +29,7 @@
     "@types/react-router-dom": "^5.1.2",
     "@types/redux-logger": "^3.0.7",
     "@types/uuid": "^3.4.6",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.2",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",

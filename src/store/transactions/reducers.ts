@@ -31,7 +31,7 @@ const reducer: Reducer = (state: State = initialState, action) => {
     case UPDATE_SUCCESS: {
       return {
         ...state,
-        items: state.items.map(item => {
+        items: state.items.map((item) => {
           if (item.id === action.payload._id) {
             return {
               ...action.payload,

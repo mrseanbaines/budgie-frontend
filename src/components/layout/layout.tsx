@@ -48,7 +48,7 @@ const Layout: React.FC<Props> = ({ children, date, backTo, currentPage }) => {
             {groupedMonths.map(([year, group]) => {
               return (
                 <Menu.ItemGroup key={year} title={year}>
-                  {group.map(month => {
+                  {group.map((month) => {
                     return (
                       <Menu.Item key={format(month, 'yyyy-MM')}>
                         <Link to={`/${format(month, 'yyyy-MM')}/${currentPage}`}>{format(month, 'LLLL')}</Link>
