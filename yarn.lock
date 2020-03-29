@@ -1134,6 +1134,11 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@mrseanbaines/prettier-config@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@mrseanbaines/prettier-config/-/prettier-config-1.0.1.tgz#206839a8cccab967ce459378a5b36d08de1939cd"
+  integrity sha512-WPQ6FxT24aDocWo3++VfZ9N9sBoJwxl7Ia+5pN+cSOHh3AgJ8qGbZhnKIbTVhQUpql3rC4w62Y3A4Nh+UuNB8Q==
+
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
