@@ -2,19 +2,23 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
 import 'antd/dist/antd.css'
 
 import * as serviceWorker from 'serviceWorker'
 import Transactions from 'components/transactions'
 import Overview from 'components/overview'
 import store from 'store'
+import theme from 'theme'
 
 const Index = () => (
   <Provider store={store}>
-    <Router>
-      <Route path='/:date/transactions' component={Transactions} />
-      <Route path='/:date/overview' component={Overview} />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Route path='/:date/transactions' component={Transactions} />
+        <Route path='/:date/overview' component={Overview} />
+      </Router>
+    </ThemeProvider>
   </Provider>
 )
 
