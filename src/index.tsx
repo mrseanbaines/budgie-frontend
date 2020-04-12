@@ -10,10 +10,13 @@ import Transactions from 'components/transactions'
 import Overview from 'components/overview'
 import store from 'store'
 import theme from 'theme'
+import GlobalStyles from 'styles/global'
 
 const Index = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
+
       <Router>
         <Route path='/:date/transactions' component={Transactions} />
         <Route path='/:date/overview' component={Overview} />
