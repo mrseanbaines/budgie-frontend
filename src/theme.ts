@@ -6,6 +6,26 @@ export const colors = {
   black: '#000000',
   white: '#FFFFFF',
   grey: ['#3E4149', '#B8B9BC', '#E6E8E8', '#F6F7F7'],
+  categories: [
+    '#DB5461',
+    '#8EC6C5',
+    '#F8DC88',
+    '#FF6363',
+    '#EFA8E4',
+    '#B2EBF2',
+    '#E7D39F',
+    '#827397',
+    '#FAE7CB',
+    '#639A67',
+    '#F19292',
+    '#CBE2B0',
+    '#F78259',
+    '#FFBCBC',
+    '#B7EFCD',
+    '#FBC490',
+    '#B590CA',
+    '#D1CEBD',
+  ],
 }
 
 const theme = {
@@ -22,16 +42,22 @@ const theme = {
   fonts: {
     primary: `'${fonts.primary}', 'Roboto', 'Helvetica Neue', sans-serif`,
   },
-  fontSizes: [12, 14, 16, 18, 20, 22, 24],
+  fontSizes: ['12px', '14px', '16px', '18px', '20px', '22px', '24px'],
   fontWeights: {
-    medium: 500,
+    medium: '500',
   },
   radii: {
-    none: 0,
-    rounded: [8, 32],
+    none: '0',
+    rounded: ['8', '32'],
     circle: '9999em',
   },
-  space: [0, 4, 8, 12, 16, 20, 24, 28, 32],
+  space: ['0px', '4px', '8px', '12px', '16px', '20px', '24px', '28px', '32px'],
+  sizes: {
+    badge: ['20px', '40px', '80px'],
+  },
+  borders: {
+    default: `1px solid ${colors.grey[2]}`,
+  },
 }
 
 export default theme
