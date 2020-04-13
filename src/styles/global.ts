@@ -8,8 +8,8 @@ const GlobalStyles = createGlobalStyle`
 
     html,
     body {
-        font-family: ${(props) => props.theme.fonts.primary};
-        color: ${(props) => props.theme.colors.text.default};
+        font-family: ${props => props.theme.fonts.primary};
+        color: ${props => props.theme.colors.text.default};
     }
 `
 

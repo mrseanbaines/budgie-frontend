@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import theme from '../src/theme'
 import GlobalStyles from '../src/styles/global'
 
-addDecorator((storyFn) => (
+addDecorator(storyFn => (
   <ThemeProvider theme={theme}>
     <GlobalStyles />
     {storyFn()}

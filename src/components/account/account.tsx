@@ -19,7 +19,7 @@ const Account: React.FC<RouteComponentProps<Params>> = ({ match }) => {
 
       <nav>
         <ul>
-          {months.map((month) => (
+          {months.map(month => (
             <li key={month.toString()}>
               <a href={`/accounts/${id}/${format(month, 'yyyy-MM')}`}>{format(month, 'LLLL')}</a>
             </li>
