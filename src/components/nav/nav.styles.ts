@@ -11,7 +11,7 @@ export const Wrapper = styled.nav(({ theme }) => {
     svg {
       display: block;
       width: auto;
-      height: 20px;
+      height: ${theme.sizes.icon[0]};
     }
 
     a {
