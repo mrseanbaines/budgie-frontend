@@ -38,6 +38,9 @@ const theme = {
       default: colors.grey[0],
       muted: colors.grey[1],
     },
+    icons: {
+      default: colors.grey[0],
+    },
   },
   fonts: {
     primary: `'${fonts.primary}', 'Roboto', 'Helvetica Neue', sans-serif`,
