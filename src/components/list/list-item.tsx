@@ -3,7 +3,7 @@ import React from 'react'
 import * as s from './list.styles'
 
 export interface Props {
-  badgeColor: string
+  badgeColor?: string
   title: string
   extra?: React.ReactNode
 }

@@ -8,16 +8,13 @@ export default {
   title: 'List',
 }
 
-export const Default = () => (
-  <>
-    {transactions.map(day => (
-      <>
-        <ListHeading title={day.date} extra={day.total} />
+export const Default = () =>
+  transactions.map(day => (
+    <>
+      <ListHeading title={day.date} extra={day.total} />
 
-        {day.transactions.map(transaction => (
-          <ListItem badgeColor={transaction.category.color} title={transaction.merchant} extra={transaction.amount} />
-        ))}
-      </>
-    ))}
-  </>
-)
+      {day.transactions.map(transaction => (
+        <ListItem badgeColor={transaction.category?.color} title={transaction.merchant} extra={transaction.amount} />
+      ))}
+    </>
+  ))

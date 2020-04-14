@@ -20,7 +20,7 @@ export const transactions = [
     total: '£11.25',
     transactions: [
       { merchant: 'Co-op', amount: '£2.25', category: { color: colors.categories[0] } },
-      { merchant: 'Co-op', amount: '£9.00', category: { color: colors.categories[0] } },
+      { merchant: 'Co-op', amount: '£9.00', category: null },
     ],
   },
 ]

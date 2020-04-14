@@ -46,7 +46,8 @@ export const Badge = styled.div<BadgeProps>(({ theme, badgeColor }) => {
     width: ${theme.sizes.badge[0]};
     height: ${theme.sizes.badge[0]};
     border-radius: ${theme.radii.circle};
-    background: ${badgeColor};
+    background: ${badgeColor || theme.colors.background.default};
+    border: ${!badgeColor && theme.borders.default};
   `
 })
 
