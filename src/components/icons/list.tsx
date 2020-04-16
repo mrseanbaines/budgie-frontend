@@ -6,7 +6,7 @@ export interface Props {
 
 const ListIcon: React.FC<Props> = ({ color = '#000000' }) => (
   <svg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'>
-    <g fill={color} fill-rule='nonzero'>
+    <g fill={color} fillRule='nonzero'>
       <path
         d='M2.00140377,37.2 L29.1985962,37.2 C30.303941,37.2 31.2,38.096059 31.2,39.2014038 L31.2,39.9985962 C31.2,41.103941 30.303941,42 29.1985962,42 L2.00140377,42 C0.89605899,42 0,41.103941 0,39.9985962 L0,39.2014038 C0,38.096059 0.89605899,37.2 2.00140377,37.2 Z'
         transform='matrix(-1 0 0 1 32.2 4)'
