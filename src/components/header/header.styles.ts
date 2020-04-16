@@ -6,6 +6,7 @@ export const Wrapper = styled.nav(({ theme }) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: ${theme.space[3]} ${theme.space[4]};
 
     svg {
       display: block;
@@ -42,6 +43,5 @@ export const Button = styled.button(({ theme }) => {
     border: none;
     background: none;
     cursor: pointer;
-    padding: ${theme.space[4]};
   `
 })

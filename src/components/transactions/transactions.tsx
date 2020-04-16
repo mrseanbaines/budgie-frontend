@@ -1,90 +1,95 @@
 import React, { useEffect, useState } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-import { Layout as AntLayout, List, Row, Col, Input, Button, Badge } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
+import { groupWith, sum } from 'ramda'
+import { format, isSameDay } from 'date-fns'
 
 import { fetchTransactions } from 'store/transactions/actions'
 import { fetchCategories } from 'store/categories/actions'
 import { getCategoryItems } from 'store/categories/selectors'
 import { getTransactionItems } from 'store/transactions/selectors'
-import { Transaction as TransactionType } from 'store/transactions/types'
-import Transaction from 'components/transaction'
-import Layout from 'components/layout'
+import { Transaction } from 'store/transactions/types'
+import { ListHeading, ListItem } from 'components/list'
+import TextInput from 'components/text-input'
+import Header from 'components/header'
+import Nav from 'components/nav'
+import { formatCurrency } from 'utils'
 
-const { Sider, Content } = AntLayout
-const { Search } = Input
+import * as s from './transactions.styles'
 
-interface Params {
-  date: string
-}
-
-type Props = RouteComponentProps<Params>
-
-const Transactions: React.FC<Props> = ({ match }) => {
-  const { date } = match.params
+const Transactions: React.FC = () => {
   const transactions = useSelector(getTransactionItems)
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
   const categories = useSelector(getCategoryItems)
 
+  const date = '2020-02-01'
+
   useEffect(() => {
-    dispatch(fetchTransactions(date))
+    const d = date
+    dispatch(fetchTransactions(d))
     dispatch(fetchCategories())
   }, [dispatch, date])
 
-  const searchFilter = (transaction: TransactionType) => {
+  const searchFilter = (transaction: Transaction) => {
     return (
-      (!!transaction.merchant && transaction.merchant.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (!!transaction.counterparty.name &&
-        transaction.counterparty.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      transaction.merchant?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      transaction.counterparty?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (!transaction.merchant && !searchQuery)
     )
   }
 
-  const categoryFilter = (transaction: TransactionType) => {
+  const categoryFilter = (transaction: Transaction) => {
     return selectedCategoryId ? transaction.category === selectedCategoryId : true
   }
 
+  const foo = transactions
+    .filter(t => t.include_in_spending)
+    .filter(searchFilter)
+    .filter(categoryFilter)
+    .map(t => ({
+      ...t,
+      created: new Date(t.created),
+      category: categories.find(c => c.id === t.category),
+    }))
+
+  const transactionsByDay = groupWith((a, b) => isSameDay(a.created, b.created), foo).map(dayTransactions => ({
+    date: format(dayTransactions[0].created, 'E d MMM'),
+    total: sum(dayTransactions.map(t => t.amount)),
+    transactions: dayTransactions,
+  }))
+
   return (
-    <Layout date={date} backTo={`/${date}/overview`} currentPage='transactions'>
-      <AntLayout>
-        <Sider width={300} theme='light' style={{ padding: '1rem' }}>
-          <Search
-            allowClear
-            placeholder='Search for a merchant'
-            onChange={({ target: { value } }) => setSearchQuery(value)}
-          />
+    <s.Wrapper>
+      <Header title='Transactions' subtitle={format(new Date(date), 'MMMM yyyy')} />
 
-          {categories.map(c => (
-            <Button
-              type={selectedCategoryId === c.id ? undefined : 'link'}
-              key={c.id}
-              block
-              onClick={() => setSelectedCategoryId(c.id === selectedCategoryId ? null : c.id)}
-              style={{ textAlign: 'left', marginTop: '0.5rem' }}
-            >
-              <Badge color={c.color} text={c.name} />
-            </Button>
+      <s.Search>
+        <TextInput placeholder='Search for a merchant' onChange={({ target: { value } }) => setSearchQuery(value)} />
+      </s.Search>
+
+      <s.ScrollableArea>
+        <s.Body>
+          {transactionsByDay.map(day => (
+            <div key={day.date}>
+              <s.ListHeadingWrapper>
+                <ListHeading title={day.date} extra={formatCurrency(day.total)} />
+              </s.ListHeadingWrapper>
+
+              {day.transactions.map(transaction => (
+                <ListItem
+                  key={transaction.id}
+                  badgeColor={transaction.category?.color}
+                  title={transaction.merchant?.name ?? transaction.counterparty.name}
+                  extra={formatCurrency(transaction.amount)}
+                />
+              ))}
+            </div>
           ))}
-        </Sider>
+        </s.Body>
+      </s.ScrollableArea>
 
-        <Content style={{ minHeight: '100%' }}>
-          <Row type='flex' justify='center'>
-            <Col span={10}>
-              <List
-                size='small'
-                dataSource={transactions
-                  .filter(t => t.include_in_spending)
-                  .filter(searchFilter)
-                  .filter(categoryFilter)}
-                renderItem={transaction => <Transaction transaction={transaction} />}
-              />
-            </Col>
-          </Row>
-        </Content>
-      </AntLayout>
-    </Layout>
+      <Nav />
+    </s.Wrapper>
   )
 }
 
