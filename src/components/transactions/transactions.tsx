@@ -23,7 +23,7 @@ const Transactions: React.FC = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
   const categories = useSelector(getCategoryItems)
 
-  const date = '2020-02-01'
+  const date = '2020-03-01'
 
   useEffect(() => {
     const d = date
@@ -44,6 +44,7 @@ const Transactions: React.FC = () => {
   }
 
   const foo = transactions
+    // .filter(t => t.amount < 0)
     .filter(t => t.include_in_spending)
     .filter(searchFilter)
     .filter(categoryFilter)
@@ -59,13 +60,27 @@ const Transactions: React.FC = () => {
     transactions: dayTransactions,
   }))
 
+  const total = sum(
+    transactions
+      .filter(t => t.amount < 0)
+      // .filter(t => t.include_in_spending)
+      .filter(searchFilter)
+      .filter(categoryFilter)
+      .map(t => t.amount),
+  )
+
   return (
     <s.Wrapper>
       <Header title='Transactions' subtitle={format(new Date(date), 'MMMM yyyy')} />
 
-      <s.Search>
+      <s.UpperSection>
+        <s.Total>
+          <s.TotalLabel>Total Spent</s.TotalLabel>
+          <s.TotalAmount>{formatCurrency(total)}</s.TotalAmount>
+        </s.Total>
+
         <TextInput placeholder='Search for a merchant' onChange={({ target: { value } }) => setSearchQuery(value)} />
-      </s.Search>
+      </s.UpperSection>
 
       <s.ScrollableArea>
         <s.Body>
