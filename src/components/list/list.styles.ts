@@ -51,8 +51,11 @@ export const Badge = styled.div<BadgeProps>(({ theme, badgeColor }) => {
   `
 })
 
-export const Title = styled.p`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`
+export const Title = styled.p(() => {
+  return css`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1;
+  `
+})
