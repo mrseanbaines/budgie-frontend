@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { groupWith, sum } from 'ramda'
 import { format, isSameDay } from 'date-fns'
@@ -13,8 +13,6 @@ import TextInput from 'components/text-input'
 import Header from 'components/header'
 import Nav from 'components/nav'
 import Popup from 'components/popup'
-import useOnClickOutside from 'hooks/use-on-click-outside'
-import { Overlay } from 'styles/overlay'
 import { formatCurrency } from 'utils'
 
 import * as s from './transactions.styles'
@@ -26,9 +24,6 @@ const Transactions: React.FC = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null)
   const categories = useSelector(getCategoryItems)
-  const popupRef = useRef(null)
-
-  useOnClickOutside(popupRef, () => setSelectedTransaction(null))
 
   const date = '2020-02-01'
 
@@ -114,20 +109,16 @@ const Transactions: React.FC = () => {
       </s.Wrapper>
 
       {selectedTransaction && (
-        <>
-          <Overlay />
-
-          <Popup
-            popupRef={popupRef}
-            leftButton='close'
-            title='Select a Category'
-            onLeftButtonClick={() => setSelectedTransaction(null)}
-          >
-            <h1 style={{ textAlign: 'center' }}>
-              {selectedTransaction.merchant?.name ?? selectedTransaction.counterparty.name}
-            </h1>
-          </Popup>
-        </>
+        <Popup
+          leftButton='close'
+          title='Select a Category'
+          onLeftButtonClick={() => setSelectedTransaction(null)}
+          onClickOutside={() => setSelectedTransaction(null)}
+        >
+          <h1 style={{ textAlign: 'center' }}>
+            {selectedTransaction.merchant?.name ?? selectedTransaction.counterparty.name}
+          </h1>
+        </Popup>
       )}
     </>
   )

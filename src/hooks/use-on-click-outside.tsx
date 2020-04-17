@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 type Handler = (e: Event) => void
 
-const useOnClickOutside = (ref: React.RefObject<any>, handler: Handler): void => {
+const useOnClickOutside = (ref: React.RefObject<any>, handler?: Handler): void => {
   useEffect(() => {
     const listener = (e: Event) => {
       // Do nothing if clicking ref's element or descendent elements
@@ -10,7 +10,7 @@ const useOnClickOutside = (ref: React.RefObject<any>, handler: Handler): void =>
         return
       }
 
-      handler(e)
+      handler && handler(e)
     }
 
     document.addEventListener('mousedown', listener)

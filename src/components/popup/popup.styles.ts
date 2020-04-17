@@ -2,12 +2,17 @@ import styled, { css } from 'styled-components'
 
 export const Container = styled.div(({ theme }) => {
   return css`
-    width: 100%;
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
-    padding: 0 ${theme.space[3]};
-    z-index: ${theme.zIndices.popup};
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: ${theme.space[3]};
+    padding-bottom: 0;
+    background: ${theme.colors.overlay};
   `
 })
 
