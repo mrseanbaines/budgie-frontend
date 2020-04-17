@@ -10,7 +10,7 @@ export const Container = styled.div(({ theme }) => {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: ${theme.space[3]};
+    padding: ${theme.space[2]};
     padding-bottom: 0;
     background: ${theme.colors.overlay};
   `
