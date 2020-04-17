@@ -12,6 +12,8 @@ import { ListHeading, ListItem } from 'components/list'
 import TextInput from 'components/text-input'
 import Header from 'components/header'
 import Nav from 'components/nav'
+import Popup from 'components/popup'
+import { Overlay } from 'styles/overlay'
 import { formatCurrency } from 'utils'
 
 import * as s from './transactions.styles'
@@ -20,6 +22,7 @@ const Transactions: React.FC = () => {
   const transactions = useSelector(getTransactionItems)
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
+  const [showTransactionDetails, setShowTransactionDetails] = useState(false)
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
   const categories = useSelector(getCategoryItems)
 
@@ -70,41 +73,58 @@ const Transactions: React.FC = () => {
   )
 
   return (
-    <s.Wrapper>
-      <Header title='Transactions' subtitle={format(new Date(date), 'MMMM yyyy')} />
+    <>
+      <s.Wrapper>
+        <Header title='Transactions' subtitle={format(new Date(date), 'MMMM yyyy')} />
 
-      <s.UpperSection>
-        <s.Total>
-          <s.TotalLabel>Total Spent</s.TotalLabel>
-          <s.TotalAmount>{formatCurrency(total)}</s.TotalAmount>
-        </s.Total>
+        <s.UpperSection>
+          <s.Total>
+            <s.TotalLabel>Total Spent</s.TotalLabel>
+            <s.TotalAmount>{formatCurrency(total)}</s.TotalAmount>
+          </s.Total>
 
-        <TextInput placeholder='Search for a merchant' onChange={({ target: { value } }) => setSearchQuery(value)} />
-      </s.UpperSection>
+          <TextInput placeholder='Search for a merchant' onChange={({ target: { value } }) => setSearchQuery(value)} />
+        </s.UpperSection>
 
-      <s.ScrollableArea>
-        <s.Body>
-          {transactionsByDay.map(day => (
-            <div key={day.date}>
-              <s.ListHeadingWrapper>
-                <ListHeading title={day.date} extra={formatCurrency(day.total)} />
-              </s.ListHeadingWrapper>
+        <s.ScrollableArea>
+          <s.Body>
+            {transactionsByDay.map(day => (
+              <div key={day.date}>
+                <s.ListHeadingWrapper>
+                  <ListHeading title={day.date} extra={formatCurrency(day.total)} />
+                </s.ListHeadingWrapper>
 
-              {day.transactions.map(transaction => (
-                <ListItem
-                  key={transaction.id}
-                  badgeColor={transaction.category?.color}
-                  title={transaction.merchant?.name ?? transaction.counterparty.name}
-                  extra={formatCurrency(transaction.amount)}
-                />
-              ))}
-            </div>
-          ))}
-        </s.Body>
-      </s.ScrollableArea>
+                {day.transactions.map(transaction => (
+                  <ListItem
+                    key={transaction.id}
+                    badgeColor={transaction.category?.color}
+                    title={transaction.merchant?.name ?? transaction.counterparty.name}
+                    extra={formatCurrency(transaction.amount)}
+                    onClick={() => setShowTransactionDetails(true)}
+                  />
+                ))}
+              </div>
+            ))}
+          </s.Body>
+        </s.ScrollableArea>
 
-      <Nav />
-    </s.Wrapper>
+        <Nav />
+      </s.Wrapper>
+
+      {showTransactionDetails && (
+        <>
+          <Overlay />
+
+          <Popup
+            leftButton='close'
+            title='Select a Category'
+            onLeftButtonClick={() => setShowTransactionDetails(false)}
+          >
+            <h1 style={{ textAlign: 'center' }}>Hello, world!</h1>
+          </Popup>
+        </>
+      )}
+    </>
   )
 }
 

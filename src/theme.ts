@@ -41,6 +41,7 @@ const theme = {
     icons: {
       default: colors.grey[0],
     },
+    overlay: 'rgba(0, 0, 0, 0.7)',
   },
   fonts: {
     primary: `'${fonts.primary}', 'Roboto', 'Helvetica Neue', sans-serif`,
@@ -61,6 +62,10 @@ const theme = {
   },
   borders: {
     default: `1px solid ${colors.grey[2]}`,
+  },
+  zIndices: {
+    overlay: 1,
+    popup: 2,
   },
 }
 

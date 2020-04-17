@@ -1,16 +1,24 @@
 import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.nav(({ theme }) => {
+export const Container = styled.div(({ theme }) => {
   return css`
-    background: ${theme.colors.background.muted};
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 0 ${theme.space[3]};
+    z-index: ${theme.zIndices.popup};
+  `
+})
+
+export const Wrapper = styled.div(({ theme }) => {
+  return css`
+    background: ${theme.colors.background.default};
     padding: ${theme.space[6]} ${theme.space[4]};
     border-radius: ${theme.radii.rounded[1]};
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     width: 100%;
-
-    position: fixed;
-    bottom: 0;
   `
 })
 
@@ -34,19 +42,25 @@ export const Controls = styled.div(({ theme }) => {
       align-items: center;
     }
 
-    svg {
-      display: block;
-      width: auto;
+    > div {
+      width: ${theme.sizes.icon[1]};
       height: ${theme.sizes.icon[1]};
     }
   `
 })
 
-export const Button = styled.button(() => {
+export const Button = styled.button(({ theme }) => {
   return css`
     border: none;
     background: none;
     cursor: pointer;
     padding: 0;
+
+    &,
+    svg {
+      display: block;
+      width: auto;
+      height: 100%;
+    }
   `
 })

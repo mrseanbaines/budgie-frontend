@@ -18,6 +18,10 @@ const Wrapper = styled.div(({ theme }) => {
     gap: ${theme.space[2]};
     padding: ${theme.space[3]} ${theme.space[4]};
     line-height: 1;
+    border: none;
+    width: 100%;
+    background: none;
+    text-align: left;
   `
 })
 
@@ -31,11 +35,18 @@ export const ListHeadingWrapper = styled(Wrapper)(({ theme }) => {
   `
 })
 
-export const ListItemWrapper = styled(Wrapper)(({ theme }) => {
+export const ListItemWrapper = styled(Wrapper).attrs({ as: 'button' })(({ theme }) => {
   return css`
     grid-template-columns: auto 1fr auto;
     color: ${theme.colors.text.default};
     font-size: ${theme.fontSizes[2]};
+    cursor: pointer;
+
+    :hover,
+    :focus,
+    :active {
+      background: ${theme.colors.background.muted};
+    }
   `
 })
 
