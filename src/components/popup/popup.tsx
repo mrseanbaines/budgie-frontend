@@ -11,6 +11,7 @@ interface Props {
   rightButton?: 'forward' | 'tick' | 'plus'
   onLeftButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   onRightButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  popupRef?: React.RefObject<HTMLDivElement>
 }
 
 const Popup: React.FC<Props> = ({
@@ -20,9 +21,10 @@ const Popup: React.FC<Props> = ({
   rightButton,
   onLeftButtonClick,
   onRightButtonClick,
+  popupRef,
 }) => (
   <s.Container>
-    <s.Wrapper>
+    <s.Wrapper ref={popupRef}>
       <s.Controls>
         <div>
           {leftButton && leftButton === 'back' && (

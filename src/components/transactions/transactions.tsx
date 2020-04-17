@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { groupWith, sum } from 'ramda'
 import { format, isSameDay } from 'date-fns'
@@ -13,6 +13,7 @@ import TextInput from 'components/text-input'
 import Header from 'components/header'
 import Nav from 'components/nav'
 import Popup from 'components/popup'
+import useOnClickOutside from 'hooks/use-on-click-outside'
 import { Overlay } from 'styles/overlay'
 import { formatCurrency } from 'utils'
 
@@ -22,9 +23,12 @@ const Transactions: React.FC = () => {
   const transactions = useSelector(getTransactionItems)
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
-  const [showTransactionDetails, setShowTransactionDetails] = useState(false)
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null)
   const categories = useSelector(getCategoryItems)
+  const popupRef = useRef(null)
+
+  useOnClickOutside(popupRef, () => setSelectedTransaction(null))
 
   const date = '2020-02-01'
 
@@ -46,19 +50,17 @@ const Transactions: React.FC = () => {
     return selectedCategoryId ? transaction.category === selectedCategoryId : true
   }
 
-  const foo = transactions
+  const filteredTransactions = transactions
     // .filter(t => t.amount < 0)
     .filter(t => t.include_in_spending)
     .filter(searchFilter)
     .filter(categoryFilter)
-    .map(t => ({
-      ...t,
-      created: new Date(t.created),
-      category: categories.find(c => c.id === t.category),
-    }))
 
-  const transactionsByDay = groupWith((a, b) => isSameDay(a.created, b.created), foo).map(dayTransactions => ({
-    date: format(dayTransactions[0].created, 'E d MMM'),
+  const transactionsByDay = groupWith(
+    (a, b) => isSameDay(new Date(a.created), new Date(b.created)),
+    filteredTransactions,
+  ).map(dayTransactions => ({
+    date: format(new Date(dayTransactions[0].created), 'E d MMM'),
     total: sum(dayTransactions.map(t => t.amount)),
     transactions: dayTransactions,
   }))
@@ -97,10 +99,10 @@ const Transactions: React.FC = () => {
                 {day.transactions.map(transaction => (
                   <ListItem
                     key={transaction.id}
-                    badgeColor={transaction.category?.color}
+                    badgeColor={categories.find(c => c.id === transaction.category)?.color}
                     title={transaction.merchant?.name ?? transaction.counterparty.name}
                     extra={formatCurrency(transaction.amount)}
-                    onClick={() => setShowTransactionDetails(true)}
+                    onClick={() => setSelectedTransaction(transaction)}
                   />
                 ))}
               </div>
@@ -111,16 +113,19 @@ const Transactions: React.FC = () => {
         <Nav />
       </s.Wrapper>
 
-      {showTransactionDetails && (
+      {selectedTransaction && (
         <>
           <Overlay />
 
           <Popup
+            popupRef={popupRef}
             leftButton='close'
             title='Select a Category'
-            onLeftButtonClick={() => setShowTransactionDetails(false)}
+            onLeftButtonClick={() => setSelectedTransaction(null)}
           >
-            <h1 style={{ textAlign: 'center' }}>Hello, world!</h1>
+            <h1 style={{ textAlign: 'center' }}>
+              {selectedTransaction.merchant?.name ?? selectedTransaction.counterparty.name}
+            </h1>
           </Popup>
         </>
       )}
