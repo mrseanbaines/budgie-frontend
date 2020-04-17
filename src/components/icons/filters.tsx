@@ -4,7 +4,7 @@ export interface Props {
   color?: string
 }
 
-const ChartIcon: React.FC<Props> = ({ color = '#000000' }) => (
+const FiltersIcon: React.FC<Props> = ({ color = '#000000' }) => (
   <svg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'>
     <g stroke={color} strokeWidth='4' fill='none' fillRule='evenodd'>
       <g transform='translate(5 3)'>
@@ -23,4 +23,4 @@ const ChartIcon: React.FC<Props> = ({ color = '#000000' }) => (
   </svg>
 )
 
-export default ChartIcon
+export default FiltersIcon

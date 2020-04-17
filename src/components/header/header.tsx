@@ -12,7 +12,7 @@ interface Props {
   onCalendarClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const Nav: React.FC<Props> = ({ children, title, subtitle, onFiltersClick, onCalendarClick }) => (
+const Nav: React.FC<Props> = ({ title, subtitle, onFiltersClick, onCalendarClick }) => (
   <s.Wrapper>
     <s.Button onClick={onFiltersClick}>
       <FiltersIcon color={theme.colors.icons.default} />

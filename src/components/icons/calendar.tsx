@@ -4,7 +4,7 @@ export interface Props {
   color?: string
 }
 
-const ChartIcon: React.FC<Props> = ({ color = '#000000' }) => (
+const CalendarIcon: React.FC<Props> = ({ color = '#000000' }) => (
   <svg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'>
     <g transform='translate(3 6)' fill='none' fillRule='evenodd'>
       <rect stroke={color} strokeWidth='4' y='4.105' width='44' height='33.895' rx='2' />
@@ -43,4 +43,4 @@ const ChartIcon: React.FC<Props> = ({ color = '#000000' }) => (
   </svg>
 )
 
-export default ChartIcon
+export default CalendarIcon

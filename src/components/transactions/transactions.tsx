@@ -23,7 +23,7 @@ const Transactions: React.FC = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
   const categories = useSelector(getCategoryItems)
 
-  const date = '2020-03-01'
+  const date = '2020-02-01'
 
   useEffect(() => {
     const d = date

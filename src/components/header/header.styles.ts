@@ -38,10 +38,11 @@ export const Subtitle = styled(Text).attrs({ as: 'h2' })(({ theme }) => {
   `
 })
 
-export const Button = styled.button(({ theme }) => {
+export const Button = styled.button(() => {
   return css`
     border: none;
     background: none;
     cursor: pointer;
+    padding: 0;
   `
 })
