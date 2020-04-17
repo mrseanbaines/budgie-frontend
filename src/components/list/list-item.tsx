@@ -14,7 +14,7 @@ const ListItem: React.FC<Props> = ({ badgeColor, title, extra, onClick }) => (
     <s.Badge badgeColor={badgeColor} />
     <s.Title>{title}</s.Title>
 
-    {extra && <div>{extra}</div>}
+    {extra && <s.Extra>{extra}</s.Extra>}
   </s.ListItemWrapper>
 )
 

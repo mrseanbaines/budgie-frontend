@@ -12,7 +12,7 @@ interface Props {
   rightButton?: 'forward' | 'tick' | 'plus'
   onLeftButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   onRightButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
-  onClickOutside?: () => void
+  onClickOutside?: (e: Event) => void
 }
 
 const Popup: React.FC<Props> = ({

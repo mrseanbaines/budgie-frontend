@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.div(({ theme }) => {
+export const Wrapper = styled.div(() => {
   return css`
     height: 100vh;
     display: flex;
@@ -8,7 +8,7 @@ export const Wrapper = styled.div(({ theme }) => {
   `
 })
 
-export const ScrollableArea = styled.div(({ theme }) => {
+export const ScrollableArea = styled.div(() => {
   return css`
     flex: 1;
     overflow: auto;
@@ -17,7 +17,8 @@ export const ScrollableArea = styled.div(({ theme }) => {
 
 export const Body = styled.div(({ theme }) => {
   return css`
-    padding-bottom: ${theme.space[3]};
+    padding: ${theme.space[3]} ${theme.space[4]};
+    padding-top: 0;
   `
 })
 
@@ -45,9 +46,10 @@ export const UpperSection = styled.div(({ theme }) => {
 
 export const Total = styled.div(({ theme }) => {
   return css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    gap: ${theme.space[2]};
+    justify-content: center;
+    text-align: center;
   `
 })
 
@@ -64,6 +66,5 @@ export const TotalAmount = styled.span(({ theme }) => {
     font-size: ${theme.fontSizes[5]};
     line-height: 1;
     color: ${theme.colors.text.default};
-    margin-top: ${theme.space[1]};
   `
 })

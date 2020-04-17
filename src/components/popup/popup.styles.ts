@@ -19,7 +19,7 @@ export const Container = styled.div(({ theme }) => {
 export const Wrapper = styled.div(({ theme }) => {
   return css`
     background: ${theme.colors.background.default};
-    padding: ${theme.space[6]} ${theme.space[4]};
+    padding: ${theme.space[4]};
     border-radius: ${theme.radii.rounded[1]};
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;

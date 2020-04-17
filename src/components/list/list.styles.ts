@@ -2,21 +2,12 @@ import styled, { css } from 'styled-components'
 
 import { Props as ListItemProps } from './list-item'
 
-export const Border = styled.hr(({ theme }) => {
-  return css`
-    border: none;
-    border-bottom: ${theme.borders.default};
-    margin: 0 ${theme.space[4]};
-    margin-bottom: ${theme.space[2]};
-  `
-})
-
 const Wrapper = styled.div(({ theme }) => {
   return css`
     display: grid;
     align-items: center;
     gap: ${theme.space[2]};
-    padding: ${theme.space[3]} ${theme.space[4]};
+    padding: ${theme.space[3]} 0;
     line-height: 1;
     border: none;
     width: 100%;
@@ -32,6 +23,7 @@ export const ListHeadingWrapper = styled(Wrapper)(({ theme }) => {
     color: ${theme.colors.text.muted};
     font-size: ${theme.fontSizes[1]};
     text-transform: uppercase;
+    border-bottom: ${theme.borders.default};
   `
 })
 
@@ -41,12 +33,6 @@ export const ListItemWrapper = styled(Wrapper).attrs({ as: 'button' })(({ theme 
     color: ${theme.colors.text.default};
     font-size: ${theme.fontSizes[2]};
     cursor: pointer;
-
-    :hover,
-    :focus,
-    :active {
-      background: ${theme.colors.background.muted};
-    }
   `
 })
 
@@ -68,5 +54,15 @@ export const Title = styled.p(() => {
     white-space: nowrap;
     text-overflow: ellipsis;
     line-height: 1;
+  `
+})
+
+export const Extra = styled.div(({ theme }) => {
+  return css`
+    svg {
+      display: block;
+      width: auto;
+      height: ${theme.sizes.icon[1]};
+    }
   `
 })

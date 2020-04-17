@@ -12,7 +12,7 @@ import { ListHeading, ListItem } from 'components/list'
 import TextInput from 'components/text-input'
 import Header from 'components/header'
 import Nav from 'components/nav'
-import Popup from 'components/popup'
+import TransactionDetails from 'components/transaction-details'
 import { formatCurrency } from 'utils'
 
 import * as s from './transactions.styles'
@@ -109,16 +109,11 @@ const Transactions: React.FC = () => {
       </s.Wrapper>
 
       {selectedTransaction && (
-        <Popup
-          leftButton='close'
-          title='Select a Category'
+        <TransactionDetails
+          transaction={selectedTransaction}
           onLeftButtonClick={() => setSelectedTransaction(null)}
           onClickOutside={() => setSelectedTransaction(null)}
-        >
-          <h1 style={{ textAlign: 'center' }}>
-            {selectedTransaction.merchant?.name ?? selectedTransaction.counterparty.name}
-          </h1>
-        </Popup>
+        />
       )}
     </>
   )

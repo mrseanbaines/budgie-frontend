@@ -8,15 +8,11 @@ export interface Props {
 }
 
 const ListHeading: React.FC<Props> = ({ title, extra }) => (
-  <>
-    <s.ListHeadingWrapper>
-      <s.Title>{title}</s.Title>
+  <s.ListHeadingWrapper>
+    <s.Title>{title}</s.Title>
 
-      {extra && <div>{extra}</div>}
-    </s.ListHeadingWrapper>
-
-    <s.Border />
-  </>
+    {extra && <div>{extra}</div>}
+  </s.ListHeadingWrapper>
 )
 
 export default ListHeading
