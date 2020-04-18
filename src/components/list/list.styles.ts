@@ -7,7 +7,7 @@ const Wrapper = styled.div(({ theme }) => {
     display: grid;
     align-items: center;
     gap: ${theme.space[2]};
-    padding: ${theme.space[3]} 0;
+    padding: ${theme.space[2]} 0;
     line-height: 1;
     border: none;
     width: 100%;
@@ -53,7 +53,6 @@ export const Title = styled.p(() => {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    line-height: 1;
   `
 })
 
