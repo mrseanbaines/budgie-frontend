@@ -4,7 +4,7 @@ export const Input = styled.input(({ theme }) => {
   return css`
     background: ${theme.colors.background.muted};
     padding: ${theme.space[3]} ${theme.space[4]};
-    border: ${theme.borders.default};
+    border: none;
     border-radius: ${theme.radii.rounded[0]};
     font-size: ${theme.fontSizes[1]};
     line-height: 1;

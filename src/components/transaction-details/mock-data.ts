@@ -1,6 +1,7 @@
-export const transaction = {
+import { Transaction } from 'store/transactions/types'
+
+export const transaction: Transaction = {
   counterparty: {},
-  _id: 'abc_123',
   created: '2020-02-29T12:08:31.654Z',
   amount: -300,
   notes: '',

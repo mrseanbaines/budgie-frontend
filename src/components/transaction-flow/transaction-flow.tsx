@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Transaction } from 'store/transactions/types'
 import TransactionDetails from 'components/transaction-details'
 import EditTransactionCategory from 'components/edit-transaction-category'
+import CreateCategory from 'components/create-category'
 
 export interface Props {
   transaction: Transaction
@@ -12,6 +13,7 @@ export interface Props {
 export enum Step {
   TransactionDetails = 'TransactionDetails',
   EditTransactionCategory = 'EditTransactionCategory',
+  CreateCategory = 'CreateCategory',
 }
 
 const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
@@ -21,17 +23,26 @@ const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
     TransactionDetails: (
       <TransactionDetails
         transaction={transaction}
-        onLeftButtonClick={exitFlow}
         onClickOutside={exitFlow}
+        onLeftButtonClick={exitFlow}
         onCategoryClick={() => setStep(Step['EditTransactionCategory'])}
       />
     ),
     EditTransactionCategory: (
       <EditTransactionCategory
-        onLeftButtonClick={() => setStep(Step['TransactionDetails'])}
-        onClickOutside={exitFlow}
-        onCategoryClick={() => setStep(Step['TransactionDetails'])}
         transactionId={transaction.id}
+        onClickOutside={exitFlow}
+        onLeftButtonClick={() => setStep(Step['TransactionDetails'])}
+        onCategoryClick={() => setStep(Step['TransactionDetails'])}
+        onCreateCategoryClick={() => setStep(Step['CreateCategory'])}
+      />
+    ),
+    CreateCategory: (
+      <CreateCategory
+        transactionId={transaction.id}
+        onClickOutside={exitFlow}
+        onLeftButtonClick={() => setStep(Step['EditTransactionCategory'])}
+        onCreateCategory={() => setStep(Step['TransactionDetails'])}
       />
     ),
   }

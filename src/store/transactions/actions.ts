@@ -64,7 +64,7 @@ export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch
 
     const json = await response.json()
 
-    if (response.status !== 200) {
+    if (!response.ok) {
       dispatch(fetchFailure())
       return
     }
@@ -87,7 +87,7 @@ export const updateTransaction = (transactionId: string, categoryId: any) => asy
 
     const json = await response.json()
 
-    if (response.status !== 200) {
+    if (!response.ok) {
       dispatch(updateFailure())
       return
     }

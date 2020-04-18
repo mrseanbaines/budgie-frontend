@@ -8,7 +8,7 @@ const Wrapper = styled.div(({ theme }) => {
     align-items: center;
     gap: ${theme.space[2]};
     padding: ${theme.space[2]} 0;
-    line-height: 1;
+    line-height: ${theme.space[7]};
     border: none;
     width: 100%;
     background: none;

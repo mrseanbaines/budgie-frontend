@@ -1,9 +1,6 @@
 import { Reducer } from 'redux'
 
-import {
-  FETCH_SUCCESS,
-  // UPDATE_SUCCESS
-} from './constants'
+import { FETCH_SUCCESS, CREATE_SUCCESS } from './constants'
 import { Category } from './types'
 
 export interface State {
@@ -16,34 +13,23 @@ const initialState: State = {
   total: 0,
 }
 
-type ResponseCategory = Omit<Category, 'id'> & { _id: string }
-
-const reducer: Reducer = (state: State = initialState, action) => {
+const reducer: Reducer<State> = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_SUCCESS: {
       return {
         ...state,
-        items: action.payload.items.map((item: ResponseCategory) => ({
-          id: item._id,
-          name: item.name,
-          color: item.color,
-        })),
+        items: action.payload.items,
         total: action.payload.total,
       }
     }
 
-    // case UPDATE_SUCCESS: {
-    //   return {
-    //     ...state,
-    //     items: state.items.map(item => {
-    //       if (item.id === action.payload.id) {
-    //         return action.payload
-    //       }
-
-    //       return item
-    //     }),
-    //   }
-    // }
+    case CREATE_SUCCESS: {
+      return {
+        ...state,
+        items: [...state.items, action.payload.category],
+        total: action.payload.total,
+      }
+    }
 
     default: {
       return state

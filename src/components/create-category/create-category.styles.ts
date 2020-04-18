@@ -1,0 +1,36 @@
+import styled, { css } from 'styled-components'
+
+export const Wrapper = styled.div(({ theme }) => {
+  return css`
+    display: grid;
+    gap: ${theme.space[4]};
+  `
+})
+
+interface CategoryColorProps {
+  color: string | undefined
+}
+
+export const CategoryColor = styled.div<CategoryColorProps>(({ theme, color }) => {
+  return css`
+    width: ${theme.sizes.badge[2]};
+    height: ${theme.sizes.badge[2]};
+    border-radius: ${theme.radii.circle};
+    background: ${color};
+    margin: 0 auto;
+  `
+})
+
+export const CreateCategory = styled.button(({ theme }) => {
+  return css`
+    padding: ${theme.space[2]} 0;
+    line-height: ${theme.space[7]};
+    border: none;
+    width: 100%;
+    background: none;
+    text-align: center;
+    color: ${theme.colors.text.default};
+    font-size: ${theme.fontSizes[2]};
+    cursor: pointer;
+  `
+})

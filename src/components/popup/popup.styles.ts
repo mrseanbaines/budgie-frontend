@@ -24,6 +24,7 @@ export const Wrapper = styled.div(({ theme }) => {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     width: 100%;
+    overflow: auto;
   `
 })
 

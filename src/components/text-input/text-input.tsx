@@ -2,13 +2,10 @@ import React from 'react'
 
 import * as s from './text-input.styles'
 
-interface Props {
-  placeholder?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
+export type Props = React.InputHTMLAttributes<any>
 
-const TextInput: React.FC<Props> = ({ placeholder, onChange }) => (
-  <s.Input type='text' onChange={onChange} placeholder={placeholder} />
-)
+const TextInput = React.forwardRef<HTMLInputElement, Props>(({ placeholder, ...props }, ref) => (
+  <s.Input ref={ref} type='text' placeholder={placeholder} {...props} />
+))
 
 export default TextInput
