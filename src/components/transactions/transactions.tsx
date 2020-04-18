@@ -7,12 +7,13 @@ import { fetchTransactions } from 'store/transactions/actions'
 import { fetchCategories } from 'store/categories/actions'
 import { getCategoryItems } from 'store/categories/selectors'
 import { getTransactionItems } from 'store/transactions/selectors'
+// import { Category } from 'store/categories/types'
 import { Transaction } from 'store/transactions/types'
 import { ListHeading, ListItem } from 'components/list'
 import TextInput from 'components/text-input'
 import Header from 'components/header'
 import Nav from 'components/nav'
-import TransactionDetails from 'components/transaction-details'
+import TransactionFlow from 'components/transaction-flow'
 import { formatCurrency } from 'utils'
 
 import * as s from './transactions.styles'
@@ -21,13 +22,16 @@ const Transactions: React.FC = () => {
   const transactions = useSelector(getTransactionItems)
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
-  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null)
+  // const [selectedCategoryId, setSelectedCategoryId] = useState<Category['id'] | null>(null)
+  const [selectedTransactionId, setSelectedTransactionId] = useState<Transaction['id'] | null>(null)
   const categories = useSelector(getCategoryItems)
+  const selectedCategory = transactions.find(t => t.id === selectedTransactionId)
 
+  // TODO: Make this dynamic
   const date = '2020-02-01'
 
   useEffect(() => {
+    // TODO: Revisit this
     const d = date
     dispatch(fetchTransactions(d))
     dispatch(fetchCategories())
@@ -41,16 +45,17 @@ const Transactions: React.FC = () => {
     )
   }
 
-  const categoryFilter = (transaction: Transaction) => {
-    return selectedCategoryId ? transaction.category === selectedCategoryId : true
-  }
+  // const categoryFilter = (transaction: Transaction) => {
+  //   return selectedCategoryId ? transaction.category === selectedCategoryId : true
+  // }
 
   const filteredTransactions = transactions
     // .filter(t => t.amount < 0)
     .filter(t => t.include_in_spending)
     .filter(searchFilter)
-    .filter(categoryFilter)
+  // .filter(categoryFilter)
 
+  // TODO: Reorganise this?
   const transactionsByDay = groupWith(
     (a, b) => isSameDay(new Date(a.created), new Date(b.created)),
     filteredTransactions,
@@ -65,7 +70,7 @@ const Transactions: React.FC = () => {
       .filter(t => t.amount < 0)
       // .filter(t => t.include_in_spending)
       .filter(searchFilter)
-      .filter(categoryFilter)
+      // .filter(categoryFilter)
       .map(t => t.amount),
   )
 
@@ -95,9 +100,10 @@ const Transactions: React.FC = () => {
                   <ListItem
                     key={transaction.id}
                     badgeColor={categories.find(c => c.id === transaction.category)?.color}
-                    title={transaction.merchant?.name ?? transaction.counterparty.name}
+                    // TODO: What if both of these don't exist?
+                    title={transaction.merchant?.name ?? transaction.counterparty.name ?? ''}
                     extra={formatCurrency(transaction.amount)}
-                    onClick={() => setSelectedTransaction(transaction)}
+                    onClick={() => setSelectedTransactionId(transaction.id)}
                   />
                 ))}
               </div>
@@ -108,12 +114,8 @@ const Transactions: React.FC = () => {
         <Nav />
       </s.Wrapper>
 
-      {selectedTransaction && (
-        <TransactionDetails
-          transaction={selectedTransaction}
-          onLeftButtonClick={() => setSelectedTransaction(null)}
-          onClickOutside={() => setSelectedTransaction(null)}
-        />
+      {selectedCategory && (
+        <TransactionFlow transaction={selectedCategory} exitFlow={() => setSelectedTransactionId(null)} />
       )}
     </>
   )

@@ -40,6 +40,7 @@ export const Title = styled.p(({ theme }) => {
 export const Controls = styled.div(({ theme }) => {
   return css`
     justify-content: space-between;
+    padding-bottom: ${theme.space[4]};
 
     &,
     > * {

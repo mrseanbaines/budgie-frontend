@@ -5,7 +5,7 @@ import theme from 'theme'
 
 import * as s from './header.styles'
 
-interface Props {
+export interface Props {
   title: string
   subtitle?: string
   onFiltersClick?: (e: React.MouseEvent<HTMLButtonElement>) => void

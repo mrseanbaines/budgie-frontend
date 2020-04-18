@@ -16,9 +16,10 @@ interface Props {
   transaction: Transaction
   onLeftButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   onClickOutside?: (e: Event) => void
+  onCategoryClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const TransactionDetails: React.FC<Props> = ({ transaction, onLeftButtonClick, onClickOutside }) => {
+const TransactionDetails: React.FC<Props> = ({ transaction, onLeftButtonClick, onClickOutside, onCategoryClick }) => {
   const categories = useSelector(getCategoryItems)
   const category = categories.find(c => c.id === transaction.category)
   const date = new Date(transaction.created)
@@ -38,6 +39,7 @@ const TransactionDetails: React.FC<Props> = ({ transaction, onLeftButtonClick, o
           title={category?.name ?? 'Uncategorised'}
           badgeColor={category?.color}
           extra={<ForwardIcon color={theme.colors.icons.default} />}
+          onClick={onCategoryClick}
         />
       </s.Wrapper>
     </Popup>
