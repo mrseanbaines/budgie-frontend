@@ -33,7 +33,7 @@ const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
 
     try {
       const category: any = await dispatch(createCategory({ name: categoryName, color: categoryColor }))
-      dispatch(updateTransaction(transaction.id, category.id))
+      await dispatch(updateTransaction(transaction.id, category.id))
     } catch (error) {
       console.error(error)
     } finally {

@@ -30,9 +30,9 @@ const EditTransactionCategory: React.FC<Props> = ({
   const categories = useSelector(getCategoryItems)
   const dispatch = useDispatch()
 
-  const handleSetCategory = (categoryId: Category['id']) => {
+  const handleSetCategory = async (categoryId: Category['id']) => {
     try {
-      dispatch(updateTransaction(transactionId, categoryId))
+      await dispatch(updateTransaction(transactionId, categoryId))
     } catch (err) {
       console.error(err)
     } finally {

@@ -25,7 +25,7 @@ const Transactions: React.FC = () => {
   // const [selectedCategoryId, setSelectedCategoryId] = useState<Category['id'] | null>(null)
   const [selectedTransactionId, setSelectedTransactionId] = useState<Transaction['id'] | null>(null)
   const categories = useSelector(getCategoryItems)
-  const selectedCategory = transactions.find(t => t.id === selectedTransactionId)
+  const selectedTransaction = transactions.find(t => t.id === selectedTransactionId)
 
   // TODO: Make this dynamic
   const date = '2020-02-01'
@@ -114,8 +114,8 @@ const Transactions: React.FC = () => {
         <Nav />
       </s.Wrapper>
 
-      {selectedCategory && (
-        <TransactionFlow transaction={selectedCategory} exitFlow={() => setSelectedTransactionId(null)} />
+      {selectedTransaction && (
+        <TransactionFlow transaction={selectedTransaction} exitFlow={() => setSelectedTransactionId(null)} />
       )}
     </>
   )
