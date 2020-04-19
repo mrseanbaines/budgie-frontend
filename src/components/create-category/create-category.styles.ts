@@ -11,17 +11,20 @@ interface CategoryColorProps {
   color: string | undefined
 }
 
-export const CategoryColor = styled.div<CategoryColorProps>(({ theme, color }) => {
+export const CategoryColor = styled.button<CategoryColorProps>(({ theme, color }) => {
   return css`
     width: ${theme.sizes.badge[2]};
     height: ${theme.sizes.badge[2]};
     border-radius: ${theme.radii.circle};
     background: ${color};
     margin: 0 auto;
+    border: none;
+    padding: 0;
+    cursor: pointer;
   `
 })
 
-export const CreateCategory = styled.button(({ theme }) => {
+export const CreateCategory = styled.button.attrs({ type: 'submit' })(({ theme }) => {
   return css`
     padding: ${theme.space[2]} 0;
     line-height: ${theme.space[7]};

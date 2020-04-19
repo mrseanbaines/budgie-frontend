@@ -33,6 +33,7 @@ export const ListItemWrapper = styled(Wrapper).attrs({ as: 'button' })(({ theme 
     color: ${theme.colors.text.default};
     font-size: ${theme.fontSizes[2]};
     cursor: pointer;
+    transition: all 100ms;
   `
 })
 

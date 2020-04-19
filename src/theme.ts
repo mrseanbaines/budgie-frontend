@@ -29,19 +29,22 @@ export const colors = {
 }
 
 const theme = {
+  borders: {
+    default: `1px solid ${colors.grey[2]}`,
+  },
   colors: {
     background: {
       default: colors.white,
       muted: colors.grey[3],
     },
-    text: {
-      default: colors.grey[0],
-      muted: colors.grey[1],
-    },
     icons: {
       default: colors.grey[0],
     },
     overlay: 'rgba(0, 0, 0, 0.7)',
+    text: {
+      default: colors.grey[0],
+      muted: colors.grey[1],
+    },
   },
   fonts: {
     primary: `'${fonts.primary}', 'Roboto', 'Helvetica Neue', sans-serif`,
@@ -51,18 +54,15 @@ const theme = {
     medium: '500',
   },
   radii: {
+    circle: '9999em',
     none: '0',
     rounded: ['8px', '32px'],
-    circle: '9999em',
   },
-  space: ['0px', '4px', '8px', '12px', '16px', '20px', '24px', '28px', '32px'],
   sizes: {
     badge: ['24px', '40px', '80px'],
     icon: ['20px', '28px'],
   },
-  borders: {
-    default: `1px solid ${colors.grey[2]}`,
-  },
+  space: ['0px', '4px', '8px', '12px', '16px', '20px', '24px', '28px', '32px'],
   zIndices: {
     overlay: 1,
     popup: 2,
