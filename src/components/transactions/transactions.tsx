@@ -77,7 +77,7 @@ const Transactions: React.FC = () => {
   return (
     <>
       <s.Wrapper>
-        <Header title='Transactions' subtitle={format(new Date(date), 'MMMM yyyy')} />
+        <Header title='Transactions' subtitle={format(new Date(date), 'MMMM yyyy')} withFilters withDateSelect />
 
         <s.UpperSection>
           <s.Total>

@@ -8,6 +8,7 @@ import 'antd/dist/antd.css'
 import * as serviceWorker from 'serviceWorker'
 import Transactions from 'components/transactions'
 import Overview from 'components/overview'
+import Categories from 'components/categories'
 import store from 'store'
 import theme from 'theme'
 import GlobalStyles from 'styles/global'
@@ -21,6 +22,7 @@ const Index = () => (
         <Switch>
           <Route path='/' exact component={Transactions} />
           <Route path='/overview' component={Overview} />
+          <Route path='/categories' component={Categories} />
         </Switch>
       </Router>
     </ThemeProvider>

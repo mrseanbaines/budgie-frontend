@@ -7,16 +7,16 @@ export const Wrapper = styled.nav(({ theme }) => {
     justify-content: space-between;
     align-items: center;
     padding: ${theme.space[3]} ${theme.space[4]};
-
-    svg {
-      display: block;
-      width: auto;
-      height: ${theme.sizes.icon[0]};
-    }
   `
 })
 
-const Text = styled.p(({ theme }) => {
+export const CenterSection = styled.div(() => {
+  return css`
+    margin: 0 auto;
+  `
+})
+
+const Text = styled.p(() => {
   return css`
     text-align: center;
   `
@@ -35,11 +35,17 @@ export const Subtitle = styled(Text).attrs({ as: 'h2' })(({ theme }) => {
   `
 })
 
-export const Button = styled.button(() => {
+export const Button = styled.button(({ theme }) => {
   return css`
     border: none;
     background: none;
     cursor: pointer;
     padding: 0;
+
+    svg {
+      display: block;
+      width: auto;
+      height: ${theme.sizes.icon[0]};
+    }
   `
 })

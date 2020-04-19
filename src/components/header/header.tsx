@@ -10,22 +10,28 @@ export interface Props {
   subtitle?: string
   onFiltersClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   onCalendarClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  withFilters?: boolean
+  withDateSelect?: boolean
 }
 
-const Nav: React.FC<Props> = ({ title, subtitle, onFiltersClick, onCalendarClick }) => (
+const Nav: React.FC<Props> = ({ title, subtitle, onFiltersClick, onCalendarClick, withFilters, withDateSelect }) => (
   <s.Wrapper>
-    <s.Button onClick={onFiltersClick}>
-      <FiltersIcon color={theme.colors.icons.default} />
-    </s.Button>
+    {withFilters && (
+      <s.Button onClick={onFiltersClick}>
+        <FiltersIcon color={theme.colors.icons.default} />
+      </s.Button>
+    )}
 
-    <div>
+    <s.CenterSection>
       <s.Title>{title}</s.Title>
       {subtitle && <s.Subtitle>{subtitle}</s.Subtitle>}
-    </div>
+    </s.CenterSection>
 
-    <s.Button onClick={onCalendarClick}>
-      <CalendarIcon color={theme.colors.icons.default} />
-    </s.Button>
+    {withDateSelect && (
+      <s.Button onClick={onCalendarClick}>
+        <CalendarIcon color={theme.colors.icons.default} />
+      </s.Button>
+    )}
   </s.Wrapper>
 )
 
