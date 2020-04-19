@@ -7,7 +7,6 @@ export const Input = styled.input(({ theme }) => {
     border: none;
     border-radius: ${theme.radii.rounded[0]};
     font-size: ${theme.fontSizes[1]};
-    line-height: 1;
     width: 100%;
     color: ${theme.colors.text.default};
 

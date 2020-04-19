@@ -33,7 +33,6 @@ export const Title = styled.p(({ theme }) => {
     color: ${theme.colors.text.default};
     font-weight: ${theme.fontWeights.medium};
     font-size: ${theme.fontSizes[2]};
-    line-height: 1;
     text-align: center;
   `
 })

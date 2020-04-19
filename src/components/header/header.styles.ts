@@ -21,7 +21,6 @@ const Text = styled.p(({ theme }) => {
     color: ${theme.colors.text.default};
     font-weight: ${theme.fontWeights.medium};
     text-align: center;
-    line-height: 1;
   `
 })
 

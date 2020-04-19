@@ -6,9 +6,10 @@ import { fontfaces } from './fonts'
 const GlobalStyles = createGlobalStyle`
     ${fontfaces};
 
-    html,
-    body {
+    * {
         font-family: ${props => props.theme.fonts.primary};
+        font-weight: ${props => props.theme.fontWeights.medium};
+        line-height: calc(1em + 2px);
         color: ${props => props.theme.colors.text.default};
     }
 `

@@ -20,14 +20,12 @@ export const TitleGroup = styled.div(({ theme }) => {
 export const Merchant = styled.span(({ theme }) => {
   return css`
     font-size: ${theme.fontSizes[1]};
-    line-height: 1;
   `
 })
 
 export const Date = styled.span(({ theme }) => {
   return css`
     font-size: ${theme.fontSizes[0]};
-    line-height: 1;
     color: ${theme.colors.text.muted};
   `
 })
@@ -35,7 +33,6 @@ export const Date = styled.span(({ theme }) => {
 export const Amount = styled.span(({ theme }) => {
   return css`
     font-size: ${theme.fontSizes[5]};
-    line-height: 1;
   `
 })
 

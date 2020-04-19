@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 export const NewCategory = styled.button(({ theme }) => {
   return css`
     padding: ${theme.space[2]} 0;
-    line-height: ${theme.space[7]};
     border: none;
     width: 100%;
     background: none;

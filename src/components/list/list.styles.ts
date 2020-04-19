@@ -8,7 +8,6 @@ const Wrapper = styled.div(({ theme }) => {
     align-items: center;
     gap: ${theme.space[2]};
     padding: ${theme.space[2]} 0;
-    line-height: ${theme.space[7]};
     border: none;
     width: 100%;
     background: none;
@@ -33,7 +32,6 @@ export const ListItemWrapper = styled(Wrapper).attrs({ as: 'button' })(({ theme 
     color: ${theme.colors.text.default};
     font-size: ${theme.fontSizes[2]};
     cursor: pointer;
-    transition: all 100ms;
   `
 })
 

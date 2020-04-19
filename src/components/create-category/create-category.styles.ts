@@ -27,7 +27,6 @@ export const CategoryColor = styled.button<CategoryColorProps>(({ theme, color }
 export const CreateCategory = styled.button.attrs({ type: 'submit' })(({ theme }) => {
   return css`
     padding: ${theme.space[2]} 0;
-    line-height: ${theme.space[7]};
     border: none;
     width: 100%;
     background: none;
