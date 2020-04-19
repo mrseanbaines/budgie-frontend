@@ -75,7 +75,7 @@ export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch
   }
 }
 
-export const updateTransaction = (transactionId: string, categoryId: any) => async (dispatch: Dispatch) => {
+export const updateTransaction = (transactionId: string, categoryId: string) => async (dispatch: Dispatch) => {
   const { REACT_APP_API_URL } = process.env
 
   try {

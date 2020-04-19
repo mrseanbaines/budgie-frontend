@@ -12,7 +12,7 @@ import { colors } from 'theme'
 
 export interface Props {
   transaction: Transaction
-  exitFlow: any
+  exitFlow: () => void
 }
 
 export enum Step {
@@ -32,7 +32,6 @@ const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
     e.preventDefault()
 
     try {
-      // TODO: Fix typing here
       const category: any = await dispatch(createCategory({ name: categoryName, color: categoryColor }))
       dispatch(updateTransaction(transaction.id, category.id))
     } catch (error) {
