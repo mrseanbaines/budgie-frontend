@@ -18,8 +18,6 @@ export const Wrapper = styled.nav(({ theme }) => {
 
 const Text = styled.p(({ theme }) => {
   return css`
-    color: ${theme.colors.text.default};
-    font-weight: ${theme.fontWeights.medium};
     text-align: center;
   `
 })

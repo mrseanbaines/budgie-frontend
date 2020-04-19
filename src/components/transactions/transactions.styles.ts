@@ -63,6 +63,5 @@ export const TotalLabel = styled.span(({ theme }) => {
 export const TotalAmount = styled.span(({ theme }) => {
   return css`
     font-size: ${theme.fontSizes[5]};
-    color: ${theme.colors.text.default};
   `
 })

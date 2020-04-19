@@ -30,8 +30,6 @@ export const Wrapper = styled.div(({ theme }) => {
 
 export const Title = styled.p(({ theme }) => {
   return css`
-    color: ${theme.colors.text.default};
-    font-weight: ${theme.fontWeights.medium};
     font-size: ${theme.fontSizes[2]};
     text-align: center;
   `

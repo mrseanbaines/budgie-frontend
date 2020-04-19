@@ -10,7 +10,6 @@ export const Wrapper = styled.div(({ theme }) => {
 export const TitleGroup = styled.div(({ theme }) => {
   return css`
     display: grid;
-    color: ${theme.colors.text.default};
     gap: ${theme.space[2]};
     justify-content: center;
     text-align: center;

@@ -29,7 +29,6 @@ export const ListHeadingWrapper = styled(Wrapper)(({ theme }) => {
 export const ListItemWrapper = styled(Wrapper).attrs({ as: 'button' })(({ theme }) => {
   return css`
     grid-template-columns: auto 1fr auto;
-    color: ${theme.colors.text.default};
     font-size: ${theme.fontSizes[2]};
     cursor: pointer;
   `
