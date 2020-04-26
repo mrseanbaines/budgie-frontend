@@ -59,7 +59,7 @@ const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
     setStep(Step['CreateCategory'])
   }
 
-  const steps = {
+  const steps: Record<Step, JSX.Element> = {
     Transaction: (
       <Popup leftButton='close' onLeftButtonClick={exitFlow} onClickOutside={exitFlow}>
         <Transaction transaction={transaction} onCategoryClick={() => setStep(Step['ChooseCategory'])} />
