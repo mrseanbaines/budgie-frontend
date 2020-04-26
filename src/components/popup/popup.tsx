@@ -1,15 +1,19 @@
 import React, { useRef } from 'react'
 
-import { BackIcon, CloseIcon, ForwardIcon, TickIcon, PlusIcon } from 'components/icons'
 import useOnClickOutside from 'hooks/use-on-click-outside'
-import theme from 'theme'
+import { ReactComponent as BackIcon } from 'icons/back.svg'
+import { ReactComponent as CloseIcon } from 'icons/close.svg'
+import { ReactComponent as ForwardIcon } from 'icons/forward.svg'
+import { ReactComponent as TickIcon } from 'icons/tick.svg'
+import { ReactComponent as PlusIcon } from 'icons/plus.svg'
+import { ReactComponent as TrashIcon } from 'icons/trash.svg'
 
 import * as s from './popup.styles'
 
-interface Props {
+export interface Props {
   title?: string
   leftButton?: 'back' | 'close'
-  rightButton?: 'forward' | 'tick' | 'plus'
+  rightButton?: 'forward' | 'tick' | 'plus' | 'trash'
   onLeftButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   onRightButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   onClickOutside?: (e: Event) => void
@@ -28,42 +32,28 @@ const Popup: React.FC<Props> = ({
 
   useOnClickOutside(ref, onClickOutside)
 
+  const icons = {
+    back: <BackIcon />,
+    close: <CloseIcon />,
+    forward: <ForwardIcon />,
+    tick: <TickIcon />,
+    plus: <PlusIcon />,
+    trash: (
+      <s.TrashIcon>
+        <TrashIcon />
+      </s.TrashIcon>
+    ),
+  }
+
   return (
     <s.Container>
       <s.Wrapper ref={ref}>
         <s.Controls>
-          <div>
-            {leftButton && leftButton === 'back' && (
-              <s.Button onClick={onLeftButtonClick}>
-                <BackIcon color={theme.colors.icons.default} />
-              </s.Button>
-            )}
-            {leftButton && leftButton === 'close' && (
-              <s.Button onClick={onLeftButtonClick}>
-                <CloseIcon color={theme.colors.icons.default} />
-              </s.Button>
-            )}
-          </div>
+          <div>{leftButton && <s.Button onClick={onLeftButtonClick}>{icons[leftButton]}</s.Button>}</div>
 
-          {title && <s.Title>{title}</s.Title>}
+          <div>{title && <s.Title>{title}</s.Title>}</div>
 
-          <div>
-            {rightButton && rightButton === 'forward' && (
-              <s.Button onClick={onRightButtonClick}>
-                <ForwardIcon color={theme.colors.icons.default} />
-              </s.Button>
-            )}
-            {rightButton && rightButton === 'tick' && (
-              <s.Button onClick={onRightButtonClick}>
-                <TickIcon color={theme.colors.icons.default} />
-              </s.Button>
-            )}
-            {rightButton && rightButton === 'plus' && (
-              <s.Button onClick={onRightButtonClick}>
-                <PlusIcon color={theme.colors.icons.default} />
-              </s.Button>
-            )}
-          </div>
+          <div>{rightButton && <s.Button onClick={onRightButtonClick}>{icons[rightButton]}</s.Button>}</div>
         </s.Controls>
 
         {children}

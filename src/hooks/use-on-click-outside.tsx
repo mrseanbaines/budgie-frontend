@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-type Handler = (e: Event) => void
+export type Handler = (e: Event) => void
 
 const useOnClickOutside = (ref: React.RefObject<any>, handler?: Handler): void => {
   useEffect(() => {

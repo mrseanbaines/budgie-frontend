@@ -10,7 +10,7 @@ const createRequest = () => ({
   type: CREATE_REQUEST,
 })
 
-interface SuccessPayload {
+export interface SuccessPayload {
   category: Category
   total: number
 }
@@ -24,7 +24,7 @@ const createFailure = () => ({
   type: CREATE_FAILURE,
 })
 
-interface Args {
+export interface Args {
   name: string
   color: string
 }

@@ -37,18 +37,20 @@ export const Title = styled.p(({ theme }) => {
 
 export const Controls = styled.div(({ theme }) => {
   return css`
-    justify-content: space-between;
     padding-bottom: ${theme.space[4]};
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
 
-    &,
-    > * {
-      display: flex;
-      align-items: center;
+    > :nth-child(3) {
+      text-align: right;
     }
 
-    > div {
-      width: ${theme.sizes.icon[1]};
-      height: ${theme.sizes.icon[1]};
+    svg {
+      color: ${theme.colors.icons.default};
+      display: block;
+      width: auto;
+      height: 100%;
     }
   `
 })
@@ -59,12 +61,18 @@ export const Button = styled.button(({ theme }) => {
     background: none;
     cursor: pointer;
     padding: 0;
+    width: ${theme.sizes.icon[1]};
+    height: ${theme.sizes.icon[1]};
+  `
+})
 
-    &,
+export const TrashIcon = styled.div(({ theme }) => {
+  return css`
     svg {
-      display: block;
-      width: auto;
+      width: 100%;
       height: 100%;
+      padding: ${theme.space[1]};
+      color: ${theme.colors.icons.danger};
     }
   `
 })

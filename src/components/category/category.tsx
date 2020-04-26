@@ -1,12 +1,42 @@
-import React from 'react'
-import { Tag } from 'antd'
+import React, { useRef, useEffect } from 'react'
 
-import { Category as CategoryType } from 'store/categories/types'
+import TextInput from 'components/text-input'
 
-interface Props {
-  category: CategoryType
+import * as s from './category.styles'
+
+export interface Props {
+  onEditColor: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onFormSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>
+  categoryColor: string
+  currentName: string
+  setCategoryName: React.Dispatch<React.SetStateAction<string>>
+  submitText?: string
 }
 
-const Category: React.FC<Props> = ({ category }) => <Tag color={category.color}>{category.name}</Tag>
+const Category: React.FC<Props> = props => {
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  })
+
+  return (
+    <s.Wrapper>
+      <s.CategoryColor onClick={props.onEditColor} color={props.categoryColor} />
+
+      <form onSubmit={props.onFormSubmit}>
+        <TextInput
+          ref={inputRef}
+          placeholder='Enter a name'
+          onChange={({ target: { value } }) => props.setCategoryName(value)}
+          value={props.currentName}
+          required
+        />
+
+        {props.submitText && <s.Submit>{props.submitText}</s.Submit>}
+      </form>
+    </s.Wrapper>
+  )
+}
 
 export default Category

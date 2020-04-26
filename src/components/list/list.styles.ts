@@ -34,7 +34,7 @@ export const ListItemWrapper = styled(Wrapper).attrs({ as: 'button' })(({ theme 
   `
 })
 
-type BadgeProps = Pick<ListItemProps, 'badgeColor'>
+export type BadgeProps = Pick<ListItemProps, 'badgeColor'>
 
 export const Badge = styled.div<BadgeProps>(({ theme, badgeColor }) => {
   return css`

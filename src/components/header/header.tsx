@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { FiltersIcon, CalendarIcon } from 'components/icons'
-import theme from 'theme'
+import { ReactComponent as FiltersIcon } from 'icons/filters.svg'
+import { ReactComponent as CalendarIcon } from 'icons/calendar.svg'
 
 import * as s from './header.styles'
 
@@ -14,11 +14,18 @@ export interface Props {
   withDateSelect?: boolean
 }
 
-const Nav: React.FC<Props> = ({ title, subtitle, onFiltersClick, onCalendarClick, withFilters, withDateSelect }) => (
+const Navigation: React.FC<Props> = ({
+  title,
+  subtitle,
+  onFiltersClick,
+  onCalendarClick,
+  withFilters,
+  withDateSelect,
+}) => (
   <s.Wrapper>
     {withFilters && (
       <s.Button onClick={onFiltersClick}>
-        <FiltersIcon color={theme.colors.icons.default} />
+        <FiltersIcon />
       </s.Button>
     )}
 
@@ -29,10 +36,10 @@ const Nav: React.FC<Props> = ({ title, subtitle, onFiltersClick, onCalendarClick
 
     {withDateSelect && (
       <s.Button onClick={onCalendarClick}>
-        <CalendarIcon color={theme.colors.icons.default} />
+        <CalendarIcon />
       </s.Button>
     )}
   </s.Wrapper>
 )
 
-export default Nav
+export default Navigation

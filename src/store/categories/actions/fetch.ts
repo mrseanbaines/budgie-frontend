@@ -10,7 +10,7 @@ const fetchRequest = () => ({
   type: FETCH_REQUEST,
 })
 
-interface SuccessPayload {
+export interface SuccessPayload {
   category: Category
   total: number
 }

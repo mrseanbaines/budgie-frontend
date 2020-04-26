@@ -28,10 +28,7 @@ const reducer: Reducer<State> = (state = initialState, action) => {
         ...state,
         items: state.items.map(item => {
           if (item.id === action.payload.id) {
-            return {
-              ...action.payload,
-              id: action.payload.id,
-            }
+            return action.payload
           }
 
           return item

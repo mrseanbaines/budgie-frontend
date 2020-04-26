@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 
-import { FETCH_SUCCESS, CREATE_SUCCESS } from './constants'
+import { FETCH_SUCCESS, CREATE_SUCCESS, EDIT_SUCCESS } from './constants'
 import { Category } from './types'
 
 export interface State {
@@ -28,6 +28,19 @@ const reducer: Reducer<State> = (state = initialState, action) => {
         ...state,
         items: [...state.items, action.payload.category],
         total: action.payload.total,
+      }
+    }
+
+    case EDIT_SUCCESS: {
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.id === action.payload.id) {
+            return action.payload
+          }
+
+          return item
+        }),
       }
     }
 

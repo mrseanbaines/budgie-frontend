@@ -3,17 +3,17 @@ import { format, isSameDay } from 'date-fns'
 import { groupWith, sum } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 
+import TransactionFlow from 'components/transaction-flow'
+import { ListHeading, ListItem } from 'components/list'
+import Header from 'components/header'
+import Navigation from 'components/navigation'
+import TextInput from 'components/text-input'
 // import { Category } from 'store/categories/types'
 import { fetchCategories } from 'store/categories/actions'
 import { getCategoryItems } from 'store/categories/selectors'
 import { Transaction } from 'store/transactions/types'
 import { fetchTransactions } from 'store/transactions/actions'
 import { getTransactionItems } from 'store/transactions/selectors'
-import TransactionFlow from 'components/transaction-flow'
-import { ListHeading, ListItem } from 'components/list'
-import Header from 'components/header'
-import Nav from 'components/nav'
-import TextInput from 'components/text-input'
 import { formatCurrency } from 'utils'
 
 import * as s from './transactions.styles'
@@ -111,7 +111,7 @@ const Transactions: React.FC = () => {
           </s.Body>
         </s.ScrollableArea>
 
-        <Nav />
+        <Navigation />
       </s.Wrapper>
 
       {selectedTransaction && (

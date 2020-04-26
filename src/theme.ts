@@ -6,6 +6,7 @@ export const colors = {
   black: '#000000',
   white: '#FFFFFF',
   grey: ['#3E4149', '#B8B9BC', '#E6E8E8', '#F6F7F7'],
+  danger: '#DB5461',
   categories: [
     '#DB5461',
     '#8EC6C5',
@@ -39,6 +40,7 @@ const theme = {
     },
     icons: {
       default: colors.grey[0],
+      danger: colors.danger,
     },
     overlay: 'rgba(0, 0, 0, 0.7)',
     text: {

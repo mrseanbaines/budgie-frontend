@@ -11,7 +11,6 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
-    "antd": "^3.26.9",
     "date-fns": "^2.6.0",
     "ky": "^0.16.1",
     "modern-css-reset": "^1.1.0",
@@ -22,8 +21,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "redux": "^4.0.4",
-    "styled-components": "^5.1.0",
-    "uuid": "^3.3.3"
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
     "@mrseanbaines/prettier-config": "^1.1.0",
@@ -41,7 +39,6 @@
     "@types/react-router-dom": "^5.1.2",
     "@types/redux-logger": "^3.0.7",
     "@types/styled-components": "^5.0.1",
-    "@types/uuid": "^3.4.6",
     "prettier": "^2.0.2",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",

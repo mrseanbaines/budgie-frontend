@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" 
+    xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>filters</title>
+    <desc>Created with Sketch.</desc>
+    <g id="filters" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Adjust-Type-2" transform="translate(5.000000, 3.000000)" stroke="currentColor" stroke-width="4">
+            <g id="Group-4">
+                <line x1="0" y1="5.31195335" x2="4.84848485" y2="5.31195335" id="Path-13" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="18" y1="5.31195335" x2="39.8181818" y2="5.31195335" id="Path-13" stroke-linecap="round" stroke-linejoin="round"></line>
+                <ellipse id="Oval" cx="11" cy="4.85714286" rx="5" ry="4.85714286"></ellipse>
+            </g>
+            <g id="Group-4" transform="translate(0.000000, 34.285714)">
+                <line x1="0" y1="5.31195335" x2="4.84848485" y2="5.31195335" id="Path-13" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="18" y1="5.31195335" x2="39.8181818" y2="5.31195335" id="Path-13" stroke-linecap="round" stroke-linejoin="round"></line>
+                <ellipse id="Oval" cx="11" cy="4.85714286" rx="5" ry="4.85714286"></ellipse>
+            </g>
+            <g id="Group-4" transform="translate(20.000000, 22.632653) scale(-1, 1) translate(-20.000000, -22.632653) translate(0.000000, 17.632653)">
+                <line x1="0" y1="5.31195335" x2="4.84848485" y2="5.31195335" id="Path-13" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="18" y1="5.31195335" x2="39.8181818" y2="5.31195335" id="Path-13" stroke-linecap="round" stroke-linejoin="round"></line>
+                <ellipse id="Oval" cx="11" cy="4.85714286" rx="5" ry="4.85714286"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.nav(({ theme }) => {
+export const Wrapper = styled.header(({ theme }) => {
   return css`
     background: ${theme.colors.background.muted};
     display: flex;

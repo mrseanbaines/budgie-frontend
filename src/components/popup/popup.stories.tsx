@@ -14,6 +14,10 @@ export const WithControls = () => <Popup leftButton='back' rightButton='plus' ti
 
 export const WithBackButton = () => <Popup leftButton='back' />
 
+export const WithBackButtonAndTitle = () => <Popup leftButton='back' title='Select a Category' />
+
+export const WithPlusButtonAndTitle = () => <Popup rightButton='plus' title='Select a Category' />
+
 export const WithCloseButton = () => <Popup leftButton='close' />
 
 export const WithForwardButton = () => <Popup rightButton='forward' />

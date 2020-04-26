@@ -13,7 +13,7 @@ import {
   UPDATE_FAILURE,
 } from './constants'
 
-interface SuccessPayload {
+export interface SuccessPayload {
   items: Transaction[]
   total: number
 }
