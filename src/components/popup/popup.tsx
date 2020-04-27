@@ -56,7 +56,7 @@ const Popup: React.FC<Props> = ({
           <div>{rightButton && <s.Button onClick={onRightButtonClick}>{icons[rightButton]}</s.Button>}</div>
         </s.Controls>
 
-        {children}
+        <s.ScrollableArea>{children}</s.ScrollableArea>
       </s.Wrapper>
     </s.Container>
   )

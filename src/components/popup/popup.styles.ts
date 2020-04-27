@@ -24,7 +24,9 @@ export const Wrapper = styled.div(({ theme }) => {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     width: 100%;
-    overflow: auto;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
   `
 })
 
@@ -74,5 +76,11 @@ export const TrashIcon = styled.div(({ theme }) => {
       padding: ${theme.space[1]};
       color: ${theme.colors.icons.danger};
     }
+  `
+})
+
+export const ScrollableArea = styled.div(() => {
+  return css`
+    overflow: auto;
   `
 })
