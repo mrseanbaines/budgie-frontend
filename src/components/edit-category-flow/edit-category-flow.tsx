@@ -12,13 +12,8 @@ export interface Props {
   exitFlow: () => void
 }
 
-export enum Step {
-  EditCategory = 'EditCategory',
-  ColorPicker = 'ColorPicker',
-}
-
 const EditCategoryFlow: React.FC<Props> = ({ category, exitFlow }) => {
-  const [step, setStep] = useState<Step>(Step['EditCategory'])
+  const [activeStep, setActiveStep] = useState(0)
   const [categoryName, setCategoryName] = useState(category.name)
   const [categoryColor, setCategoryColor] = useState(category.color)
   const dispatch = useDispatch()
@@ -39,35 +34,26 @@ const EditCategoryFlow: React.FC<Props> = ({ category, exitFlow }) => {
 
   const onSetCategoryColor = (color: CategoryType['color']) => {
     setCategoryColor(color)
-    setStep(Step['EditCategory'])
+    setActiveStep(0)
   }
 
-  const steps: Record<Step, JSX.Element> = {
-    EditCategory: (
-      <Popup onClickOutside={exitFlow} onLeftButtonClick={exitFlow} title='Edit Category' leftButton='close'>
-        <Category
-          onEditColor={() => setStep(Step['ColorPicker'])}
-          onFormSubmit={handleEditCategory}
-          categoryColor={categoryColor}
-          currentName={categoryName}
-          setCategoryName={setCategoryName}
-          submitText='Save'
-        />
-      </Popup>
-    ),
-    ColorPicker: (
-      <Popup
-        onClickOutside={exitFlow}
-        title='Pick a Color'
-        leftButton='back'
-        onLeftButtonClick={() => setStep(Step['EditCategory'])}
-      >
-        <ColorPicker currentColor={categoryColor} onSetCategoryColor={onSetCategoryColor} />
-      </Popup>
-    ),
-  }
+  const steps = [
+    <Popup onClickOutside={exitFlow} onLeftButtonClick={exitFlow} title='Edit Category' leftButton='close'>
+      <Category
+        onEditColor={() => setActiveStep(1)}
+        onFormSubmit={handleEditCategory}
+        categoryColor={categoryColor}
+        currentName={categoryName}
+        setCategoryName={setCategoryName}
+        submitText='Save'
+      />
+    </Popup>,
+    <Popup onClickOutside={exitFlow} title='Pick a Color' leftButton='back' onLeftButtonClick={() => setActiveStep(0)}>
+      <ColorPicker currentColor={categoryColor} onSetCategoryColor={onSetCategoryColor} />
+    </Popup>,
+  ]
 
-  return steps[step]
+  return steps[activeStep]
 }
 
 export default EditCategoryFlow

@@ -17,15 +17,8 @@ export interface Props {
   exitFlow: () => void
 }
 
-export enum Step {
-  Transaction = 'Transaction',
-  ChooseCategory = 'ChooseCategory',
-  CreateCategory = 'CreateCategory',
-  ColorPicker = 'ColorPicker',
-}
-
 const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
-  const [step, setStep] = useState<Step>(Step['Transaction'])
+  const [activeStep, setActiveStep] = useState(0)
   const [categoryName, setCategoryName] = useState('')
   const [categoryColor, setCategoryColor] = useState(colors.categories[0])
   const dispatch = useDispatch()
@@ -38,7 +31,7 @@ const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
 
       await dispatch(updateTransaction(transaction.id, category.id))
 
-      setStep(Step['Transaction'])
+      setActiveStep(0)
     } catch (error) {
       console.error(error)
     }
@@ -48,7 +41,7 @@ const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
     try {
       await dispatch(updateTransaction(transaction.id, categoryId))
 
-      setStep(Step['Transaction'])
+      setActiveStep(0)
     } catch (error) {
       console.error(error)
     }
@@ -56,58 +49,42 @@ const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
 
   const onSetCategoryColor = (color: CategoryType['color']) => {
     setCategoryColor(color)
-    setStep(Step['CreateCategory'])
+    setActiveStep(2)
   }
 
-  const steps: Record<Step, JSX.Element> = {
-    Transaction: (
-      <Popup leftButton='close' onLeftButtonClick={exitFlow} onClickOutside={exitFlow}>
-        <Transaction transaction={transaction} onCategoryClick={() => setStep(Step['ChooseCategory'])} />
-      </Popup>
-    ),
-    ChooseCategory: (
-      <Popup
-        title='Choose a Category'
-        leftButton='back'
-        onLeftButtonClick={() => setStep(Step['Transaction'])}
-        onClickOutside={exitFlow}
-      >
-        <ChooseCategory
-          onCategoryClick={onCategoryClick}
-          onCreateCategoryClick={() => setStep(Step['CreateCategory'])}
-        />
-      </Popup>
-    ),
-    CreateCategory: (
-      <Popup
-        onClickOutside={exitFlow}
-        onLeftButtonClick={() => setStep(Step['ChooseCategory'])}
-        title='Create a Category'
-        leftButton='back'
-      >
-        <Category
-          onEditColor={() => setStep(Step['ColorPicker'])}
-          onFormSubmit={handleCreateCategory}
-          categoryColor={categoryColor}
-          currentName={categoryName}
-          setCategoryName={setCategoryName}
-          submitText='Create'
-        />
-      </Popup>
-    ),
-    ColorPicker: (
-      <Popup
-        onClickOutside={exitFlow}
-        title='Pick a Color'
-        leftButton='back'
-        onLeftButtonClick={() => setStep(Step['CreateCategory'])}
-      >
-        <ColorPicker currentColor={categoryColor} onSetCategoryColor={onSetCategoryColor} />
-      </Popup>
-    ),
-  }
+  const steps = [
+    <Popup leftButton='close' onLeftButtonClick={exitFlow} onClickOutside={exitFlow}>
+      <Transaction transaction={transaction} onCategoryClick={() => setActiveStep(1)} />
+    </Popup>,
+    <Popup
+      title='Choose a Category'
+      leftButton='back'
+      onLeftButtonClick={() => setActiveStep(0)}
+      onClickOutside={exitFlow}
+    >
+      <ChooseCategory onCategoryClick={onCategoryClick} onCreateCategoryClick={() => setActiveStep(2)} />
+    </Popup>,
+    <Popup
+      onClickOutside={exitFlow}
+      onLeftButtonClick={() => setActiveStep(1)}
+      title='Create a Category'
+      leftButton='back'
+    >
+      <Category
+        onEditColor={() => setActiveStep(3)}
+        onFormSubmit={handleCreateCategory}
+        categoryColor={categoryColor}
+        currentName={categoryName}
+        setCategoryName={setCategoryName}
+        submitText='Create'
+      />
+    </Popup>,
+    <Popup onClickOutside={exitFlow} title='Pick a Color' leftButton='back' onLeftButtonClick={() => setActiveStep(2)}>
+      <ColorPicker currentColor={categoryColor} onSetCategoryColor={onSetCategoryColor} />
+    </Popup>,
+  ]
 
-  return steps[step]
+  return steps[activeStep]
 }
 
 export default TransactionFlow
