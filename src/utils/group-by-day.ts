@@ -2,7 +2,7 @@ import { isSameDay } from 'date-fns'
 import { groupWith } from 'ramda'
 
 interface Item {
-  created: Date
+  created: string
 }
 
 const groupByDay = <T extends Item>(items: T[]) =>
