@@ -7,7 +7,7 @@ export interface Counterparty {
 }
 
 export interface Transaction {
-  created: string
+  created: Date
   id: string
   amount: number
   notes: string

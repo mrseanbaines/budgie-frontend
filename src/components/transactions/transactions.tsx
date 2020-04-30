@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { format, isSameDay } from 'date-fns'
-import { groupWith, sum } from 'ramda'
+import { format } from 'date-fns'
+import { sum } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 
 import TransactionFlow from 'components/transaction-flow'
@@ -14,7 +14,7 @@ import { getCategoryItems } from 'store/categories/selectors'
 import { Transaction } from 'store/transactions/types'
 import { fetchTransactions } from 'store/transactions/actions'
 import { getTransactionItems } from 'store/transactions/selectors'
-import { formatCurrency } from 'utils'
+import { formatCurrency, groupByDay } from 'utils'
 
 import * as s from './transactions.styles'
 
@@ -56,10 +56,7 @@ const Transactions: React.FC = () => {
   // .filter(categoryFilter)
 
   // TODO: Reorganise this?
-  const transactionsByDay = groupWith(
-    (a, b) => isSameDay(new Date(a.created), new Date(b.created)),
-    filteredTransactions,
-  ).map(dayTransactions => ({
+  const transactionsByDay = groupByDay(filteredTransactions).map(dayTransactions => ({
     date: format(new Date(dayTransactions[0].created), 'E d MMM'),
     total: sum(dayTransactions.map(t => t.amount)),
     transactions: dayTransactions,
