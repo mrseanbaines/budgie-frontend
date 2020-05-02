@@ -28,7 +28,7 @@ const Popup: React.FC<Props> = ({
   onRightButtonClick,
   onClickOutside,
 }) => {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(ref, onClickOutside)
 

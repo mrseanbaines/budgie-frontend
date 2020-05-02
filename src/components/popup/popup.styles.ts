@@ -13,6 +13,7 @@ export const Container = styled.div(({ theme }) => {
     padding: ${theme.space[2]};
     padding-bottom: 0;
     background: ${theme.colors.overlay};
+    z-index: ${theme.zIndices.overlay};
   `
 })
 

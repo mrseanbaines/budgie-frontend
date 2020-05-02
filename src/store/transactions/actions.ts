@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import ky from 'ky'
 import { addMonths } from 'date-fns'
 
-import { Transaction } from './types'
+import { Transaction, TransactionSummary } from './types'
 
 import {
   FETCH_REQUEST,
@@ -11,24 +11,44 @@ import {
   UPDATE_REQUEST,
   UPDATE_SUCCESS,
   UPDATE_FAILURE,
+  FETCH_SUMMARIES_REQUEST,
+  FETCH_SUMMARIES_SUCCESS,
+  FETCH_SUMMARIES_FAILURE,
 } from './constants'
-
-export interface SuccessPayload {
-  items: Transaction[]
-  total: number
-}
 
 export const fetchRequest = () => ({
   type: FETCH_REQUEST,
 })
 
-export const fetchSuccess = (payload: SuccessPayload) => ({
+export interface FetchSuccessPayload {
+  items: Transaction[]
+  total: number
+}
+
+export const fetchSuccess = (payload: FetchSuccessPayload) => ({
   type: FETCH_SUCCESS,
   payload,
 })
 
 export const fetchFailure = () => ({
   type: FETCH_FAILURE,
+})
+
+export const fetchSummariesRequest = () => ({
+  type: FETCH_SUMMARIES_REQUEST,
+})
+
+export interface FetchSummariesSuccessPayload {
+  items: TransactionSummary[]
+}
+
+export const fetchSummariesSuccess = (payload: FetchSummariesSuccessPayload) => ({
+  type: FETCH_SUMMARIES_SUCCESS,
+  payload,
+})
+
+export const fetchSummariesFailure = () => ({
+  type: FETCH_SUMMARIES_FAILURE,
 })
 
 export const updateRequest = () => ({
@@ -70,6 +90,27 @@ export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch
     }
 
     dispatch(fetchSuccess(json))
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+export const fetchTransactionsSummaries = () => async (dispatch: Dispatch) => {
+  try {
+    dispatch(fetchSummariesRequest())
+
+    const { REACT_APP_API_URL } = process.env
+
+    const response = await ky.get(`${REACT_APP_API_URL}/transactions/summary`)
+
+    const json = await response.json()
+
+    if (!response.ok) {
+      dispatch(fetchSummariesFailure())
+      return
+    }
+
+    dispatch(fetchSummariesSuccess(json))
   } catch (error) {
     throw new Error(error)
   }

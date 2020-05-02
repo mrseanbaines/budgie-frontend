@@ -67,7 +67,6 @@ const theme = {
   space: ['0px', '4px', '8px', '12px', '16px', '20px', '24px', '28px', '32px'],
   zIndices: {
     overlay: 1,
-    popup: 2,
   },
 }
 

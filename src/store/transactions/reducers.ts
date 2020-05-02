@@ -1,16 +1,18 @@
 import { Reducer } from 'redux'
 
-import { FETCH_SUCCESS, UPDATE_SUCCESS } from './constants'
-import { Transaction } from './types'
+import { FETCH_SUCCESS, UPDATE_SUCCESS, FETCH_SUMMARIES_SUCCESS } from './constants'
+import { Transaction, TransactionSummary } from './types'
 
 export interface State {
   items: Transaction[]
   total: number
+  summaries: TransactionSummary[]
 }
 
 const initialState: State = {
   items: [],
   total: 0,
+  summaries: [],
 }
 
 const reducer: Reducer<State> = (state = initialState, action) => {
@@ -20,6 +22,13 @@ const reducer: Reducer<State> = (state = initialState, action) => {
         ...state,
         items: action.payload.items,
         total: action.payload.total,
+      }
+    }
+
+    case FETCH_SUMMARIES_SUCCESS: {
+      return {
+        ...state,
+        summaries: action.payload,
       }
     }
 

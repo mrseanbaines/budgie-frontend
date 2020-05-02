@@ -1,41 +1,50 @@
 import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns'
-import { sum } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
+import * as R from 'ramda'
 
+import DateSelect from 'components/date-select'
 import TransactionFlow from 'components/transaction-flow'
 import { ListHeading, ListItem } from 'components/list'
 import Header from 'components/header'
 import Navigation from 'components/navigation'
 import TextInput from 'components/text-input'
+import { Props as DateSelectProps } from 'components/date-select/date-select'
 // import { Category } from 'store/categories/types'
 import { fetchCategories } from 'store/categories/actions'
 import { getCategoryItems } from 'store/categories/selectors'
 import { Transaction } from 'store/transactions/types'
-import { fetchTransactions } from 'store/transactions/actions'
-import { getTransactionItems } from 'store/transactions/selectors'
+import { fetchTransactions, fetchTransactionsSummaries } from 'store/transactions/actions'
+import { getTransactionItems, getTransactionsSummaries } from 'store/transactions/selectors'
 import { formatCurrency, groupByDay } from 'utils'
 
 import * as s from './transactions.styles'
 
 const Transactions: React.FC = () => {
   const transactions = useSelector(getTransactionItems)
+  const transactionsSummaries = useSelector(getTransactionsSummaries)
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
+  const [date, setDate] = useState<string | null>(null)
+  const [showDateSelect, setShowDateSelect] = useState(false)
   // const [selectedCategoryId, setSelectedCategoryId] = useState<Category['id'] | null>(null)
   const [selectedTransactionId, setSelectedTransactionId] = useState<Transaction['id'] | null>(null)
   const categories = useSelector(getCategoryItems)
   const selectedTransaction = transactions.find(t => t.id === selectedTransactionId)
 
-  // TODO: Make this dynamic
-  const date = '2020-02-01'
+  useEffect(() => {
+    dispatch(fetchTransactionsSummaries())
+    dispatch(fetchCategories())
+  }, [dispatch])
 
   useEffect(() => {
-    // TODO: Revisit this
-    const d = date
-    dispatch(fetchTransactions(d))
-    dispatch(fetchCategories())
+    date && dispatch(fetchTransactions(date))
   }, [dispatch, date])
+
+  useEffect(() => {
+    const latestDate = R.last(transactionsSummaries)?.date
+    latestDate && setDate(latestDate)
+  }, [transactionsSummaries])
 
   const searchFilter = (transaction: Transaction) => {
     return (
@@ -55,14 +64,13 @@ const Transactions: React.FC = () => {
     .filter(searchFilter)
   // .filter(categoryFilter)
 
-  // TODO: Reorganise this?
   const transactionsByDay = groupByDay(filteredTransactions).map(dayTransactions => ({
     date: format(new Date(dayTransactions[0].created), 'E d MMM'),
-    total: sum(dayTransactions.map(t => t.amount)),
+    total: R.sum(dayTransactions.map(t => t.amount)),
     transactions: dayTransactions,
   }))
 
-  const total = sum(
+  const total = R.sum(
     transactions
       .filter(t => t.amount < 0)
       // .filter(t => t.include_in_spending)
@@ -71,10 +79,25 @@ const Transactions: React.FC = () => {
       .map(t => t.amount),
   )
 
+  const onDateSelect: DateSelectProps['onDateSelect'] = item => {
+    setDate(item.date)
+    setShowDateSelect(false)
+  }
+
   return (
     <>
       <s.Wrapper>
-        <Header title='Transactions' subtitle={format(new Date(date), 'MMMM yyyy')} withFilters withDateSelect />
+        {date && (
+          <Header
+            title='Transactions'
+            subtitle={format(new Date(date), 'MMMM yyyy')}
+            withFilters
+            withDateSelect
+            onDateSelectClick={() => setShowDateSelect(showDateSelect => !showDateSelect)}
+          />
+        )}
+
+        {showDateSelect && <DateSelect items={transactionsSummaries} onDateSelect={onDateSelect} />}
 
         <s.UpperSection>
           <s.Total>

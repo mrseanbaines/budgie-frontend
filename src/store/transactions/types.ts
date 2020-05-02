@@ -17,3 +17,8 @@ export interface Transaction {
   include_in_spending: boolean
   is_load: boolean
 }
+
+export interface TransactionSummary {
+  date: string
+  total: number
+}
