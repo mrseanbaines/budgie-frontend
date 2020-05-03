@@ -36,7 +36,7 @@ export const Amount = styled.span(({ theme }) => {
 })
 
 export interface ImageProps {
-  src?: string | undefined
+  src?: string
 }
 
 export const Image = styled.div<ImageProps>(({ theme, src }) => {

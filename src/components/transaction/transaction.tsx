@@ -22,7 +22,7 @@ const Transaction: React.FC<Props> = ({ transaction, onCategoryClick }) => {
 
   return (
     <s.Wrapper>
-      <s.Image />
+      <s.Image src={transaction.merchant?.logo} />
 
       <s.TitleGroup>
         <s.Amount>{formatCurrency(transaction.amount)}</s.Amount>

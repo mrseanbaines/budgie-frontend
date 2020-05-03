@@ -7,6 +7,7 @@ export const transaction: Transaction = {
   notes: '',
   merchant: {
     name: 'Dark Habit Coffee',
+    logo: 'https://www.fillmurray.com/80/80',
   },
   category: '5e98b62230d5c04b0fd2d9e8',
   include_in_spending: true,

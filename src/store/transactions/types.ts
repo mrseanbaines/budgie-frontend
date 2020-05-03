@@ -1,5 +1,6 @@
 export interface Merchant {
   name: string
+  logo: string
 }
 
 export interface Counterparty {
