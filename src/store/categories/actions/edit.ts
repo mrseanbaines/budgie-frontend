@@ -30,6 +30,7 @@ const editCategory = (id: Category['id'], body: Args) => async (dispatch: Dispat
 
     const response = await ky.put(`${REACT_APP_API_URL}/categories/${id}`, {
       json: body,
+      credentials: 'include',
     })
     const data = await response.json()
 

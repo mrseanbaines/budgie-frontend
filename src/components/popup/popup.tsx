@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-import useOnClickOutside from 'hooks/use-on-click-outside'
+import { useOnClickOutside } from 'hooks'
 import { ReactComponent as BackIcon } from 'icons/back.svg'
 import { ReactComponent as CloseIcon } from 'icons/close.svg'
 import { ReactComponent as ForwardIcon } from 'icons/forward.svg'

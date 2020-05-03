@@ -46,6 +46,7 @@ const theme = {
     text: {
       default: colors.grey[0],
       muted: colors.grey[1],
+      danger: colors.danger,
     },
   },
   fonts: {

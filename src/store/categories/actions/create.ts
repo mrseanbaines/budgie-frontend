@@ -35,6 +35,7 @@ const createCategory = ({ name, color }: Args) => async (dispatch: Dispatch): Pr
 
     const response = await ky.post(`${REACT_APP_API_URL}/categories`, {
       json: { name, color },
+      credentials: 'include',
     })
     const data = await response.json()
 

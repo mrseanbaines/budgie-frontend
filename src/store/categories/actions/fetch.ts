@@ -28,7 +28,9 @@ const fetchCategories = () => async (dispatch: Dispatch) => {
   try {
     dispatch(fetchRequest())
 
-    const response = await ky.get(`${REACT_APP_API_URL}/categories`)
+    const response = await ky.get(`${REACT_APP_API_URL}/categories`, {
+      credentials: 'include',
+    })
     const json = await response.json()
 
     dispatch(fetchSuccess(json))

@@ -80,6 +80,7 @@ export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      credentials: 'include',
     })
 
     const json = await response.json()
@@ -101,7 +102,9 @@ export const fetchTransactionsSummaries = () => async (dispatch: Dispatch) => {
 
     const { REACT_APP_API_URL } = process.env
 
-    const response = await ky.get(`${REACT_APP_API_URL}/transactions/summary`)
+    const response = await ky.get(`${REACT_APP_API_URL}/transactions/summary`, {
+      credentials: 'include',
+    })
 
     const json = await response.json()
 
@@ -124,6 +127,7 @@ export const updateTransaction = (transactionId: string, categoryId: string | nu
 
     const response = await ky.put(`${REACT_APP_API_URL}/transactions/${transactionId}`, {
       json: { category: categoryId },
+      credentials: 'include',
     })
 
     const json = await response.json()

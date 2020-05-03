@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 
 import TextInput from 'components/text-input'
+import { useFocusInput } from 'hooks'
 
 import * as s from './category.styles'
 
@@ -14,11 +15,7 @@ export interface Props {
 }
 
 const Category: React.FC<Props> = props => {
-  const inputRef = useRef<HTMLInputElement | null>(null)
-
-  useEffect(() => {
-    inputRef.current?.focus()
-  })
+  const inputRef = useFocusInput()
 
   return (
     <s.Wrapper>

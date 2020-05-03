@@ -1,12 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
 import * as serviceWorker from 'serviceWorker'
-import Transactions from 'components/transactions'
-import Categories from 'components/categories'
+import Routes from './routes'
 import store from 'store'
 import theme from 'theme'
 import GlobalStyles from 'styles/global'
@@ -15,13 +13,7 @@ const Index = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-
-      <Router>
-        <Switch>
-          <Route path='/' exact component={Transactions} />
-          <Route path='/categories' component={Categories} />
-        </Switch>
-      </Router>
+      <Routes />
     </ThemeProvider>
   </Provider>
 )
