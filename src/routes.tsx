@@ -1,27 +1,20 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import Cookies from 'js-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Transactions from 'components/transactions'
 import Categories from 'components/categories'
 import Profile from 'components/profile'
 import Login from 'components/login'
-import { setIsLoggedIn } from 'store/user/actions'
-import { getUser } from 'store/user/selectors'
+import { loadUser } from 'store/auth/actions'
+import { getIsAuthenticated } from 'store/auth/selectors'
 
 const Routes = () => {
-  const { isLoggedIn } = useSelector(getUser)
+  const isAuthenticated = useSelector(getIsAuthenticated)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const accessToken = Cookies.get('access_token')
-
-    if (accessToken) {
-      dispatch(setIsLoggedIn(true))
-    } else {
-      dispatch(setIsLoggedIn(false))
-    }
+    dispatch(loadUser())
   }, [dispatch])
 
   return (
@@ -29,7 +22,7 @@ const Routes = () => {
       <Switch>
         <Route path='/login' component={Login} />
 
-        {isLoggedIn ? (
+        {isAuthenticated ? (
           <>
             <Route path='/' exact component={Transactions} />
             <Route path='/categories' component={Categories} />

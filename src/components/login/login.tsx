@@ -1,54 +1,30 @@
 import React, { useState } from 'react'
-import ky from 'ky'
 import { Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import TextInput from 'components/text-input'
-import { setIsLoggedIn, setUser } from 'store/user/actions'
-import { getUser } from 'store/user/selectors'
-import { User } from 'store/user/types'
+import { login } from 'store/auth/actions'
+import { getIsAuthenticated } from 'store/auth/selectors'
 import { useFocusInput } from 'hooks'
 
 import * as s from './login.styles'
 
 const Login: React.FC = () => {
-  const [formError, setFormError] = useState<string | null>(null)
+  // const [formError, setFormError] = useState<string | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
-  const { isLoggedIn } = useSelector(getUser)
+  const isAuthenticated = useSelector(getIsAuthenticated)
 
   const inputRef = useFocusInput()
 
-  const login = async (e: React.FormEvent<HTMLFormElement>) => {
-    const { REACT_APP_API_URL } = process.env
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    interface Response {
-      token: string | null
-      user: User | null
-      error: string | null
-    }
-
-    const { user, error } = await ky
-      .post(`${REACT_APP_API_URL}/auth`, {
-        json: { email, password },
-        credentials: 'include',
-        throwHttpErrors: false,
-      })
-      .json<Response>()
-
-    console.log({ user, error })
-
-    if (error) {
-      setFormError(error)
-    } else if (user) {
-      dispatch(setIsLoggedIn(true))
-      dispatch(setUser(user))
-    }
+    dispatch(login(email, password))
   }
 
-  if (isLoggedIn) {
+  if (isAuthenticated) {
     return <Redirect to='/' />
   }
 
@@ -56,7 +32,7 @@ const Login: React.FC = () => {
     <s.Wrapper>
       <s.Title>Log in</s.Title>
 
-      <s.Form onSubmit={login}>
+      <s.Form onSubmit={handleLogin}>
         <s.Fieldset>
           <s.Label htmlFor='email'>Email</s.Label>
 
@@ -64,6 +40,7 @@ const Login: React.FC = () => {
             ref={inputRef}
             id='email'
             name='email'
+            type='email'
             value={email}
             placeholder='john@example.com'
             onChange={({ target: { value } }) => setEmail(value)}
@@ -83,7 +60,7 @@ const Login: React.FC = () => {
           />
         </s.Fieldset>
 
-        {formError && <s.FormError>{formError}</s.FormError>}
+        {/* {formError && <s.FormError>{formError}</s.FormError>} */}
 
         <s.Submit type='submit'>Log in</s.Submit>
       </s.Form>

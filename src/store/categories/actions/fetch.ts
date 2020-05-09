@@ -1,6 +1,9 @@
 import { Dispatch } from 'redux'
 import ky from 'ky'
 
+import { getAuthHeaders } from 'utils'
+import { State } from 'store'
+
 import { FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILURE } from '../constants'
 import { Category } from '../types'
 
@@ -24,12 +27,13 @@ const fetchFailure = () => ({
   type: FETCH_FAILURE,
 })
 
-const fetchCategories = () => async (dispatch: Dispatch) => {
+const fetchCategories = () => async (dispatch: Dispatch, getState: () => State) => {
   try {
     dispatch(fetchRequest())
 
     const response = await ky.get(`${REACT_APP_API_URL}/categories`, {
       credentials: 'include',
+      headers: getAuthHeaders(getState),
     })
     const json = await response.json()
 

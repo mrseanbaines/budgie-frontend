@@ -1,18 +1,16 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import Cookies from 'js-cookie'
 
-import { setIsLoggedIn } from 'store/user/actions'
+import { logout } from 'store/auth/actions'
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch()
 
-  const logout = () => {
-    Cookies.remove('access_token')
-    dispatch(setIsLoggedIn(false))
+  const handleLogout = () => {
+    dispatch(logout())
   }
 
-  return <button onClick={logout}>Log out</button>
+  return <button onClick={handleLogout}>Log out</button>
 }
 
 export default Profile

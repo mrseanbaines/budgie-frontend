@@ -8,6 +8,7 @@ export const Input = styled.input(({ theme }) => {
     border-radius: ${theme.radii.rounded[0]};
     font-size: ${theme.fontSizes[1]};
     width: 100%;
+    appearance: none;
 
     ::placeholder {
       color: ${theme.colors.text.muted};

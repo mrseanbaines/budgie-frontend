@@ -2,6 +2,9 @@ import { Dispatch } from 'redux'
 import ky from 'ky'
 import { addMonths } from 'date-fns'
 
+import { State } from 'store'
+import { getAuthHeaders } from 'utils'
+
 import { Transaction, TransactionSummary } from './types'
 
 import {
@@ -64,7 +67,7 @@ export const updateFailure = () => ({
   type: UPDATE_FAILURE,
 })
 
-export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch) => {
+export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch, getState: () => State) => {
   const query = new URLSearchParams({
     since: new Date(fromDate).toISOString(),
     before: new Date(addMonths(new Date(fromDate), 1)).toISOString(),
@@ -73,14 +76,11 @@ export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch
   try {
     dispatch(fetchRequest())
 
-    const accessToken = sessionStorage.getItem('token')
     const { REACT_APP_API_URL } = process.env
 
     const response = await ky.get(`${REACT_APP_API_URL}/transactions?${query}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
       credentials: 'include',
+      headers: getAuthHeaders(getState),
     })
 
     const json = await response.json()
@@ -96,7 +96,7 @@ export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch
   }
 }
 
-export const fetchTransactionsSummaries = () => async (dispatch: Dispatch) => {
+export const fetchTransactionsSummaries = () => async (dispatch: Dispatch, getState: () => State) => {
   try {
     dispatch(fetchSummariesRequest())
 
@@ -104,6 +104,7 @@ export const fetchTransactionsSummaries = () => async (dispatch: Dispatch) => {
 
     const response = await ky.get(`${REACT_APP_API_URL}/transactions/summary`, {
       credentials: 'include',
+      headers: getAuthHeaders(getState),
     })
 
     const json = await response.json()
@@ -119,7 +120,10 @@ export const fetchTransactionsSummaries = () => async (dispatch: Dispatch) => {
   }
 }
 
-export const updateTransaction = (transactionId: string, categoryId: string | null) => async (dispatch: Dispatch) => {
+export const updateTransaction = (transactionId: string, categoryId: string | null) => async (
+  dispatch: Dispatch,
+  getState: () => State,
+) => {
   const { REACT_APP_API_URL } = process.env
 
   try {
@@ -128,6 +132,7 @@ export const updateTransaction = (transactionId: string, categoryId: string | nu
     const response = await ky.put(`${REACT_APP_API_URL}/transactions/${transactionId}`, {
       json: { category: categoryId },
       credentials: 'include',
+      headers: getAuthHeaders(getState),
     })
 
     const json = await response.json()

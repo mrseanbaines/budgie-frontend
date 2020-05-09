@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "date-fns": "^2.6.0",
-    "js-cookie": "^2.2.1",
     "ky": "^0.16.1",
     "modern-css-reset": "^1.1.0",
     "ramda": "^0.27.0",
