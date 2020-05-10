@@ -73,30 +73,32 @@ const Transactions: React.FC = () => {
   return (
     <>
       <s.Wrapper>
-        {activeDate && (
-          <Header
-            title='Transactions'
-            subtitle={format(new Date(activeDate), 'MMMM yyyy')}
-            withFilters
-            withDateSelect
-            onDateSelectClick={() => setShowDateSelect(showDateSelect => !showDateSelect)}
-          />
-        )}
+        <s.HeaderWrapper>
+          {activeDate && (
+            <Header
+              title='Transactions'
+              subtitle={format(new Date(activeDate), 'MMMM yyyy')}
+              withFilters
+              withDateSelect
+              onDateSelectClick={() => setShowDateSelect(showDateSelect => !showDateSelect)}
+            />
+          )}
 
-        {showDateSelect && <DateSelect items={transactionsSummaries} onDateSelect={onDateSelect} />}
+          {showDateSelect && <DateSelect items={transactionsSummaries} onDateSelect={onDateSelect} />}
 
-        <s.UpperSection>
-          <s.Total>
-            <s.TotalLabel>Total Spent</s.TotalLabel>
-            <s.TotalAmount>{formatCurrency(total)}</s.TotalAmount>
-          </s.Total>
+          <s.UpperSection>
+            <s.Total>
+              <s.TotalLabel>Total Spent</s.TotalLabel>
+              <s.TotalAmount>{formatCurrency(total)}</s.TotalAmount>
+            </s.Total>
 
-          <TextInput
-            value={searchQuery}
-            placeholder='Search for a merchant'
-            onChange={({ target: { value } }) => setSearchQuery(value)}
-          />
-        </s.UpperSection>
+            <TextInput
+              value={searchQuery}
+              placeholder='Search for a merchant'
+              onChange={({ target: { value } }) => setSearchQuery(value)}
+            />
+          </s.UpperSection>
+        </s.HeaderWrapper>
 
         <s.ScrollableArea>
           <s.Body>
@@ -121,7 +123,9 @@ const Transactions: React.FC = () => {
           </s.Body>
         </s.ScrollableArea>
 
-        <Navigation />
+        <s.NavigationWrapper>
+          <Navigation />
+        </s.NavigationWrapper>
       </s.Wrapper>
 
       {selectedTransaction && (

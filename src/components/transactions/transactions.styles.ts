@@ -8,6 +8,25 @@ export const Wrapper = styled.div(() => {
   `
 })
 
+export const HeaderWrapper = styled.div(({ theme }) => {
+  return css`
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: ${theme.zIndices.header};
+  `
+})
+
+export const NavigationWrapper = styled.div(() => {
+  return css`
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  `
+})
+
 export const ScrollableArea = styled.div(() => {
   return css`
     flex: 1;
@@ -35,6 +54,7 @@ export const UpperSection = styled.div(({ theme }) => {
     padding: ${theme.space[3]} ${theme.space[4]};
     display: grid;
     gap: ${theme.space[3]};
+    background: ${theme.colors.background.default};
   `
 })
 
