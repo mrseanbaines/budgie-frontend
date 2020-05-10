@@ -93,6 +93,7 @@ const Transactions: React.FC = () => {
             </s.Total>
 
             <TextInput
+              type='search'
               value={searchQuery}
               placeholder='Search for a merchant'
               onChange={({ target: { value } }) => setSearchQuery(value)}

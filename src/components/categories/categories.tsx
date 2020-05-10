@@ -37,6 +37,7 @@ const Categories: React.FC = () => {
 
         <s.UpperSection>
           <TextInput
+            type='search'
             value={searchQuery}
             placeholder='Search for a merchant'
             onChange={({ target: { value } }) => setSearchQuery(value)}

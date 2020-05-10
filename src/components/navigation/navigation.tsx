@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink, NavLinkProps } from 'react-router-dom'
 
 import { ReactComponent as ChartIcon } from 'icons/chart.svg'
 import { ReactComponent as ListIcon } from 'icons/list.svg'
@@ -7,6 +7,12 @@ import { ReactComponent as StackIcon } from 'icons/stack.svg'
 import { ReactComponent as UserIcon } from 'icons/user.svg'
 
 import * as s from './navigation.styles'
+
+const Link: React.FC<NavLinkProps> = ({ children, ...props }) => (
+  <NavLink activeClassName='active' exact {...props}>
+    {children}
+  </NavLink>
+)
 
 const Navigation: React.FC = () => (
   <s.Wrapper>

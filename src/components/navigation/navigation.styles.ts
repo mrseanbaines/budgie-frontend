@@ -17,6 +17,10 @@ export const Wrapper = styled.nav(({ theme }) => {
     a {
       padding: ${theme.space[4]};
       color: ${theme.colors.icons.default};
+
+      &.active {
+        color: ${theme.colors.brand};
+      }
     }
   `
 })

@@ -7,6 +7,7 @@ export const colors = {
   white: '#FFFFFF',
   grey: ['#3E4149', '#B8B9BC', '#E6E8E8', '#F6F7F7'],
   danger: '#DB5461',
+  brand: '#7EBDB4',
   categories: [
     '#DB5461',
     '#8EC6C5',
@@ -34,6 +35,7 @@ const theme = {
     default: `1px solid ${colors.grey[2]}`,
   },
   colors: {
+    brand: colors.brand,
     background: {
       default: colors.white,
       muted: colors.grey[3],
