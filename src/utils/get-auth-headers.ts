@@ -5,7 +5,7 @@ const getAuthHeaders = (getState: () => State) => {
   const headers = new Headers()
 
   if (accessToken) {
-    headers.append('Authorization', accessToken)
+    headers.append('Authorization', `Bearer ${accessToken}`)
   }
 
   return headers
