@@ -2,16 +2,7 @@ import { Reducer } from 'redux'
 
 import { User } from './types'
 
-import {
-  USER_LOADING,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-} from './constants'
+import { USER_LOADING, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } from './constants'
 
 export interface State {
   token: string | null
@@ -45,8 +36,7 @@ const reducer: Reducer<State> = (state = initialState, action) => {
       }
     }
 
-    case LOGIN_SUCCESS:
-    case REGISTER_SUCCESS: {
+    case LOGIN_SUCCESS: {
       localStorage.setItem('access_token', action.payload.token)
 
       return {
@@ -59,8 +49,7 @@ const reducer: Reducer<State> = (state = initialState, action) => {
 
     case AUTH_ERROR:
     case LOGIN_FAIL:
-    case LOGOUT_SUCCESS:
-    case REGISTER_FAIL: {
+    case LOGOUT_SUCCESS: {
       localStorage.removeItem('access_token')
 
       return {

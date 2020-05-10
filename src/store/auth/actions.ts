@@ -7,16 +7,7 @@ import { getAuthHeaders } from 'utils'
 
 import { User } from './types'
 
-import {
-  USER_LOADING,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-} from './constants'
+import { USER_LOADING, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } from './constants'
 
 const { REACT_APP_API_URL } = process.env
 
@@ -43,6 +34,10 @@ const loginSuccess = (payload: LoginSuccessPayload) => ({
   payload,
 })
 
+const loginError = () => ({
+  type: LOGIN_FAIL,
+})
+
 export const loadUser = () => async (dispatch: Dispatch, getState: () => State) => {
   try {
     dispatch(userLoading())
@@ -60,7 +55,12 @@ export const loadUser = () => async (dispatch: Dispatch, getState: () => State) 
   }
 }
 
-export const login = (email: string, password: string) => async (dispatch: Dispatch) => {
+interface LoginArgs {
+  email: string
+  password: string
+}
+
+export const login = ({ email, password }: LoginArgs) => async (dispatch: Dispatch) => {
   try {
     interface Response {
       token: string
@@ -76,6 +76,11 @@ export const login = (email: string, password: string) => async (dispatch: Dispa
 
     dispatch(loginSuccess(data))
   } catch (error) {
+    const response = await error.response.json()
+
+    dispatch(getErrors(response.message, error.response.status))
+    dispatch(loginError())
+
     console.error(error)
   }
 }

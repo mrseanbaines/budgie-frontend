@@ -21,7 +21,7 @@ const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    dispatch(login(email, password))
+    dispatch(login({ email, password }))
   }
 
   if (isAuthenticated) {
