@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 
 import { Props as ListItemProps } from './list-item'
+import { Props as ListHeadingProps } from './list-heading'
 
 const Wrapper = styled.div(({ theme }) => {
   return css`
@@ -12,10 +13,13 @@ const Wrapper = styled.div(({ theme }) => {
     width: 100%;
     background: none;
     text-align: left;
+    user-select: none;
   `
 })
 
-export const ListHeadingWrapper = styled(Wrapper)(({ theme }) => {
+export type ListHeadingWrapperProps = Pick<ListHeadingProps, 'onClick'>
+
+export const ListHeadingWrapper = styled(Wrapper)<ListHeadingWrapperProps>(({ theme, onClick }) => {
   return css`
     grid-template-columns: auto auto;
     justify-content: space-between;
@@ -23,6 +27,7 @@ export const ListHeadingWrapper = styled(Wrapper)(({ theme }) => {
     font-size: ${theme.fontSizes[1]};
     text-transform: uppercase;
     border-bottom: ${theme.borders.default};
+    cursor: ${onClick && 'pointer'};
   `
 })
 

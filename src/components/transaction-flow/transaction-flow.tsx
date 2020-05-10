@@ -37,7 +37,7 @@ const TransactionFlow: React.FC<Props> = ({ transaction, exitFlow }) => {
     }
   }
 
-  const onCategoryClick = async (categoryId: CategoryType['id']) => {
+  const onCategoryClick = async (categoryId: TransactionType['category']) => {
     try {
       await dispatch(updateTransaction(transaction.id, categoryId))
 

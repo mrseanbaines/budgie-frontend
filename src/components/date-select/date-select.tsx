@@ -23,7 +23,7 @@ const DateSelect: React.FC<Props> = ({ items, onDateSelect }) => {
     <s.Wrapper>
       {orderedItems.map(item => (
         <s.DateGroup key={item.date} onClick={() => onDateSelect?.(item)}>
-          <s.Date>{format(new Date(item.date), 'MMM yy')}</s.Date>
+          <s.Date>{format(new Date(item.date), 'MMM yyyy')}</s.Date>
           <s.Total>{formatCurrency(item.total)}</s.Total>
         </s.DateGroup>
       ))}

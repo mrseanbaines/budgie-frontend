@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux'
 
 import { ListItem } from 'components/list'
 import { getCategoryItems } from 'store/categories/selectors'
+import { Transaction } from 'store/transactions/types'
 import { ReactComponent as ForwardIcon } from 'icons/forward.svg'
 
 import * as s from './choose-category.styles'
 
 export interface Props {
-  onCategoryClick: (categoryId: string) => any
+  onCategoryClick: (categoryId: Transaction['category']) => any
   onCreateCategoryClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
 }
 
@@ -26,6 +27,8 @@ const ChooseCategory: React.FC<Props> = ({ onCategoryClick, onCreateCategoryClic
           onClick={() => onCategoryClick(category.id)}
         />
       ))}
+
+      <ListItem title='Uncategorised' extra={<ForwardIcon />} onClick={() => onCategoryClick(null)} />
 
       <s.NewCategory onClick={onCreateCategoryClick}>New Category</s.NewCategory>
     </>

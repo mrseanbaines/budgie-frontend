@@ -5,5 +5,6 @@ import categories from './categories/reducers'
 import user from './user/reducers'
 import auth from './auth/reducers'
 import errors from './errors/reducers'
+import view from './view/reducers'
 
-export default combineReducers({ transactions, categories, user, auth, errors })
+export default combineReducers({ transactions, categories, user, auth, errors, view })
