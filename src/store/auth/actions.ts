@@ -42,7 +42,12 @@ export const loadUser = () => async (dispatch: Dispatch, getState: () => State) 
   try {
     dispatch(userLoading())
 
-    const data = await ky.get(`${REACT_APP_API_URL}/auth`, { headers: getAuthHeaders(getState) }).json<User>()
+    const data = await ky
+      .get(`${REACT_APP_API_URL}/auth`, {
+        credentials: 'include',
+        headers: getAuthHeaders(getState),
+      })
+      .json<User>()
 
     dispatch(userLoaded(data))
   } catch (error) {
@@ -60,7 +65,7 @@ interface LoginArgs {
   password: string
 }
 
-export const login = ({ email, password }: LoginArgs) => async (dispatch: Dispatch) => {
+export const login = ({ email, password }: LoginArgs) => async (dispatch: Dispatch, getState: () => State) => {
   try {
     interface Response {
       token: string
@@ -71,6 +76,7 @@ export const login = ({ email, password }: LoginArgs) => async (dispatch: Dispat
       .post(`${REACT_APP_API_URL}/auth`, {
         json: { email, password },
         credentials: 'include',
+        headers: getAuthHeaders(getState),
       })
       .json<Response>()
 
