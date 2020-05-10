@@ -12,7 +12,7 @@ import * as s from './transaction.styles'
 
 export interface Props {
   transaction: TransactionType
-  onCategoryClick?: (e: React.MouseEvent<HTMLDivElement>) => void
+  onCategoryClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const Transaction: React.FC<Props> = ({ transaction, onCategoryClick }) => {

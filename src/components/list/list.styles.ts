@@ -31,11 +31,22 @@ export const ListHeadingWrapper = styled(Wrapper)<ListHeadingWrapperProps>(({ th
   `
 })
 
-export const ListItemWrapper = styled(Wrapper).attrs({ as: 'button' })(({ theme }) => {
+export const ListItemWrapperBtn = styled.button(() => {
+  return css`
+    width: 100%;
+    border: none;
+    background: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  `
+})
+
+export const ListItemWrapper = styled(Wrapper)(({ theme }) => {
   return css`
     grid-template-columns: auto 1fr auto;
     font-size: ${theme.fontSizes[2]};
-    cursor: pointer;
   `
 })
 
