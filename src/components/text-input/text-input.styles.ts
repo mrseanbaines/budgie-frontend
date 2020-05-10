@@ -9,6 +9,7 @@ export const Input = styled.input(({ theme }) => {
     font-size: ${theme.fontSizes[1]};
     width: 100%;
     appearance: none;
+    font-family: revert;
 
     ::placeholder {
       color: ${theme.colors.text.muted};
