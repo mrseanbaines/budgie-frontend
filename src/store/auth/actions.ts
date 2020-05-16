@@ -34,7 +34,7 @@ const loginSuccess = (payload: LoginSuccessPayload) => ({
   payload,
 })
 
-const loginError = () => ({
+const loginFail = () => ({
   type: LOGIN_FAIL,
 })
 
@@ -84,8 +84,8 @@ export const login = ({ email, password }: LoginArgs) => async (dispatch: Dispat
   } catch (error) {
     const response = await error.response.json()
 
-    dispatch(getErrors(response.message, error.response.status))
-    dispatch(loginError())
+    dispatch(getErrors(response.message, error.response.status, LOGIN_FAIL))
+    dispatch(loginFail())
 
     console.error(error)
   }
