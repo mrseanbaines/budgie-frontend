@@ -7,8 +7,6 @@ import { getIsAuthenticated } from 'store/auth/selectors'
 const PrivateRoute: React.FC<RouteProps> = ({ children, ...props }) => {
   const isAuthenticated = useSelector(getIsAuthenticated)
 
-  console.log(isAuthenticated)
-
   return <Route {...props} render={() => (isAuthenticated ? children : <Redirect to='/login' />)} />
 }
 
