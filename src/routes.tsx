@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as R from 'ramda'
 
@@ -8,6 +8,7 @@ import Categories from 'components/categories'
 import Profile from 'components/profile'
 import Login from 'components/login'
 import Overview from 'components/overview'
+import PrivateRoute from 'components/private-route'
 import { loadUser } from 'store/auth/actions'
 import { getIsAuthenticated } from 'store/auth/selectors'
 import { fetchCategories } from 'store/categories/actions'
@@ -48,18 +49,21 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route path='/login' component={Login} />
-
-        {isAuthenticated ? (
-          <>
-            <Route path='/' exact component={Transactions} />
-            <Route path='/categories' component={Categories} />
-            <Route path='/profile' component={Profile} />
-            <Route path='/overview' component={Overview} />
-          </>
-        ) : (
-          <Redirect to='/login' />
-        )}
+        <PrivateRoute path='/' exact>
+          <Transactions />
+        </PrivateRoute>
+        <PrivateRoute path='/categories'>
+          <Categories />
+        </PrivateRoute>
+        <PrivateRoute path='/profile'>
+          <Profile />
+        </PrivateRoute>
+        <PrivateRoute path='/overview'>
+          <Overview />
+        </PrivateRoute>
+        <Route path='/login'>
+          <Login />
+        </Route>
       </Switch>
     </Router>
   )
