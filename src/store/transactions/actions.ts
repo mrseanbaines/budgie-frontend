@@ -1,9 +1,8 @@
 import { Dispatch } from 'redux'
-import ky from 'ky'
 import { addMonths } from 'date-fns'
 
 import { State } from 'store'
-import { getAuthHeaders } from 'utils'
+import { getAuthHeaders, api } from 'utils'
 
 import { Transaction, TransactionSummary } from './types'
 
@@ -76,23 +75,17 @@ export const fetchTransactions = (fromDate: string) => async (dispatch: Dispatch
   try {
     dispatch(fetchRequest())
 
-    const { REACT_APP_API_URL } = process.env
+    const res = await api.get(`transactions?${query}`, { headers: getAuthHeaders(getState) })
+    const data = await res.json()
 
-    const response = await ky.get(`${REACT_APP_API_URL}/transactions?${query}`, {
-      credentials: 'include',
-      headers: getAuthHeaders(getState),
-    })
-
-    const json = await response.json()
-
-    if (!response.ok) {
+    if (!res.ok) {
       dispatch(fetchFailure())
       return
     }
 
-    dispatch(fetchSuccess(json))
+    dispatch(fetchSuccess(data))
   } catch (error) {
-    throw new Error(error)
+    console.error(error)
   }
 }
 
@@ -100,23 +93,17 @@ export const fetchTransactionsSummaries = () => async (dispatch: Dispatch, getSt
   try {
     dispatch(fetchSummariesRequest())
 
-    const { REACT_APP_API_URL } = process.env
+    const res = await api.get('transactions/summary', { headers: getAuthHeaders(getState) })
+    const data = await res.json()
 
-    const response = await ky.get(`${REACT_APP_API_URL}/transactions/summary`, {
-      credentials: 'include',
-      headers: getAuthHeaders(getState),
-    })
-
-    const json = await response.json()
-
-    if (!response.ok) {
+    if (!res.ok) {
       dispatch(fetchSummariesFailure())
       return
     }
 
-    dispatch(fetchSummariesSuccess(json))
+    dispatch(fetchSummariesSuccess(data))
   } catch (error) {
-    throw new Error(error)
+    console.error(error)
   }
 }
 
@@ -124,26 +111,23 @@ export const updateTransaction = (transactionId: string, categoryId: string | nu
   dispatch: Dispatch,
   getState: () => State,
 ) => {
-  const { REACT_APP_API_URL } = process.env
-
   try {
     dispatch(updateRequest())
 
-    const response = await ky.put(`${REACT_APP_API_URL}/transactions/${transactionId}`, {
+    const res = await api.put(`transactions/${transactionId}`, {
       json: { category: categoryId },
-      credentials: 'include',
       headers: getAuthHeaders(getState),
     })
 
-    const json = await response.json()
+    const data = await res.json()
 
-    if (!response.ok) {
+    if (!res.ok) {
       dispatch(updateFailure())
       return
     }
 
-    dispatch(updateSuccess(json))
+    dispatch(updateSuccess(data))
   } catch (error) {
-    throw new Error(error)
+    console.error(error)
   }
 }

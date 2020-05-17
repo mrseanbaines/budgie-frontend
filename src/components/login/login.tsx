@@ -5,17 +5,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import TextInput from 'components/text-input'
 import { login } from 'store/auth/actions'
 import { getIsAuthenticated } from 'store/auth/selectors'
+import { getError } from 'store/errors/selectors'
+import { LOGIN_FAIL } from 'store/auth/constants'
 import { useFocusInput } from 'hooks'
 
 import * as s from './login.styles'
 
 const Login: React.FC = () => {
-  // const [formError, setFormError] = useState<string | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
   const isAuthenticated = useSelector(getIsAuthenticated)
-
+  const error = useSelector(getError)
   const inputRef = useFocusInput()
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,7 +61,7 @@ const Login: React.FC = () => {
           />
         </s.Fieldset>
 
-        {/* {formError && <s.FormError>{formError}</s.FormError>} */}
+        {error.id === LOGIN_FAIL && <s.FormError>{error.message}</s.FormError>}
 
         <s.Submit type='submit'>Log in</s.Submit>
       </s.Form>

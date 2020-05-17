@@ -1,13 +1,10 @@
 import { Dispatch } from 'redux'
-import ky from 'ky'
 
 import { State } from 'store'
-import { getAuthHeaders } from 'utils'
+import { getAuthHeaders, api } from 'utils'
 
 import { CREATE_REQUEST, CREATE_SUCCESS, CREATE_FAILURE } from '../constants'
 import { Category } from '../types'
-
-const { REACT_APP_API_URL } = process.env
 
 const createRequest = () => ({
   type: CREATE_REQUEST,
@@ -35,24 +32,23 @@ export interface Args {
 const createCategory = ({ name, color }: Args) => async (
   dispatch: Dispatch,
   getState: () => State,
-): Promise<Category> => {
+): Promise<Category | undefined> => {
   try {
     dispatch(createRequest())
 
-    const response = await ky.post(`${REACT_APP_API_URL}/categories`, {
-      json: { name, color },
-      credentials: 'include',
-      headers: getAuthHeaders(getState),
-    })
-    const data = await response.json()
+    const res = await api.post('categories', { json: { name, color }, headers: getAuthHeaders(getState) })
+    const data = await res.json()
+
+    if (!res.ok) {
+      dispatch(createFailure())
+      return
+    }
 
     dispatch(createSuccess(data))
 
     return data.category
   } catch (error) {
-    dispatch(createFailure())
-
-    throw new Error(error)
+    console.error(error)
   }
 }
 

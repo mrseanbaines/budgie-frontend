@@ -1,15 +1,11 @@
 import { Dispatch } from 'redux'
-import ky from 'ky'
 
 import { State } from 'store'
-import { getErrors } from 'store/errors/actions'
-import { getAuthHeaders } from 'utils'
+import { setErrors } from 'store/errors/actions'
+import { getAuthHeaders, api } from 'utils'
 
 import { User } from './types'
-
 import { USER_LOADING, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } from './constants'
-
-const { REACT_APP_API_URL } = process.env
 
 const userLoading = () => ({
   type: USER_LOADING,
@@ -42,20 +38,17 @@ export const loadUser = () => async (dispatch: Dispatch, getState: () => State) 
   try {
     dispatch(userLoading())
 
-    const data = await ky
-      .get(`${REACT_APP_API_URL}/auth`, {
-        credentials: 'include',
-        headers: getAuthHeaders(getState),
-      })
-      .json<User>()
+    const res = await api.get('auth', { headers: getAuthHeaders(getState) })
+    const data = await res.json()
+
+    if (!res.ok) {
+      dispatch(setErrors(data.message, res.status, AUTH_ERROR))
+      dispatch(authError())
+      return
+    }
 
     dispatch(userLoaded(data))
   } catch (error) {
-    const response = await error.response.json()
-
-    dispatch(getErrors(response.message, error.response.status))
-    dispatch(authError())
-
     console.error(error)
   }
 }
@@ -67,26 +60,17 @@ interface LoginArgs {
 
 export const login = ({ email, password }: LoginArgs) => async (dispatch: Dispatch, getState: () => State) => {
   try {
-    interface Response {
-      token: string
-      user: User
-    }
+    const res = await api.post('auth', { json: { email, password }, headers: getAuthHeaders(getState) })
+    const data = await res.json()
 
-    const data = await ky
-      .post(`${REACT_APP_API_URL}/auth`, {
-        json: { email, password },
-        credentials: 'include',
-        headers: getAuthHeaders(getState),
-      })
-      .json<Response>()
+    if (!res.ok) {
+      dispatch(setErrors(data.message, res.status, LOGIN_FAIL))
+      dispatch(loginFail())
+      return
+    }
 
     dispatch(loginSuccess(data))
   } catch (error) {
-    const response = await error.response.json()
-
-    dispatch(getErrors(response.message, error.response.status, LOGIN_FAIL))
-    dispatch(loginFail())
-
     console.error(error)
   }
 }
