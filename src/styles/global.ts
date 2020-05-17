@@ -7,6 +7,11 @@ const GlobalStyles = createGlobalStyle(({ theme }) => {
   return css`
     ${fontfaces};
 
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     html,
     body {
       color: ${theme.colors.text.default};
