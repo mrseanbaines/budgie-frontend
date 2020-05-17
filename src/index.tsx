@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
-import * as serviceWorker from 'serviceWorker'
-import Routes from './routes'
+import * as serviceWorker from 'service-worker'
 import store from 'store'
 import theme from 'theme'
 import GlobalStyles from 'styles/global'
+import App from 'components/app'
 
 const Index = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Routes />
+      <App />
     </ThemeProvider>
   </Provider>
 )
