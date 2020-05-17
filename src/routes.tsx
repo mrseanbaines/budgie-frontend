@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import * as R from 'ramda'
+import { max } from 'date-fns'
 
 import Transactions from 'components/transactions'
 import Categories from 'components/categories'
@@ -39,10 +39,10 @@ const Routes = () => {
   }, [dispatch, activeDate, isAuthenticated])
 
   useEffect(() => {
-    const latestDate = R.last(transactionsSummaries)?.date
+    if (transactionsSummaries.length) {
+      const latestDate = max(transactionsSummaries.map(t => new Date(t.date)))
 
-    if (latestDate) {
-      dispatch(setActiveDate(latestDate))
+      dispatch(setActiveDate(latestDate.toISOString()))
     }
   }, [dispatch, transactionsSummaries])
 
