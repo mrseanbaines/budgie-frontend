@@ -41,8 +41,8 @@ export interface ImageProps {
 
 export const Image = styled.div<ImageProps>(({ theme, src }) => {
   return css`
-    width: ${theme.sizes.badge[2]};
-    height: ${theme.sizes.badge[2]};
+    width: ${theme.sizes.badge[3]};
+    height: ${theme.sizes.badge[3]};
     border-radius: ${theme.radii.circle};
     background: ${theme.colors.background.muted};
     margin: 0 auto;

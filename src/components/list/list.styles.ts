@@ -28,6 +28,13 @@ export const ListHeadingWrapper = styled(Wrapper)<ListHeadingWrapperProps>(({ th
     text-transform: uppercase;
     border-bottom: ${theme.borders.default};
     cursor: ${onClick && 'pointer'};
+
+    > :first-child {
+      display: grid;
+      grid-template-columns: auto auto;
+      align-items: center;
+      gap: 8px;
+    }
   `
 })
 
@@ -50,12 +57,14 @@ export const ListItemWrapper = styled(Wrapper)(({ theme }) => {
   `
 })
 
-export type BadgeProps = Pick<ListItemProps, 'badgeColor'>
+export interface BadgeProps extends Pick<ListItemProps, 'badgeColor'> {
+  small?: boolean
+}
 
-export const Badge = styled.div<BadgeProps>(({ theme, badgeColor }) => {
+export const Badge = styled.div<BadgeProps>(({ theme, badgeColor, small }) => {
   return css`
-    width: ${theme.sizes.badge[0]};
-    height: ${theme.sizes.badge[0]};
+    width: ${theme.sizes.badge[small ? 0 : 1]};
+    height: ${theme.sizes.badge[small ? 0 : 1]};
     border-radius: ${theme.radii.circle};
     background: ${badgeColor || theme.colors.background.default};
     border: ${!badgeColor && theme.borders.default};

@@ -16,8 +16,8 @@ export interface CategoryColorProps {
 
 export const CategoryColor = styled.button<CategoryColorProps>(({ theme, color, selected }) => {
   return css`
-    width: ${theme.sizes.badge[1]};
-    height: ${theme.sizes.badge[1]};
+    width: ${theme.sizes.badge[2]};
+    height: ${theme.sizes.badge[2]};
     border-radius: ${theme.radii.circle};
     background: ${color};
     margin: 0 auto;

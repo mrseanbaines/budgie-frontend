@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { format } from 'date-fns'
 import * as R from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 
 import { ListHeading, ListItem } from 'components/list'
 import { Props as DateSelectProps } from 'components/date-select/date-select'
@@ -15,7 +16,7 @@ import { Transaction } from 'store/transactions/types'
 import { Category } from 'store/categories/types'
 import { setActiveDate } from 'store/view/actions'
 import { getActiveDate } from 'store/view/selectors'
-
+import { colors } from 'theme'
 import { formatCurrency, groupByCategory } from 'utils'
 
 import * as s from './overview.styles'
@@ -31,7 +32,8 @@ const Overview: React.FC = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<Category['id'] | null>('')
   const selectedTransaction = transactions.find(t => t.id === selectedTransactionId)
 
-  const filteredTransactions = transactions.filter(t => t.amount < 0).filter(t => t.include_in_spending)
+  const filteredTransactions = transactions.filter(t => !!t.category).filter(t => t.amount < 0)
+  // .filter(t => t.include_in_spending)
 
   const transactionsByCategory = groupByCategory(filteredTransactions).map(categoryTransactions => ({
     total: R.sum(categoryTransactions.map(t => t.amount)),
@@ -42,13 +44,7 @@ const Overview: React.FC = () => {
 
   const orderedItems = R.sort(R.ascend(R.prop('total')), transactionsByCategory)
 
-  const total = R.sum(
-    transactions
-      .filter(t => !!t.category)
-      .filter(t => t.amount < 0)
-      // .filter(t => t.include_in_spending)
-      .map(t => t.amount),
-  )
+  const total = R.sum(filteredTransactions.map(t => t.amount))
 
   const onDateSelect: DateSelectProps['onDateSelect'] = item => {
     dispatch(setActiveDate(item.date))
@@ -79,6 +75,25 @@ const Overview: React.FC = () => {
           {showDateSelect && <DateSelect items={transactionsSummaries} onDateSelect={onDateSelect} />}
 
           <s.UpperSection>
+            <ResponsiveContainer height={200}>
+              <PieChart>
+                <Pie
+                  data={transactionsByCategory.map(x => ({ total: Math.abs(x.total) }))}
+                  cx='50%'
+                  cy='50%'
+                  innerRadius={90}
+                  outerRadius={100}
+                  dataKey='total'
+                  animationBegin={100}
+                  animationDuration={600}
+                >
+                  {transactionsByCategory.map((c, i) => (
+                    <Cell key={`cell-${i}`} fill={c.category?.color ?? colors.grey[3]} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+
             <s.Total>
               <s.TotalLabel>Total Categorised</s.TotalLabel>
               <s.TotalAmount>{formatCurrency(total)}</s.TotalAmount>
@@ -92,6 +107,8 @@ const Overview: React.FC = () => {
               <div key={c.category?.id ?? 'Uncategorised'}>
                 <s.ListHeadingWrapper>
                   <ListHeading
+                    withBadge
+                    badgeColor={c.category?.color}
                     title={c.category?.name ?? 'Uncategorised'}
                     extra={formatCurrency(c.total)}
                     onClick={() => handleSetSelectedCategory(c.id)}
