@@ -1,13 +1,15 @@
 import { Reducer } from 'redux'
 
-import { SET_ACTIVE_DATE } from './constants'
+import { SET_ACTIVE_DATE, SET_SHOW_DATE_SELECT } from './constants'
 
 export interface State {
   activeDate: string
+  showDateSelect: boolean
 }
 
 const initialState: State = {
   activeDate: '',
+  showDateSelect: false,
 }
 
 const reducer: Reducer<State> = (state = initialState, action) => {
@@ -16,6 +18,13 @@ const reducer: Reducer<State> = (state = initialState, action) => {
       return {
         ...state,
         activeDate: action.date,
+      }
+    }
+
+    case SET_SHOW_DATE_SELECT: {
+      return {
+        ...state,
+        showDateSelect: action.showDateSelect,
       }
     }
 

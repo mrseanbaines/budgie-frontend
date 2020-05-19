@@ -1,12 +1,7 @@
 import React, { useRef } from 'react'
 
 import { useOnClickOutside } from 'hooks'
-import { ReactComponent as BackIcon } from 'icons/back.svg'
-import { ReactComponent as CloseIcon } from 'icons/close.svg'
-import { ReactComponent as ForwardIcon } from 'icons/forward.svg'
-import { ReactComponent as TickIcon } from 'icons/tick.svg'
-import { ReactComponent as PlusIcon } from 'icons/plus.svg'
-import { ReactComponent as TrashIcon } from 'icons/trash.svg'
+import { BackIcon, CloseIcon, ForwardIcon, TickIcon, PlusIcon, TrashIcon } from 'icons'
 
 import * as s from './popup.styles'
 

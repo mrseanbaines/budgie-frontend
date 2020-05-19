@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { ListItem } from 'components/list'
 import { getCategoryItems } from 'store/categories/selectors'
 import { Transaction } from 'store/transactions/types'
-import { ReactComponent as ForwardIcon } from 'icons/forward.svg'
+import { ForwardIcon } from 'icons'
 
 import * as s from './choose-category.styles'
 

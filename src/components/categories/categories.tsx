@@ -10,7 +10,7 @@ import CreateCategoryFlow from 'components/create-category-flow'
 import { getCategoryItems } from 'store/categories/selectors'
 import { fetchCategories } from 'store/categories/actions'
 import { Category } from 'store/categories/types'
-import { ReactComponent as ForwardIcon } from 'icons/forward.svg'
+import { ForwardIcon } from 'icons'
 
 import * as s from './categories.styles'
 

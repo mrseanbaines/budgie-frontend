@@ -18,37 +18,6 @@ export const HeaderWrapper = styled.div(({ theme }) => {
   `
 })
 
-export const NavigationWrapper = styled.div(() => {
-  return css`
-    position: sticky;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-  `
-})
-
-export const ScrollableArea = styled.div(() => {
-  return css`
-    flex: 1;
-    overflow: auto;
-  `
-})
-
-export const Body = styled.div(({ theme }) => {
-  return css`
-    padding: ${theme.space[3]} ${theme.space[4]};
-    padding-top: 0;
-  `
-})
-
-export const ListHeadingWrapper = styled.div(({ theme }) => {
-  return css`
-    background: ${theme.colors.background.default};
-    position: sticky;
-    top: 0;
-  `
-})
-
 export const UpperSection = styled.div(({ theme }) => {
   return css`
     padding: ${theme.space[3]} ${theme.space[4]};
@@ -77,5 +46,13 @@ export const TotalLabel = styled.span(({ theme }) => {
 export const TotalAmount = styled.span(({ theme }) => {
   return css`
     font-size: ${theme.fontSizes[5]};
+  `
+})
+
+export const ListHeadingWrapper = styled.div(({ theme }) => {
+  return css`
+    background: ${theme.colors.background.default};
+    position: sticky;
+    top: 0;
   `
 })

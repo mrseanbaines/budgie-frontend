@@ -6,7 +6,7 @@ import { ListItem } from 'components/list'
 import { getCategoryItems } from 'store/categories/selectors'
 import { Transaction as TransactionType } from 'store/transactions/types'
 import { formatCurrency } from 'utils'
-import { ReactComponent as ForwardIcon } from 'icons/forward.svg'
+import { ForwardIcon } from 'icons'
 
 import * as s from './transaction.styles'
 

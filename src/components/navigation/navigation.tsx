@@ -1,10 +1,7 @@
 import React from 'react'
 import { NavLink, NavLinkProps } from 'react-router-dom'
 
-import { ReactComponent as ChartIcon } from 'icons/chart.svg'
-import { ReactComponent as ListIcon } from 'icons/list.svg'
-import { ReactComponent as StackIcon } from 'icons/stack.svg'
-import { ReactComponent as UserIcon } from 'icons/user.svg'
+import { ChartIcon, ListIcon, StackIcon, UserIcon } from 'icons'
 
 import * as s from './navigation.styles'
 

@@ -1,33 +1,26 @@
 import React, { useState } from 'react'
 import { format } from 'date-fns'
 import * as R from 'ramda'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 
 import { ListHeading, ListItem } from 'components/list'
-import { Props as DateSelectProps } from 'components/date-select/date-select'
+import Layout from 'components/layout'
 import TransactionFlow from 'components/transaction-flow'
 import Header from 'components/header'
-import Navigation from 'components/navigation'
-import DateSelect from 'components/date-select'
 import { getCategoryItems } from 'store/categories/selectors'
-import { getTransactionItems, getTransactionsSummaries } from 'store/transactions/selectors'
+import { getTransactionItems } from 'store/transactions/selectors'
 import { Transaction } from 'store/transactions/types'
 import { Category } from 'store/categories/types'
-import { setActiveDate } from 'store/view/actions'
 import { getActiveDate } from 'store/view/selectors'
 import { colors } from 'theme'
 import { formatCurrency, groupByCategory } from 'utils'
-
-import * as s from './overview.styles'
+import * as s from 'styles/common'
 
 const Overview: React.FC = () => {
   const activeDate = useSelector(getActiveDate)
   const transactions = useSelector(getTransactionItems)
   const categories = useSelector(getCategoryItems)
-  const [showDateSelect, setShowDateSelect] = useState(false)
-  const transactionsSummaries = useSelector(getTransactionsSummaries)
-  const dispatch = useDispatch()
   const [selectedTransactionId, setSelectedTransactionId] = useState<Transaction['id'] | null>(null)
   const [selectedCategoryId, setSelectedCategoryId] = useState<Category['id'] | null>('')
   const selectedTransaction = transactions.find(t => t.id === selectedTransactionId)
@@ -36,7 +29,7 @@ const Overview: React.FC = () => {
   // .filter(t => t.include_in_spending)
 
   const transactionsByCategory = groupByCategory(filteredTransactions).map(categoryTransactions => ({
-    total: R.sum(categoryTransactions.map(t => t.amount)),
+    total: R.sum(categoryTransactions.map(R.prop('amount'))),
     id: categoryTransactions[0].category,
     category: categories.find(c => c.id === categoryTransactions[0].category),
     transactions: categoryTransactions,
@@ -44,12 +37,7 @@ const Overview: React.FC = () => {
 
   const orderedItems = R.sort(R.ascend(R.prop('total')), transactionsByCategory)
 
-  const total = R.sum(filteredTransactions.map(t => t.amount))
-
-  const onDateSelect: DateSelectProps['onDateSelect'] = item => {
-    dispatch(setActiveDate(item.date))
-    setShowDateSelect(false)
-  }
+  const total = R.sum(filteredTransactions.map(R.prop('amount')))
 
   const handleSetSelectedCategory = (id: Category['id'] | null) => {
     if (id === selectedCategoryId) {
@@ -64,15 +52,8 @@ const Overview: React.FC = () => {
       <s.Wrapper>
         <s.HeaderWrapper>
           {activeDate && (
-            <Header
-              title='Overview'
-              subtitle={format(new Date(activeDate), 'MMMM yyyy')}
-              withDateSelect
-              onDateSelectClick={() => setShowDateSelect(showDateSelect => !showDateSelect)}
-            />
+            <Header title='Overview' subtitle={format(new Date(activeDate), 'MMMM yyyy')} withDateSelect />
           )}
-
-          {showDateSelect && <DateSelect items={transactionsSummaries} onDateSelect={onDateSelect} />}
 
           <s.UpperSection>
             <ResponsiveContainer height={200}>
@@ -101,38 +82,32 @@ const Overview: React.FC = () => {
           </s.UpperSection>
         </s.HeaderWrapper>
 
-        <s.ScrollableArea>
-          <s.Body>
-            {orderedItems.map(c => (
-              <div key={c.category?.id ?? 'Uncategorised'}>
-                <s.ListHeadingWrapper>
-                  <ListHeading
-                    withBadge
+        <Layout>
+          {orderedItems.map(c => (
+            <div key={c.category?.id ?? 'Uncategorised'}>
+              <s.ListHeadingWrapper>
+                <ListHeading
+                  withBadge
+                  badgeColor={c.category?.color}
+                  title={c.category?.name ?? 'Uncategorised'}
+                  extra={formatCurrency(c.total)}
+                  onClick={() => handleSetSelectedCategory(c.id)}
+                />
+              </s.ListHeadingWrapper>
+
+              {selectedCategoryId === c.id &&
+                c.transactions.map(transaction => (
+                  <ListItem
+                    key={transaction.id}
                     badgeColor={c.category?.color}
-                    title={c.category?.name ?? 'Uncategorised'}
-                    extra={formatCurrency(c.total)}
-                    onClick={() => handleSetSelectedCategory(c.id)}
+                    title={transaction.merchant?.name ?? transaction.counterparty.name ?? ''}
+                    extra={formatCurrency(transaction.amount)}
+                    onClick={() => setSelectedTransactionId(transaction.id)}
                   />
-                </s.ListHeadingWrapper>
-
-                {selectedCategoryId === c.id &&
-                  c.transactions.map(transaction => (
-                    <ListItem
-                      key={transaction.id}
-                      badgeColor={c.category?.color}
-                      title={transaction.merchant?.name ?? transaction.counterparty.name ?? ''}
-                      extra={formatCurrency(transaction.amount)}
-                      onClick={() => setSelectedTransactionId(transaction.id)}
-                    />
-                  ))}
-              </div>
-            ))}
-          </s.Body>
-        </s.ScrollableArea>
-
-        <s.NavigationWrapper>
-          <Navigation />
-        </s.NavigationWrapper>
+                ))}
+            </div>
+          ))}
+        </Layout>
       </s.Wrapper>
 
       {selectedTransaction && (

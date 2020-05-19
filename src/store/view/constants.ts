@@ -1,1 +1,2 @@
 export const SET_ACTIVE_DATE = 'view/SET_ACTIVE_DATE'
+export const SET_SHOW_DATE_SELECT = 'view/SET_SHOW_DATE_SELECT'
