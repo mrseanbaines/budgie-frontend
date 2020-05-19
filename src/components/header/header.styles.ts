@@ -3,10 +3,18 @@ import styled, { css } from 'styled-components'
 export const Wrapper = styled.header(({ theme }) => {
   return css`
     background: ${theme.colors.background.muted};
-    display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: ${theme.space[3]} ${theme.space[4]};
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+
+    *:nth-child(2) {
+      justify-self: center;
+    }
+
+    *:nth-child(3) {
+      justify-self: end;
+    }
   `
 })
 

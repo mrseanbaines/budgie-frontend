@@ -23,22 +23,26 @@ const Header: React.FC<Props> = ({
   onDateSelectClick,
 }) => (
   <s.Wrapper>
-    {withFilters && (
-      <s.Button onClick={onFiltersClick}>
-        <FiltersIcon />
-      </s.Button>
-    )}
+    <div>
+      {withFilters && (
+        <s.Button onClick={onFiltersClick}>
+          <FiltersIcon />
+        </s.Button>
+      )}
+    </div>
 
     <s.CenterSection>
       <s.Title>{title}</s.Title>
       {subtitle && <s.Subtitle>{subtitle}</s.Subtitle>}
     </s.CenterSection>
 
-    {withDateSelect && (
-      <s.Button onClick={onDateSelectClick}>
-        <CalendarIcon />
-      </s.Button>
-    )}
+    <div>
+      {withDateSelect && (
+        <s.Button onClick={onDateSelectClick}>
+          <CalendarIcon />
+        </s.Button>
+      )}
+    </div>
   </s.Wrapper>
 )
 
