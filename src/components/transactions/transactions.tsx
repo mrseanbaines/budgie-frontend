@@ -8,11 +8,10 @@ import Header from 'components/header'
 import TextInput from 'components/text-input'
 import { ListHeading, ListItem } from 'components/list'
 import TransactionFlow from 'components/transaction-flow'
-// import { Category } from 'store/categories/types'
 import { getCategoryItems } from 'store/categories/selectors'
 import { Transaction } from 'store/transactions/types'
 import { getTransactionItems } from 'store/transactions/selectors'
-import { getActiveDate } from 'store/view/selectors'
+import { getActiveDate, getSelectedCategoryId } from 'store/view/selectors'
 import { formatCurrency, groupByDay } from 'utils'
 import * as s from 'styles/common'
 
@@ -20,8 +19,8 @@ const Transactions: React.FC = () => {
   const activeDate = useSelector(getActiveDate)
   const transactions = useSelector(getTransactionItems)
   const categories = useSelector(getCategoryItems)
+  const selectedCategoryId = useSelector(getSelectedCategoryId)
   const [searchQuery, setSearchQuery] = useState('')
-  // const [selectedCategoryId, setSelectedCategoryId] = useState<Category['id'] | null>(null)
   const [selectedTransactionId, setSelectedTransactionId] = useState<Transaction['id'] | null>(null)
   const selectedTransaction = transactions.find(t => t.id === selectedTransactionId)
 
@@ -33,13 +32,15 @@ const Transactions: React.FC = () => {
     )
   }
 
-  // const categoryFilter = (transaction: Transaction) => {
-  //   return selectedCategoryId ? transaction.category === selectedCategoryId : true
-  // }
+  const categoryFilter = (transaction: Transaction) => {
+    return selectedCategoryId ? transaction.category === selectedCategoryId : true
+  }
 
-  const filteredTransactions = transactions.filter(t => t.amount < 0).filter(searchFilter)
+  const filteredTransactions = transactions
+    .filter(t => t.amount < 0)
+    .filter(searchFilter)
+    .filter(categoryFilter)
   // .filter(t => t.include_in_spending)
-  // .filter(categoryFilter)
 
   const transactionsByDay = groupByDay(filteredTransactions).map(dayTransactions => ({
     date: format(new Date(dayTransactions[0].created), 'E d MMM'),

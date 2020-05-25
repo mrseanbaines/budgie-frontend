@@ -1,17 +1,21 @@
 import { Reducer } from 'redux'
 
-import { SET_ACTIVE_DATE, SET_SHOW_DATE_SELECT, SET_SHOW_FILTERS } from './constants'
+import { Category } from 'store/categories/types'
+
+import { SET_ACTIVE_DATE, SET_SHOW_DATE_SELECT, SET_SHOW_FILTERS, SET_SELECTED_CATEGORY_ID } from './constants'
 
 export interface State {
   activeDate: string
   showDateSelect: boolean
   showFilters: boolean
+  selectedCategoryId: Category['id'] | null
 }
 
 const initialState: State = {
   activeDate: '',
   showDateSelect: false,
   showFilters: false,
+  selectedCategoryId: null,
 }
 
 const reducer: Reducer<State> = (state = initialState, action) => {
@@ -36,6 +40,13 @@ const reducer: Reducer<State> = (state = initialState, action) => {
         ...state,
         showDateSelect: false,
         showFilters: action.showFilters,
+      }
+    }
+
+    case SET_SELECTED_CATEGORY_ID: {
+      return {
+        ...state,
+        selectedCategoryId: action.selectedCategoryId,
       }
     }
 
