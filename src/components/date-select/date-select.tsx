@@ -14,20 +14,23 @@ export interface Item {
 export interface Props {
   items: Item[]
   onDateSelect?: (item: Item) => void
+  onClickOutside?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const DateSelect: React.FC<Props> = ({ items, onDateSelect }) => {
+const DateSelect: React.FC<Props> = ({ items, onDateSelect, onClickOutside }) => {
   const orderedItems = R.sort(R.descend(R.prop('date')), items)
 
   return (
-    <s.Wrapper>
-      {orderedItems.map(item => (
-        <s.DateGroup key={item.date} onClick={() => onDateSelect?.(item)}>
-          <s.Date>{format(new Date(item.date), 'MMM yyyy')}</s.Date>
-          <s.Total>{formatCurrency(item.total)}</s.Total>
-        </s.DateGroup>
-      ))}
-    </s.Wrapper>
+    <s.Overlay onClick={onClickOutside}>
+      <s.Wrapper>
+        {orderedItems.map(item => (
+          <s.DateGroup key={item.date} onClick={() => onDateSelect?.(item)}>
+            <s.Date>{format(new Date(item.date), 'MMM yyyy')}</s.Date>
+            <s.Total>{formatCurrency(item.total)}</s.Total>
+          </s.DateGroup>
+        ))}
+      </s.Wrapper>
+    </s.Overlay>
   )
 }
 

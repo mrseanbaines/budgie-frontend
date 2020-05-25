@@ -1,9 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+// import { useHistory } from 'react-router-dom'
 
 import DateSelect, { Props as DateSelectProps } from 'components/date-select'
-import { setActiveDate, setShowDateSelect } from 'store/view/actions'
-import { getShowDateSelect } from 'store/view/selectors'
+import Filters from 'components/filters'
+import { setActiveDate, setShowDateSelect, setShowFilters } from 'store/view/actions'
+import { getShowDateSelect, getShowFilters } from 'store/view/selectors'
 import { getTransactionsSummaries } from 'store/transactions/selectors'
 import { FiltersIcon, CalendarIcon } from 'icons'
 
@@ -13,26 +15,31 @@ export interface Props {
   title: string
   subtitle?: string
   withFilters?: boolean
-  onFiltersClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   withDateSelect?: boolean
 }
 
-const Header: React.FC<Props> = ({ title, subtitle, withFilters, onFiltersClick, withDateSelect }) => {
+const Header: React.FC<Props> = ({ title, subtitle, withFilters, withDateSelect }) => {
   const transactionsSummaries = useSelector(getTransactionsSummaries)
   const showDateSelect = useSelector(getShowDateSelect)
+  const showFilters = useSelector(getShowFilters)
   const dispatch = useDispatch()
+  // const history = useHistory()
 
-  const onDateSelect: DateSelectProps['onDateSelect'] = item => {
+  const handleDateSelect: DateSelectProps['onDateSelect'] = item => {
     dispatch(setActiveDate(item.date))
     dispatch(setShowDateSelect(false))
   }
+
+  // const handleFiltersClick = () => {
+  //   history.push('/filters')
+  // }
 
   return (
     <>
       <s.Wrapper>
         <div>
           {withFilters && (
-            <s.Button onClick={onFiltersClick}>
+            <s.Button onClick={() => dispatch(setShowFilters(!showFilters))}>
               <FiltersIcon />
             </s.Button>
           )}
@@ -52,7 +59,15 @@ const Header: React.FC<Props> = ({ title, subtitle, withFilters, onFiltersClick,
         </div>
       </s.Wrapper>
 
-      {showDateSelect && <DateSelect items={transactionsSummaries} onDateSelect={onDateSelect} />}
+      {showDateSelect && (
+        <DateSelect
+          items={transactionsSummaries}
+          onDateSelect={handleDateSelect}
+          onClickOutside={() => dispatch(setShowDateSelect(false))}
+        />
+      )}
+
+      {showFilters && <Filters />}
     </>
   )
 }

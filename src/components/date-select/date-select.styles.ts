@@ -1,10 +1,26 @@
 import styled, { css } from 'styled-components'
 
+export const Overlay = styled.div(({ theme }) => {
+  return css`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: auto;
+    left: 0;
+    background: ${theme.colors.overlay};
+    z-index: ${theme.zIndices.dateSelect};
+  `
+})
+
 export const Wrapper = styled.div(({ theme }) => {
   return css`
-    background: ${theme.colors.background.default};
+    width: 100%;
+    position: fixed;
+    top: auto;
+    left: 0;
     display: flex;
     align-items: center;
+    background: ${theme.colors.background.default};
     border-bottom: ${theme.borders.default};
     overflow-x: auto;
     direction: rtl;

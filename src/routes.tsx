@@ -7,6 +7,7 @@ import Categories from 'components/categories'
 import Profile from 'components/profile'
 import Login from 'components/login'
 import Overview from 'components/overview'
+import Filters from 'components/filters'
 
 const Routes = () => (
   <Router>
@@ -22,6 +23,9 @@ const Routes = () => (
       </PrivateRoute>
       <PrivateRoute path='/overview'>
         <Overview />
+      </PrivateRoute>
+      <PrivateRoute path='/filters'>
+        <Filters />
       </PrivateRoute>
       <Route path='/login'>
         <Login />
