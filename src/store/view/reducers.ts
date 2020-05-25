@@ -23,6 +23,7 @@ const reducer: Reducer<State> = (state = initialState, action) => {
     case SET_ACTIVE_DATE: {
       return {
         ...state,
+        selectedCategoryId: null,
         activeDate: action.date,
       }
     }
