@@ -6,6 +6,7 @@ export const Wrapper = styled.div(({ theme }) => {
     row-gap: ${theme.space[4]};
     grid-template-columns: repeat(6, auto);
     justify-content: space-between;
+    padding: ${theme.space[2]};
   `
 })
 

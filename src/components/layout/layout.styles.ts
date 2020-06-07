@@ -9,8 +9,7 @@ export const ScrollableArea = styled.div(() => {
 
 export const Body = styled.div(({ theme }) => {
   return css`
-    padding: ${theme.space[3]} ${theme.space[4]};
-    padding-top: 0;
+    padding: 0 ${theme.space[2]} ${theme.space[3]};
   `
 })
 

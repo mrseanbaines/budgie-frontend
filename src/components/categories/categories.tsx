@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import Layout from 'components/layout'
 import Navigation from 'components/navigation'
 import TextInput from 'components/text-input'
 import Header from 'components/header'
@@ -39,28 +40,24 @@ const Categories: React.FC = () => {
           <TextInput
             type='search'
             value={searchQuery}
-            placeholder='Search for a merchant'
+            placeholder='Search for a category'
             onChange={({ target: { value } }) => setSearchQuery(value)}
           />
         </s.UpperSection>
 
-        <s.ScrollableArea>
-          <s.Body>
-            {categories.filter(searchFilter).map(category => (
-              <ListItem
-                key={category.id}
-                title={category.name}
-                badgeColor={category.color}
-                extra={<ForwardIcon />}
-                onClick={() => setSelectedCategoryId(category.id)}
-              />
-            ))}
+        <Layout>
+          {categories.filter(searchFilter).map(category => (
+            <ListItem
+              key={category.id}
+              title={category.name}
+              badgeColor={category.color}
+              extra={<ForwardIcon />}
+              onClick={() => setSelectedCategoryId(category.id)}
+            />
+          ))}
 
-            <s.NewCategory onClick={() => setCreateNewCategory(true)}>New Category</s.NewCategory>
-          </s.Body>
-        </s.ScrollableArea>
-
-        <Navigation />
+          <s.NewCategory onClick={() => setCreateNewCategory(true)}>New Category</s.NewCategory>
+        </Layout>
       </s.Wrapper>
 
       {selectedCategory && (

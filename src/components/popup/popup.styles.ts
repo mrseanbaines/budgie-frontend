@@ -20,7 +20,7 @@ export const Container = styled.div(({ theme }) => {
 export const Wrapper = styled.div(({ theme }) => {
   return css`
     background: ${theme.colors.background.default};
-    padding: ${theme.space[4]};
+    padding: ${theme.space[2]};
     border-radius: ${theme.radii.rounded[1]};
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -40,7 +40,8 @@ export const Title = styled.p(({ theme }) => {
 
 export const Controls = styled.div(({ theme }) => {
   return css`
-    padding-bottom: ${theme.space[4]};
+    padding: ${theme.space[2]};
+    margin-bottom: ${theme.space[2]};
     align-items: center;
     display: grid;
     grid-template-columns: 1fr auto 1fr;

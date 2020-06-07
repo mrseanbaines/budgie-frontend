@@ -8,7 +8,7 @@ const Wrapper = styled.div(({ theme }) => {
     display: grid;
     align-items: center;
     gap: ${theme.space[2]};
-    padding: ${theme.space[2]} 0;
+    padding: ${theme.space[2]};
     border: none;
     width: 100%;
     background: none;
@@ -27,6 +27,7 @@ export const ListHeadingWrapper = styled(Wrapper)<ListHeadingWrapperProps>(({ th
     font-size: ${theme.fontSizes[1]};
     text-transform: uppercase;
     border-bottom: ${theme.borders.default};
+    margin-bottom: ${theme.space[2]};
     cursor: ${onClick && 'pointer'};
 
     > :first-child {
@@ -38,15 +39,24 @@ export const ListHeadingWrapper = styled(Wrapper)<ListHeadingWrapperProps>(({ th
   `
 })
 
-export const ListItemWrapperBtn = styled.button(() => {
+export type ListItemWrapperBtnProps = Pick<ListItemProps, 'highlight'>
+
+export const ListItemWrapperBtn = styled.button<ListItemWrapperBtnProps>(({ theme, highlight }) => {
   return css`
     width: 100%;
     border: none;
-    background: none;
+    border-radius: ${theme.radii.rounded[0]};
+    background: ${highlight ? theme.colors.background.muted : 'none'};
     display: block;
     margin: 0;
     padding: 0;
     cursor: pointer;
+
+    :hover,
+    :focus,
+    :active {
+      background: ${theme.colors.background.muted};
+    }
   `
 })
 

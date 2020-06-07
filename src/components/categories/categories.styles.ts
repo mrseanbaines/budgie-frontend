@@ -33,6 +33,7 @@ export const Body = styled.div(({ theme }) => {
 export const NewCategory = styled.button(({ theme }) => {
   return css`
     padding: ${theme.space[2]} 0;
+    margin-top: ${theme.space[2]};
     border: none;
     width: 100%;
     background: none;

@@ -4,6 +4,7 @@ export const Wrapper = styled.div(({ theme }) => {
   return css`
     display: grid;
     gap: ${theme.space[4]};
+    padding: 0 ${theme.space[2]};
   `
 })
 
