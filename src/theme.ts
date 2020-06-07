@@ -72,6 +72,7 @@ const theme = {
     header: 1,
     dateSelect: 1,
     popup: 1,
+    filters: 1,
   },
 }
 

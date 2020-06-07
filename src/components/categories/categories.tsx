@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Layout from 'components/layout'
-import Navigation from 'components/navigation'
 import TextInput from 'components/text-input'
 import Header from 'components/header'
 import { ListItem } from 'components/list'

@@ -2,10 +2,11 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { ListItem, ListHeading } from 'components/list'
+import TextInput from 'components/text-input'
 import { getCategoryItems } from 'store/categories/selectors'
+import { Category } from 'store/categories/types'
 import { setSelectedCategoryId } from 'store/view/actions'
 import { getSelectedCategoryId } from 'store/view/selectors'
-import { Category } from 'store/categories/types'
 
 import * as s from './filters.styles'
 
@@ -24,17 +25,29 @@ const Filters: React.FC = () => {
 
   return (
     <s.Wrapper>
-      <ListHeading title='Categories' />
+      <div>
+        <ListHeading title='Amount' />
 
-      {categories.map(category => (
-        <ListItem
-          key={category.id}
-          title={category.name}
-          badgeColor={category.color}
-          onClick={() => handleSelectCategory(category.id)}
-          highlight={category.id === selectedCategoryId}
-        />
-      ))}
+        <s.Amount>
+          <TextInput placeholder='Min' currency />
+
+          <TextInput placeholder='Max' currency />
+        </s.Amount>
+      </div>
+
+      <div>
+        <ListHeading title='Categories' />
+
+        {categories.map(category => (
+          <ListItem
+            key={category.id}
+            title={category.name}
+            badgeColor={category.color}
+            onClick={() => handleSelectCategory(category.id)}
+            highlight={category.id === selectedCategoryId}
+          />
+        ))}
+      </div>
     </s.Wrapper>
   )
 }
