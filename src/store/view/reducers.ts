@@ -2,13 +2,22 @@ import { Reducer } from 'redux'
 
 import { Category } from 'store/categories/types'
 
-import { SET_ACTIVE_DATE, SET_SHOW_DATE_SELECT, SET_SHOW_FILTERS, SET_SELECTED_CATEGORY_ID } from './constants'
+import {
+  SET_ACTIVE_DATE,
+  SET_SHOW_DATE_SELECT,
+  SET_SHOW_FILTERS,
+  SET_SELECTED_CATEGORY_ID,
+  SET_MIN_AMOUNT,
+  SET_MAX_AMOUNT,
+} from './constants'
 
 export interface State {
   activeDate: string
   showDateSelect: boolean
   showFilters: boolean
   selectedCategoryId: Category['id'] | null
+  minAmount: number | null
+  maxAmount: number | null
 }
 
 const initialState: State = {
@@ -16,6 +25,8 @@ const initialState: State = {
   showDateSelect: false,
   showFilters: false,
   selectedCategoryId: null,
+  minAmount: null,
+  maxAmount: null,
 }
 
 const reducer: Reducer<State> = (state = initialState, action) => {
@@ -48,6 +59,20 @@ const reducer: Reducer<State> = (state = initialState, action) => {
       return {
         ...state,
         selectedCategoryId: action.selectedCategoryId,
+      }
+    }
+
+    case SET_MIN_AMOUNT: {
+      return {
+        ...state,
+        minAmount: action.amount,
+      }
+    }
+
+    case SET_MAX_AMOUNT: {
+      return {
+        ...state,
+        maxAmount: action.amount,
       }
     }
 
