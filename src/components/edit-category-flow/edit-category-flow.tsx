@@ -5,7 +5,7 @@ import ColorPicker from 'components/color-picker'
 import Category from 'components/category'
 import Popup from 'components/popup'
 import { Category as CategoryType } from 'store/categories/types'
-import { editCategory } from 'store/categories/actions'
+import { editCategory, deleteCategory } from 'store/categories/actions'
 
 export interface Props {
   category: CategoryType
@@ -18,7 +18,7 @@ const EditCategoryFlow: React.FC<Props> = ({ category, exitFlow }) => {
   const [categoryColor, setCategoryColor] = useState(category.color)
   const dispatch = useDispatch()
 
-  const handleEditCategory = async (e: any) => {
+  const handleEditCategory = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     try {
@@ -32,13 +32,26 @@ const EditCategoryFlow: React.FC<Props> = ({ category, exitFlow }) => {
     }
   }
 
+  const handleDeleteCategory = async () => {
+    await dispatch(deleteCategory(category.id))
+
+    exitFlow()
+  }
+
   const onSetCategoryColor = (color: CategoryType['color']) => {
     setCategoryColor(color)
     setActiveStep(0)
   }
 
   const steps = [
-    <Popup onClickOutside={exitFlow} onLeftButtonClick={exitFlow} title='Edit Category' leftButton='close'>
+    <Popup
+      title='Edit Category'
+      leftButton='close'
+      onLeftButtonClick={exitFlow}
+      rightButton='trash'
+      onRightButtonClick={handleDeleteCategory}
+      onClickOutside={exitFlow}
+    >
       <Category
         onEditColor={() => setActiveStep(1)}
         onFormSubmit={handleEditCategory}
