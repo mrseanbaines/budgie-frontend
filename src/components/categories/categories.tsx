@@ -11,6 +11,7 @@ import { getCategoryItems } from 'store/categories/selectors'
 import { fetchCategories } from 'store/categories/actions'
 import { Category } from 'store/categories/types'
 import { ForwardIcon } from 'icons'
+import * as sc from 'styles/common'
 
 import * as s from './categories.styles'
 
@@ -55,7 +56,9 @@ const Categories: React.FC = () => {
             />
           ))}
 
-          <s.NewCategory onClick={() => setCreateNewCategory(true)}>New Category</s.NewCategory>
+          <hr />
+
+          <sc.TextButton onClick={() => setCreateNewCategory(true)}>New Category</sc.TextButton>
         </Layout>
       </s.Wrapper>
 

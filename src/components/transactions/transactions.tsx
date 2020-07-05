@@ -13,7 +13,7 @@ import { Transaction } from 'store/transactions/types'
 import { getTransactionItems } from 'store/transactions/selectors'
 import { getActiveDate, getSelectedCategoryId, getMinAmount, getMaxAmount } from 'store/view/selectors'
 import { formatCurrency, groupByDay } from 'utils'
-import * as s from 'styles/common'
+import * as sc from 'styles/common'
 
 const Transactions: React.FC = () => {
   const activeDate = useSelector(getActiveDate)
@@ -62,8 +62,8 @@ const Transactions: React.FC = () => {
 
   return (
     <>
-      <s.Wrapper>
-        <s.HeaderWrapper>
+      <sc.Wrapper>
+        <sc.HeaderWrapper>
           {activeDate && (
             <Header
               title='Transactions'
@@ -73,11 +73,11 @@ const Transactions: React.FC = () => {
             />
           )}
 
-          <s.UpperSection>
-            <s.Total>
-              <s.TotalLabel>Total Spent</s.TotalLabel>
-              <s.TotalAmount>{formatCurrency(total)}</s.TotalAmount>
-            </s.Total>
+          <sc.UpperSection>
+            <sc.Total>
+              <sc.TotalLabel>Total Spent</sc.TotalLabel>
+              <sc.TotalAmount>{formatCurrency(total)}</sc.TotalAmount>
+            </sc.Total>
 
             <TextInput
               type='search'
@@ -85,15 +85,15 @@ const Transactions: React.FC = () => {
               placeholder='Search for a merchant'
               onChange={({ target: { value } }) => setSearchQuery(value)}
             />
-          </s.UpperSection>
-        </s.HeaderWrapper>
+          </sc.UpperSection>
+        </sc.HeaderWrapper>
 
         <Layout>
           {transactionsByDay.map(day => (
             <div key={day.date}>
-              <s.ListHeadingWrapper>
+              <sc.ListHeadingWrapper>
                 <ListHeading title={day.date} extra={formatCurrency(day.total)} />
-              </s.ListHeadingWrapper>
+              </sc.ListHeadingWrapper>
 
               {day.transactions.map(transaction => (
                 <ListItem
@@ -108,7 +108,7 @@ const Transactions: React.FC = () => {
             </div>
           ))}
         </Layout>
-      </s.Wrapper>
+      </sc.Wrapper>
 
       {selectedTransaction && (
         <TransactionFlow transaction={selectedTransaction} exitFlow={() => setSelectedTransactionId(null)} />

@@ -19,6 +19,11 @@ const GlobalStyles = createGlobalStyle(({ theme }) => {
       font-weight: ${theme.fontWeights.medium};
       line-height: calc(1em + 2px);
     }
+
+    hr {
+      border: none;
+      border-top: ${theme.borders.default};
+    }
   `
 })
 

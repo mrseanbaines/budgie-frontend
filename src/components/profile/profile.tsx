@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import Layout from 'components/layout'
 import Header from 'components/header'
 import { logout } from 'store/auth/actions'
-import * as s from 'styles/common'
+import * as sc from 'styles/common'
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch()
@@ -14,15 +14,15 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <s.Wrapper>
-      <s.HeaderWrapper>
+    <sc.Wrapper>
+      <sc.HeaderWrapper>
         <Header title='Profile' />
-      </s.HeaderWrapper>
+      </sc.HeaderWrapper>
 
       <Layout>
         <button onClick={handleLogout}>Log out</button>
       </Layout>
-    </s.Wrapper>
+    </sc.Wrapper>
   )
 }
 

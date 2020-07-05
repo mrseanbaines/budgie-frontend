@@ -46,14 +46,3 @@ export const FormError = styled.p(({ theme }) => {
     font-size: ${theme.fontSizes[0]};
   `
 })
-
-export const Submit = styled.button(({ theme }) => {
-  return css`
-    border: none;
-    background: none;
-    text-align: center;
-    font-size: ${theme.fontSizes[2]};
-    cursor: pointer;
-    margin: 0 auto;
-  `
-})

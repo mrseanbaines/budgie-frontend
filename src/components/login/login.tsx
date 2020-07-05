@@ -8,6 +8,7 @@ import { getIsAuthenticated } from 'store/auth/selectors'
 import { getError } from 'store/errors/selectors'
 import { LOGIN_FAIL } from 'store/auth/constants'
 import { useFocusInput } from 'hooks'
+import * as sc from 'styles/common'
 
 import * as s from './login.styles'
 
@@ -63,7 +64,7 @@ const Login: React.FC = () => {
 
         {error.id === LOGIN_FAIL && <s.FormError>{error.message}</s.FormError>}
 
-        <s.Submit type='submit'>Log in</s.Submit>
+        <sc.TextButton type='submit'>Log in</sc.TextButton>
       </s.Form>
     </s.Wrapper>
   )

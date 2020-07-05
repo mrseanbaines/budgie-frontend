@@ -24,15 +24,3 @@ export const CategoryColor = styled.button<CategoryColorProps>(({ theme, color }
     cursor: pointer;
   `
 })
-
-export const Submit = styled.button.attrs({ type: 'submit' })(({ theme }) => {
-  return css`
-    padding: ${theme.space[2]} 0;
-    border: none;
-    width: 100%;
-    background: none;
-    text-align: center;
-    font-size: ${theme.fontSizes[2]};
-    cursor: pointer;
-  `
-})

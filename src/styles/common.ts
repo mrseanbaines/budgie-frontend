@@ -56,3 +56,16 @@ export const ListHeadingWrapper = styled.div(({ theme }) => {
     top: 0;
   `
 })
+
+export const TextButton = styled.button(({ theme }) => {
+  return css`
+    display: block;
+    border: none;
+    background: none;
+    text-align: center;
+    padding: ${theme.space[2]} 0;
+    font-size: ${theme.fontSizes[2]};
+    cursor: pointer;
+    margin: 0 auto;
+  `
+})

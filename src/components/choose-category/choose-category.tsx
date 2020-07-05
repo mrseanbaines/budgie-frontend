@@ -5,8 +5,7 @@ import { ListItem } from 'components/list'
 import { getCategoryItems } from 'store/categories/selectors'
 import { Transaction } from 'store/transactions/types'
 import { ForwardIcon } from 'icons'
-
-import * as s from './choose-category.styles'
+import * as sc from 'styles/common'
 
 export interface Props {
   onCategoryClick: (categoryId: Transaction['category']) => any
@@ -30,7 +29,9 @@ const ChooseCategory: React.FC<Props> = ({ onCategoryClick, onCreateCategoryClic
 
       <ListItem title='Uncategorised' extra={<ForwardIcon />} onClick={() => onCategoryClick(null)} />
 
-      <s.NewCategory onClick={onCreateCategoryClick}>New Category</s.NewCategory>
+      <hr />
+
+      <sc.TextButton onClick={onCreateCategoryClick}>New Category</sc.TextButton>
     </>
   )
 }

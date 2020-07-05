@@ -15,7 +15,7 @@ import { Category } from 'store/categories/types'
 import { getActiveDate } from 'store/view/selectors'
 import { colors } from 'theme'
 import { formatCurrency, groupByCategory } from 'utils'
-import * as s from 'styles/common'
+import * as sc from 'styles/common'
 
 const Overview: React.FC = () => {
   const activeDate = useSelector(getActiveDate)
@@ -49,13 +49,13 @@ const Overview: React.FC = () => {
 
   return (
     <>
-      <s.Wrapper>
-        <s.HeaderWrapper>
+      <sc.Wrapper>
+        <sc.HeaderWrapper>
           {activeDate && (
             <Header title='Overview' subtitle={format(new Date(activeDate), 'MMMM yyyy')} withDateSelect />
           )}
 
-          <s.UpperSection>
+          <sc.UpperSection>
             <ResponsiveContainer height={200}>
               <PieChart>
                 <Pie
@@ -75,17 +75,17 @@ const Overview: React.FC = () => {
               </PieChart>
             </ResponsiveContainer>
 
-            <s.Total>
-              <s.TotalLabel>Total Categorised</s.TotalLabel>
-              <s.TotalAmount>{formatCurrency(total)}</s.TotalAmount>
-            </s.Total>
-          </s.UpperSection>
-        </s.HeaderWrapper>
+            <sc.Total>
+              <sc.TotalLabel>Total Categorised</sc.TotalLabel>
+              <sc.TotalAmount>{formatCurrency(total)}</sc.TotalAmount>
+            </sc.Total>
+          </sc.UpperSection>
+        </sc.HeaderWrapper>
 
         <Layout>
           {orderedItems.map(c => (
             <div key={c.category?.id ?? 'Uncategorised'}>
-              <s.ListHeadingWrapper>
+              <sc.ListHeadingWrapper>
                 <ListHeading
                   withBadge
                   badgeColor={c.category?.color}
@@ -93,7 +93,7 @@ const Overview: React.FC = () => {
                   extra={formatCurrency(c.total)}
                   onClick={() => handleSetSelectedCategory(c.id)}
                 />
-              </s.ListHeadingWrapper>
+              </sc.ListHeadingWrapper>
 
               {selectedCategoryId === c.id &&
                 c.transactions.map(transaction => (
@@ -108,7 +108,7 @@ const Overview: React.FC = () => {
             </div>
           ))}
         </Layout>
-      </s.Wrapper>
+      </sc.Wrapper>
 
       {selectedTransaction && (
         <TransactionFlow transaction={selectedTransaction} exitFlow={() => setSelectedTransactionId(null)} />

@@ -2,6 +2,7 @@ import React from 'react'
 
 import TextInput from 'components/text-input'
 import { useFocusInput } from 'hooks'
+import * as sc from 'styles/common'
 
 import * as s from './category.styles'
 
@@ -30,7 +31,7 @@ const Category: React.FC<Props> = props => {
           required
         />
 
-        {props.submitText && <s.Submit>{props.submitText}</s.Submit>}
+        {props.submitText && <sc.TextButton>{props.submitText}</sc.TextButton>}
       </form>
     </s.Wrapper>
   )
