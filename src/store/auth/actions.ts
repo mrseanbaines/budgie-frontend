@@ -11,9 +11,9 @@ const userLoading = () => ({
   type: USER_LOADING,
 })
 
-const userLoaded = (user: User) => ({
+const userLoaded = (payload: User) => ({
   type: USER_LOADED,
-  user,
+  payload,
 })
 
 const authError = () => ({

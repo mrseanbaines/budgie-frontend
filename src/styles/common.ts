@@ -20,7 +20,7 @@ export const HeaderWrapper = styled.div(({ theme }) => {
 
 export const UpperSection = styled.div(({ theme }) => {
   return css`
-    padding: ${theme.space[3]} ${theme.space[4]};
+    padding: ${theme.space[3]} ${theme.space[2]};
     display: grid;
     gap: ${theme.space[3]};
     background: ${theme.colors.background.default};

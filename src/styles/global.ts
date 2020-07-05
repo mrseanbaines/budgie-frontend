@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle(({ theme }) => {
     }
 
     hr {
+      width: 100%;
       border: none;
       border-top: ${theme.borders.default};
     }
