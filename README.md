@@ -1,44 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <a href="https://mrseanbaines-budgie-staging.netlify.app" target="_blank">
+    <img src="https://user-images.githubusercontent.com/24367010/86540013-51661480-bef9-11ea-82e1-a26e9a9de218.png" alt="" width="150" />
+  </a>
+</p>
 
-## Available Scripts
+[![Netlify Status](https://api.netlify.com/api/v1/badges/176c85ff-5dca-4ff2-894c-af35e2646712/deploy-status)](https://app.netlify.com/sites/mrseanbaines-budgie-staging/deploys)
 
-In the project directory, you can run:
+# Budgie
 
-### `yarn start`
+Budgeting App
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This is the frontend for a SPA React app which pulls in transactions from [the backend API](https://github.com/mrseanbaines/expenses-app-backend), lists them by month, allows you to assign categories and gives you a breakdown of your expenses per category. Includes user accounts, filtering, search etc.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<p>
+  <img src="https://user-images.githubusercontent.com/24367010/86539751-03e8a800-bef7-11ea-9cf9-af98d6580cfb.png" alt="" width="30%" />
+  &nbsp;
+  &nbsp;
+  <img src="https://user-images.githubusercontent.com/24367010/86539781-34c8dd00-bef7-11ea-9ad1-c09cecd88adc.png" alt="" width="30%" />
+  &nbsp;
+  &nbsp;
+  <img src="https://user-images.githubusercontent.com/24367010/86539806-79547880-bef7-11ea-8029-f53ef6107c5b.png" alt="" width="30%" />
+</p>
 
-### `yarn test`
+<br />
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<p>
+  <img src="https://user-images.githubusercontent.com/24367010/86539829-b02a8e80-bef7-11ea-877c-3e0d38472e54.png" alt="" width="30%" />
+  &nbsp;
+  &nbsp;
+  <img src="https://user-images.githubusercontent.com/24367010/86539831-b3be1580-bef7-11ea-9144-c3e88fdd99f7.png" alt="" width="30%" />
+  &nbsp;
+  &nbsp;
+  <img src="https://user-images.githubusercontent.com/24367010/86539835-b587d900-bef7-11ea-88b8-dcb0a6f0f266.png" alt="" width="30%" />
+</p>
