@@ -14,10 +14,13 @@ const GlobalStyles = createGlobalStyle(({ theme }) => {
 
     html,
     body {
-      color: ${theme.colors.text.default};
-      font-family: ${theme.fonts.primary};
-      font-weight: ${theme.fontWeights.medium};
-      line-height: calc(1em + 2px);
+      &,
+      button {
+        color: ${theme.colors.text.default};
+        font-family: ${theme.fonts.primary};
+        font-weight: ${theme.fontWeights.medium};
+        line-height: calc(1em + 2px);
+      }
     }
 
     hr {
