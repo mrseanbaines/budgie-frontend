@@ -5,7 +5,7 @@ export const UpperSection = styled.div(({ theme }) => {
     padding: ${theme.space[3]} ${theme.space[4]};
     display: grid;
     gap: ${theme.space[3]};
-    background: ${theme.colors.background.default};
+    justify-items: center;
   `
 })
 
@@ -21,5 +21,19 @@ export const Meta = styled.p(({ theme }) => {
     text-align: center;
     font-size: ${theme.fontSizes[1]};
     color: ${theme.colors.text.muted};
+  `
+})
+
+export const Logo = styled.div(({ theme }) => {
+  return css`
+    color: ${theme.colors.icons.muted};
+    width: ${theme.sizes.badge[2]};
+    height: ${theme.sizes.badge[2]};
+    margin: ${theme.space[4]};
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   `
 })

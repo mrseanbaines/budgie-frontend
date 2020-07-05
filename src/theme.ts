@@ -42,6 +42,7 @@ const theme = {
     },
     icons: {
       default: colors.grey[0],
+      muted: colors.grey[2],
       danger: colors.danger,
     },
     overlay: 'rgba(0, 0, 0, 0.7)',

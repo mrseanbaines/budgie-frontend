@@ -6,6 +6,8 @@ import Header from 'components/header'
 import { logout } from 'store/auth/actions'
 import { getUser } from 'store/auth/selectors'
 import * as sc from 'styles/common'
+import { BudgieIcon } from 'icons'
+
 import * as s from './profile.styles'
 
 const Profile: React.FC = () => {
@@ -22,13 +24,17 @@ const Profile: React.FC = () => {
         <Header title='Profile' />
       </sc.HeaderWrapper>
 
-      <sc.UpperSection>
+      <s.UpperSection>
+        <s.Logo>
+          <BudgieIcon />
+        </s.Logo>
+
         <s.Details>{user?.name}</s.Details>
         <s.Details>{user?.email}</s.Details>
 
         <hr />
         <s.Meta>Budgie v0.0.0</s.Meta>
-      </sc.UpperSection>
+      </s.UpperSection>
 
       <Layout>
         <hr />
