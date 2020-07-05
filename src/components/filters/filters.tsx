@@ -17,8 +17,6 @@ const Filters: React.FC = () => {
   const maxAmount = useSelector(getMaxAmount)
   const dispatch = useDispatch()
 
-  console.log(minAmount, maxAmount)
-
   const handleSelectCategory = (id: Category['id']) => {
     if (id === selectedCategoryId) {
       dispatch(setSelectedCategoryId(null))
@@ -36,7 +34,7 @@ const Filters: React.FC = () => {
     }
 
     if (name in handlers && Number.isInteger(Number(value))) {
-      dispatch(handlers[name as keyof typeof handlers](Number(value)))
+      dispatch(handlers[name as keyof typeof handlers](Number(value) * 100))
     }
   }
 
@@ -46,9 +44,21 @@ const Filters: React.FC = () => {
         <ListHeading title='Amount' />
 
         <s.Amount>
-          <TextInput name='min' placeholder='Min' currency value={minAmount || ''} onChange={handleAmountInput} />
+          <TextInput
+            name='min'
+            placeholder='Min'
+            currency
+            value={minAmount ? minAmount / 100 : ''}
+            onChange={handleAmountInput}
+          />
 
-          <TextInput name='max' placeholder='Max' currency value={maxAmount || ''} onChange={handleAmountInput} />
+          <TextInput
+            name='max'
+            placeholder='Max'
+            currency
+            value={maxAmount ? maxAmount / 100 : ''}
+            onChange={handleAmountInput}
+          />
         </s.Amount>
       </div>
 

@@ -11,7 +11,7 @@ import TransactionFlow from 'components/transaction-flow'
 import { getCategoryItems } from 'store/categories/selectors'
 import { Transaction } from 'store/transactions/types'
 import { getTransactionItems } from 'store/transactions/selectors'
-import { getActiveDate, getSelectedCategoryId } from 'store/view/selectors'
+import { getActiveDate, getSelectedCategoryId, getMinAmount, getMaxAmount } from 'store/view/selectors'
 import { formatCurrency, groupByDay } from 'utils'
 import * as s from 'styles/common'
 
@@ -20,6 +20,8 @@ const Transactions: React.FC = () => {
   const transactions = useSelector(getTransactionItems)
   const categories = useSelector(getCategoryItems)
   const selectedCategoryId = useSelector(getSelectedCategoryId)
+  const minAmount = useSelector(getMinAmount)
+  const maxAmount = useSelector(getMaxAmount)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTransactionId, setSelectedTransactionId] = useState<Transaction['id'] | null>(null)
   const selectedTransaction = transactions.find(t => t.id === selectedTransactionId)
@@ -36,10 +38,18 @@ const Transactions: React.FC = () => {
     return selectedCategoryId ? transaction.category === selectedCategoryId : true
   }
 
+  const amountFilter = (transaction: Transaction) => {
+    return (
+      (minAmount ? Math.abs(transaction.amount) >= minAmount : true) &&
+      (maxAmount ? Math.abs(transaction.amount) <= maxAmount : true)
+    )
+  }
+
   const filteredTransactions = transactions
     .filter(t => t.amount < 0)
     .filter(searchFilter)
     .filter(categoryFilter)
+    .filter(amountFilter)
   // .filter(t => t.include_in_spending)
 
   const transactionsByDay = groupByDay(filteredTransactions).map(dayTransactions => ({
