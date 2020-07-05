@@ -10,15 +10,15 @@ const useOnClickOutside = (ref: React.RefObject<any>, handler?: Handler): void =
         return
       }
 
-      handler && handler(e)
+      handler?.(e)
     }
 
-    document.addEventListener('mousedown', listener)
-    document.addEventListener('touchstart', listener)
+    document.addEventListener('click', listener)
+    // document.addEventListener('touchstart', listener)
 
     return () => {
-      document.removeEventListener('mousedown', listener)
-      document.removeEventListener('touchstart', listener)
+      document.removeEventListener('click', listener)
+      // document.removeEventListener('touchstart', listener)
     }
   }, [ref, handler])
 }
