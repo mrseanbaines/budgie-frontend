@@ -10,7 +10,7 @@
 
 Budgeting App
 
-This is the frontend for a SPA React app which pulls in transactions from [the backend API](https://github.com/mrseanbaines/expenses-app-backend), lists them by month, allows you to assign categories and gives you a breakdown of your expenses per category. Includes user accounts, filtering, search etc.
+This is the frontend for a SPA React app which pulls in transactions from [the backend API](https://github.com/mrseanbaines/budgie-backend), lists them by month, allows you to assign categories and gives you a breakdown of your expenses per category. Includes user accounts, filtering, search etc.
 
 <p>
   <img src="https://user-images.githubusercontent.com/24367010/86539751-03e8a800-bef7-11ea-9cf9-af98d6580cfb.png" alt="" width="30%" />
