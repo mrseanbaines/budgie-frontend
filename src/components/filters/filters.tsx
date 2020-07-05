@@ -7,6 +7,7 @@ import { getCategoryItems } from 'store/categories/selectors'
 import { Category } from 'store/categories/types'
 import { setSelectedCategoryId, setMinAmount, setMaxAmount } from 'store/view/actions'
 import { getSelectedCategoryId, getMinAmount, getMaxAmount } from 'store/view/selectors'
+import * as sc from 'styles/common'
 
 import * as s from './filters.styles'
 
@@ -38,8 +39,16 @@ const Filters: React.FC = () => {
     }
   }
 
+  const clearFilters = () => {
+    dispatch(setSelectedCategoryId(null))
+    dispatch(setMinAmount(null))
+    dispatch(setMaxAmount(null))
+  }
+
   return (
     <s.Wrapper>
+      <sc.TextButton onClick={clearFilters}>Clear Filters</sc.TextButton>
+
       <div>
         <ListHeading title='Amount' />
 
